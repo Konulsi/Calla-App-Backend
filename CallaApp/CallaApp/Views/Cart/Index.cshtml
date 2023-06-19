@@ -1,0 +1,80 @@
+﻿@{
+    ViewData["Title"] = "Cart";
+}
+
+<!-- Main star -->
+<main>
+    <section id="cart-header-img">
+        <div class="cart-bg-img" style="background-image: url('./assets/images/about-page-bg-img.jpg')">
+            <h1>Cart</h1>
+            <img src="~/assets/images/banner-on-logo.png" alt="">
+        </div>
+    </section>
+    <section id="cart-products">
+        <div class="container">
+            <div class="basket-products">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Image</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Count</th>
+                            <th scope="col">Subtotal</th>
+                            <th scope="col">Setting</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr>
+
+                            <td>
+                                <img src="~/assets/images/product-img-cactusPot.jpg" alt="">
+                            </td>
+                            <td>
+                                <span>Cactus</span>
+                            </td>
+                            <td>
+                                <span>£<span>50</span></span>
+                            </td>
+                            <td>
+                                <button><i class="fa-solid fa-minus"></i></button>
+                                <span><input type="text" value="1"></span>
+                                <button><i class="fa-solid fa-plus"></i></button>
+
+                            </td>
+                            <td>
+                                <span>£<span>50</span></span>
+                            </td>
+                            <td>
+                                <i class="fa-solid fa-trash-can"></i>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+                <div class="buttons d-flex justify-content-between ">
+                    <button class="btn btn-primary shop"><a href="Shop.html">Continue shopping</a></button>
+                    <button class="btn btn-primary grandTotal"><span>Grand total:</span> <span>0</span></button>
+                </div>
+            </div>
+
+            <div class="show-alert d-none">
+                <div class="alert">
+                    <button class="btn btn-danger btn-red">YOU HAVE NO ITEMS IN YOUR SHOPPING CART.</button>
+
+                </div>
+                <div class="button-shop">
+                    <button class="btn btn-primary btn-orange">Continue shopping</button>
+                </div>
+
+            </div>
+
+
+        </div>
+    </section>
+
+</main>
+<!-- Main end -->

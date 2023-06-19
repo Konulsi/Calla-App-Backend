@@ -1,0 +1,68 @@
+﻿@{
+    ViewData["Title"] = "Wishlist";
+}
+
+<!-- Main star -->
+<main>
+    <section id="wishlist-header-img">
+        <div class="wishlist-bg-img" style="background-image: url('./assets/images/about-page-bg-img.jpg')">
+            <h1>Wishlist</h1>
+            <img src="~/assets/images/banner-on-logo.png" alt="">
+        </div>
+    </section>
+    <section id="wishlist-product">
+        <div class="container">
+            <div class="wishlist-products">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Image</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Setting</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr>
+
+                            <td>
+                                <img src="~/assets/images/product-img-cactusPot.jpg" alt="">
+                            </td>
+                            <td>
+                                <span>Cactus</span>
+                            </td>
+                            <td>
+                                <span>£<span>50</span></span>
+                            </td>
+                            <td>
+                                <i class="fa-solid fa-trash-can"></i>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+                <div class="cantinue-btn d-flex justify-content-between ">
+                    <button class="btn btn-primary shop"><a href="Shop.html">Continue shopping</a></button>
+                </div>
+            </div>
+
+            <div class="show-alert d-none">
+                <div class="alert">
+                    <button class="btn btn-danger btn-red">YOU HAVE NO ITEMS IN YOUR SHOPPING CART.</button>
+
+                </div>
+                <div class="button-shop">
+                    <button class="btn btn-primary btn-orange">Continue shopping</button>
+                </div>
+
+            </div>
+
+
+        </div>
+    </section>
+
+</main>
+<!-- Main end -->

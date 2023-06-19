@@ -1,0 +1,386 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/assets/slick-1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="~/assets/slick-1.8.1/slick/slick-theme.css" />
+    <link rel="icon" type="image/png" href="~/assets/images/site-logo.png">
+    <link rel="stylesheet" href="~/assets/scss/style.css">
+    <title>@ViewData["Title"] - Calla</title>
+</head>
+
+<body>
+    <!-- Header start -->
+    <header>
+        <nav>
+
+            <div class="up-navbar d-lg-block d-none">
+                <div class="col-lg-12">
+                    <div class="up-navbar-sections d-flex ">
+                        <div class="bg__img">
+                            <img class="img-fluid" src="~/assets/images/up-nav-img.jpg" alt="">
+                        </div>
+                        <div class="left">
+                            <div class="textwidget">
+                                <p>free call <a href="tel:00854532214">0085 453 2214</a></p>
+                            </div>
+                        </div>
+
+                        <div class="medium">
+                            <div class="textwidget">
+                                <p>
+                                    <span style="font-size: 14px;">
+                                        HOLIDAY DECOR, NOW UP TO 30% OFF: SHOP
+                                        CANDLES
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="right">
+                            <div class="login-register">
+                                <div class="login">
+                                    <a href="Login.html">Login</a>
+                                </div>
+                                <div class="register">
+                                    <a href="Register.html">Register</a>
+                                </div>
+                            </div>
+                            <div class="account  d-none">
+                                <div class="logout">
+                                    <a href="">Logout</a>
+                                </div>
+                                <div class="my-account">
+                                    <a href="">My account</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="fixed-nav">
+                <div class="logo col-lg-12 d-lg-block d-none">
+                    <a href="#">
+                        <img src="~/assets/images/logo.png" alt="logo">
+                </div>
+
+                <div class="down-navbar d-lg-block d-none">
+                    <div class="col-lg-12">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-1">
+                                    <div class="social-icons">
+                                        <a class="social-icon" href="https://twitter.com/qodeinteractive/"
+                                           target="_blank">
+                                            <i class="fa-brands fa-twitter" style="color:  #767575;"></i>
+                                        </a>
+                                        <a class="social-icon" href="https://www.facebook.com/qodeinteractive/"
+                                           target="_blank">
+                                            <i class="fa-brands fa-facebook-f" style="color: #767575;"></i>
+                                        </a>
+                                        <a class="social-icon" href="https://www.linkedin.com/company/qode-themes/"
+                                           target="_blank">
+                                            <i class="fa-brands fa-linkedin-in" style="color: #767575;"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-9">
+                                    <ul class="nav-main-menu">
+                                        <li>
+                                            <a href="#"><span>Home</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="About.html"><span>About</span></a>
+                                        </li>
+
+                                        <li>
+                                            <a href="Blog.html"><span>Blog</span></a>
+                                        </li>
+
+                                        <li>
+                                            <a href="Shop.html"><span>Shop</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="Contact.html"><span>Contact</span></a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="col-2">
+
+                                    <ul class="right-icons">
+                                        <li>
+                                            <i class="fa-solid fa-magnifying-glass fa-flip-horizontal search-icon"
+                                               style="color: #616161;"></i>
+                                        </li>
+                                        <li>
+                                            <a href="Wishlist.html">
+                                                <i class="fa-regular fa-heart"
+                                                   style="color: #616161;"></i>
+                                            </a>
+                                        </li>
+                                        <span class="wishlist-count">1</span>
+                                        <li><a href="Cart.html"><i class="fa-solid fa-basket-shopping" style="color: #767272;"></i></a></li>
+                                        <span class="basket-count">1</span>
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="search-input">
+                            <input type="text" placeholder="Search here...">
+                            <i class="fa-solid fa-xmark close-icon" style=" color: #8a8a8abd;"></i>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </nav>
+        <nav>
+
+            <div class="responsive-navbar d-lg-none d-block">
+
+                <div class="hamburger-icon">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+
+                <div class="logo col-lg-12 col-md-12 col-sm-12">
+                    <img src="~/assets/images/logo.png" alt="logo">
+                </div>
+                <div class="search d-none">
+                    <input type="text" placeholder="Search here...">
+                    <i class="fa-solid fa-xmark closeIcon" style=" color: #8a8a8abd;"></i>
+                </div>
+                <div class="right-icons">
+                    <ul class="icons">
+
+                        <li><a href=""><i class="fa-regular fa-user"></i></a></li>
+                        <ul class="log-reg d-none">
+                            <li><a href="Login.html">Login</a></li>
+                            <li><a href="Register.html">Register</a></li>
+                        </ul>
+                        <li>
+                            <a href="#"><i class="fa-solid fa-magnifying-glass fa-flip-horizontal searchIcon"></i></a>
+                        </li>
+                        <li><a href="Wishlist.html"><i class="fa-regular fa-heart"></i></a></li>
+                        <li><a href="Cart.html"><i class="fa-solid fa-cart-shopping"></i></a></li>
+
+                    </ul>
+                </div>
+
+                <div class="hamburger-menu-list">
+                    <ul class="nav-menu close">
+                        <li>
+                            <a href="Home.html"><span>Home</span></a>
+                        </li>
+                        <li>
+                            <a href="About.html"><span>About</span></a>
+                        </li>
+
+                        <li>
+                            <a href="Blog.html"><span>Blog</span></a>
+                        </li>
+
+                        <li>
+                            <a href="Shop.html"><span>Shop</span></a>
+                        </li>
+                        <li>
+                            <a href="Contact.html"><span>Contact</span></a>
+                        </li>
+
+                    </ul>
+                </div>
+
+
+
+
+            </div>
+        </nav>
+    </header>
+    <!-- Header end -->
+    <!-- Main start -->
+    @RenderBody()
+
+    <!-- Main end -->
+    <!-- Footer start -->
+    <footer>
+
+        <section id="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="footer-first-list">
+
+                            <div class="footer-logo">
+                                <img src="~/assets/images/footer-logo.png" alt="">
+                            </div>
+                            <div class="footer-text">
+                                <p>
+                                    Lorem ipsum dolor sit amet, consec tetur a elit. Inutark ullamcorper leo, ege
+                                    euismod orci
+                                    natoquepen etma.
+                                </p>
+                            </div>
+                            <div class="footer-payment-img">
+                                <img src="~/assets/images/footer-payment-img.png" alt="">
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="footer-second-list">
+                            <div class="quick-links">
+                                <h5>QUICK LINKS</h5>
+                            </div>
+                            <div class="quick-link-list">
+                                <ul>
+                                    <li><a href="">About Us</a></li>
+                                    <li><a href="">Contact Us</a></li>
+                                    <li><a href="">Blog</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="footer-third-list">
+                            <div class="find-store">
+                                <h5>FIND A STORE</h5>
+                            </div>
+                            <div class="store-list">
+                                <ul>
+                                    <li>
+                                        <i class="fa-solid fa-location-dot" style="color:  #909090;"></i><a href="">Hemlock, Brooklyn, NY 11208</a>
+                                    </li>
+                                    <li>
+                                        <i class="fa-solid fa-location-dot" style="color:  #909090;"></i><a href="">
+                                            5
+                                            Bridge, Brooklyn, NY 11201
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <i class="fa-solid fa-phone" style="color:  #909090;"></i><a href="">
+                                            +994
+                                            0121234567
+                                        </a>
+                                    </li>
+                                    <ul class="social">
+                                        <li>
+                                            <a href="">
+                                                <i class="fa-brands fa-instagram"
+                                                   style="color:  #909090;"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href=""><i class="fa-brands fa-twitter" style="color:  #909090;"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="">
+                                                <i class="fa-brands fa-facebook-f"
+                                                   style="color: #909090;"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="">
+                                                <i class="fa-brands fa-linkedin-in"
+                                                   style="color: #909090;"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="footer-fourth-list">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                    <div class="footer-img">
+                                        <img class="img-fluid" src="~/assets/images/footer-img1.jpg" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                    <div class="footer-img">
+                                        <img class="img-fluid" src="~/assets/images/footer-img2.jpg" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                    <div class="footer-img">
+                                        <img class="img-fluid" src="~/assets/images/footer-img3.jpg" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                    <div class="footer-img">
+                                        <img class="img-fluid" src="~/assets/images/footer-img4.jpg" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                    <div class="footer-img">
+                                        <img class="img-fluid" src="~/assets/images/footer-img5.jpg" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                    <div class="footer-img">
+                                        <img class="img-fluid" src="~/assets/images/footer-img6.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section id="footer-end">
+            <div class="col-12 d-lg-block d-none">
+                <div class="footer-end-text">
+                    <p>© 2018 Qode Interactive, All Rights Reserved</p>
+                    <button id="topbtn"><i class="fa-solid fa-arrow-up" style="color: #8a8a8a;"></i></button>
+                </div>
+            </div>
+        </section>
+
+    </footer>
+    <!-- Footer end -->
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+            integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript" src="assets/slick-1.8.1/slick/slick.js"></script>
+    <script type="text/javascript" src="assets/slick-1.8.1/slick/slick.min.js"></script>
+    <script src="~/assets/js/home.js"></script>
+    <script src="~/assets/js/common.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+
+</html>
+
+
+
+
