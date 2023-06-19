@@ -1,7 +1,34 @@
+using CallaApp.Data;
+using CallaApp.Models;
+using CallaApp.Services.Interfaces;
+using CallaApp.Services;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+builder.Services.AddSession();
+
+builder.Services.AddDbContext<AppDbContext>(option =>
+{
+    option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+
+builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+
+
+builder.Services.AddScoped<ISliderService, SliderService>();
+builder.Services.AddScoped<IHeaderBackgroundService, HeaderBackgroundService>();
+
+
+
+
+
 
 var app = builder.Build();
 
@@ -13,10 +40,13 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.UseSession();
+
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
