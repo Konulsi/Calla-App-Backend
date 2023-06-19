@@ -1,0 +1,61 @@
+﻿@model List<Slider>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="container my-5">
+    <a class="btn btn-success" style="float: right;" asp-action="Create">Create</a>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th style="font-size: 20px;">
+                        Image
+                    </th>
+                    <th style="font-size: 20px;">
+                        Title
+                    </th>
+                    <th style="font-size: 20px;">
+                        Operations
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var slider in Model)
+                {
+                    <tr>
+
+                        <td class="py-1">
+                            <img src="~/assets/images/@slider.Image" style="width: 170px; height: 120px" alt="image" />
+                        </td>
+                        <td class="py-1" style="font-size: 20px;">
+                            @slider.Title
+                        </td>
+
+                        <td>
+                            <a class="btn btn-outline-info" asp-action="Detail" asp-route-id="@slider.Id">Info</a>
+                            <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@slider.Id">Edit</a>
+
+                            <form asp-action="Delete" asp-route-id="@slider.Id" method="post" style="display: inline-block; position:absolute;">
+                                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+@section Scripts{
+    <script src="~/Admin/src/js/custom.js"></script>
+}
+
+
+

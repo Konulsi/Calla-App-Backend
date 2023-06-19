@@ -495,7 +495,7 @@
             <div class="row">
                 <div class="col-lg-8 col-md-12 col-sm-12">
                     <div class="banner-big-img">
-                        <img class="img-fluid" src="~/assets/images/banner-img-big.jpg"
+                        <img class="img-fluid" src="~/assets/images/@Model.Banners.FirstOrDefault(b =>!b.IsLarge)?.Image"
                              alt="">
                     </div>
                 </div>
@@ -503,19 +503,19 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="banner-small-img">
-                                <img class="img-fluid" src="~/assets/images/banner-img-vase.jpg" alt="">
+                                <img class="img-fluid" src="~/assets/images/@Model.Banners.FirstOrDefault(b => b.IsLarge)?.Image" alt="">
                             </div>
                             <div class="banner-small-img">
-                                <img class="img-fluid" src="~/assets/images/banner-img-zbr.jpg" alt="">
+                                <img class="img-fluid" src="~/assets/images/@Model.Banners.LastOrDefault(b => b.IsLarge)?.Image" alt="">
                             </div>
-
                         </div>
+
                         <div class="col-lg-6 col-md-6  col-sm-12">
                             <div class="banner-small-img">
-                                <img class="img-fluid" src="~/assets/images/banner-img-plate.jpg" alt="">
+                                <img class="img-fluid" src="~/assets/images/@Model.Banners.LastOrDefault(b => b.IsLarge)?.Image" alt="">
                             </div>
                             <div class="banner-small-img">
-                                <img class="img-fluid" src="~/assets/images/banner-img-lighting.jpg" alt="">
+                                <img class="img-fluid" src="~/assets/images/@Model.Banners.FirstOrDefault(b => b.IsLarge)?.Image" alt="">
                             </div>
                         </div>
                     </div>
@@ -523,6 +523,7 @@
             </div>
         </div>
     </section>
+
 
     <section id="blog">
         <div class="container mt-5">
@@ -826,21 +827,24 @@
     <section id="advertising">
         <div class="container mt-5">
             <div class="row">
+                @foreach (var advertising in Model.Advertisings)
+                {
+                    <div class="col-lg-4 col-md-12 col-sm-12 my-2">
+                        <div class="adverb-img " style="background-image: url(./assets/images/@advertising.Image);">
+                            <div class="adverb-icon">
+                                <i class="@advertising.Icon" style="color: #444546;"></i>
+                            </div>
 
-                <div class="col-lg-4 col-md-12 col-sm-12 my-2">
-                    <div class="adverb-img " style="background-image: url(./assets/images/adverb-img1.jpg);">
-                        <div class="adverb-icon">
-                            <i class="fa-solid fa-car" style="color: #444546;"></i>
-                        </div>
-
-                        <div class="adverb-content">
-                            <h4> FAST DELIVERY </h4>
-                            <p>All over the world</p>
+                            <div class="adverb-content">
+                                <h4> @advertising.Name </h4>
+                                <p>@advertising.Description</p>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
 
-                <div class="col-lg-4 col-md-12 col-sm-12 my-2">
+
+@*                <div class="col-lg-4 col-md-12 col-sm-12 my-2">
                     <div class="adverb-img" style="background-image: url(./assets/images/adverb-img2.jpg);">
                         <div class="adverb-icon">
                             <i class="fa-solid fa-arrows-rotate" style="color: #444546;"></i>
@@ -854,7 +858,7 @@
                 </div>
 
                 <div class="col-lg-4 col-md-12 col-sm-12 my-2">
-                    <div class="adverb-img" style=" background-color: #f2e6df">
+                    <div class="adverb-img" style="background-image: url(./assets/images/adverb-img1.jpg);">
                         <div class="adverb-icon">
                             <i class="fa-solid fa-lock" style="color: #444546;"></i>
                         </div>
@@ -864,7 +868,7 @@
                             <p>Mastercard/Visa/Paypal</p>
                         </div>
                     </div>
-                </div>
+                </div>*@
             </div>
         </div>
     </section>
@@ -885,16 +889,20 @@
     <section id="decors">
         <div class="container mt-5">
             <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="single-decor">
-                        <div class="decor-imgs">
-                            <img class="img-fluid decor-img" src="~/assets/images/decor-img1.jpg" alt="">
-                            <img class="img-fluid decor-hover-img" src="~/assets/images/decor-img1-hover.jpg"
-                                 alt="">
+                @foreach (var decor in Model.Decors)
+                {
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="single-decor">
+                            <div class="decor-imgs">
+                                <img class="img-fluid decor-img" src="~/assets/images/@decor.Image" alt="">
+                                <img class="img-fluid decor-hover-img" src="~/assets/images/@decor.HoverImage"
+                                     alt="">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12">
+                }
+
+@*                <div class="col-lg-3 col-md-6 col-sm-12">
                     <div class="single-decor">
                         <div class="decor-imgs">
                             <img class="img-fluid decor-img" src="~/assets/images/decor-img5.jpg" alt="">
@@ -957,7 +965,7 @@
                                  alt="">
                         </div>
                     </div>
-                </div>
+                </div>*@
             </div>
         </div>
     </section>
@@ -967,13 +975,13 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="news-letter-content"
-                         style="background-image: url(./assets/images/newsletter-bg-img.jpg);">
+                         style="background-image: url(./assets/images/@Model.HeaderBackgrounds.Where(h=>h.Id == 17).FirstOrDefault().Value);">
 
                         <div class="row">
                             <div class="col-lg-6 col-md-12 col-sm-12">
                                 <div class="newsletter">
-                                    <h4> Newsletter</h4>
-                                    <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+                                    <h4> @Model.HeaderBackgrounds.Where(h=>h.Id == 18).FirstOrDefault().Value</h4>
+                                    <p>@Model.HeaderBackgrounds.Where(h=>h.Id == 19).FirstOrDefault().Value </p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12 col-sm-12">

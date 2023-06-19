@@ -54,7 +54,7 @@
                                 <li>
                                     <a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="index.html">Slider</a></li>
+                                        <li><a asp-area="Admin" asp-controller="Slider" asp-action="Index">Slider</a></li>
                                         <li><a href="index2.html">Dashboard2</a></li>
                                         <li><a href="index3.html">Dashboard3</a></li>
                                     </ul>
@@ -362,6 +362,7 @@
 
     <!-- Custom Theme Scripts -->
     <script src="~/Admin/build/js/custom.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 
 </body>
 

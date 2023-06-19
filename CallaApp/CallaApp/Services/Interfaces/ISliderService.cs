@@ -4,7 +4,7 @@ namespace CallaApp.Services.Interfaces
 {
     public interface ISliderService
     {
-        Task<List<Slider>> GetAll();
-        Task<Slider> GetById(int? id);
+        Task<List<Slider>> GetAllAsync();
+        Task<Slider> GetByIdAsync(int? id);
     }
 }

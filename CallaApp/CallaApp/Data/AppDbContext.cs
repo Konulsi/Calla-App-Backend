@@ -11,6 +11,8 @@ namespace CallaApp.Data
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<Settings> Settings { get; set; }
         public DbSet<Banner> Banners { get; set; }
+        public DbSet<Advertising> Advertisings { get; set; }
+        public DbSet<Decor> Decors { get; set; }
         public DbSet<HeaderBackground> HeaderBackgrounds { get; set; }
 
 
