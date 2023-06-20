@@ -1,0 +1,48 @@
+﻿@model List<Banner>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="container my-5">
+    <a class="btn btn-success text-white" asp-action="Create" style="float:right; margin: 30px;">Create</a>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th style="font-size: 20px;">
+                        Image
+                    </th>
+                    <th style="font-size: 20px;">
+                        Operations
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var bannner in Model)
+                {
+                    <tr>
+                        <td class="py-1">
+                            <img src="~/assets/images/@bannner.Image" style="width: 170px; height: 120px" alt="image" />
+                        </td>
+                        <td style="display: flex; gap: 10px;">
+                            <a class="btn btn-outline-info" asp-action="Detail" asp-route-id="@bannner.Id">Info</a>
+                            <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@bannner.Id">Edit</a>
+                            <form asp-action="Delete" asp-route-id="@bannner.Id" method="post">
+                                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                            </form>
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+
+
+</div>
+
+
+

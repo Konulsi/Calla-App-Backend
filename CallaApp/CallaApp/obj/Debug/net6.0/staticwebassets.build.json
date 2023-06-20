@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Es7Zp5mPwfyUjCwuEDXEhsLthUvGRViljFVN8GCKrBM=",
+  "Hash": "0I55ab70CqD4nIZ6/5+JGr+ojWWWcgF5rWzHZk0ZC9o=",
   "Source": "CallaApp",
   "BasePath": "_content/CallaApp",
   "Mode": "Default",
@@ -2225,6 +2225,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Admin\\src\\js\\helpers\\smartresize.js"
+    },
+    {
+      "Identity": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaApp-Backend\\CallaApp\\CallaApp\\wwwroot\\Admin\\src\\js\\index.js",
+      "SourceId": "CallaApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaApp-Backend\\CallaApp\\CallaApp\\wwwroot\\",
+      "BasePath": "_content/CallaApp",
+      "RelativePath": "Admin/src/js/index.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Admin\\src\\js\\index.js"
     },
     {
       "Identity": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaApp-Backend\\CallaApp\\CallaApp\\wwwroot\\Admin\\src\\scss\\custom.css",
@@ -80002,6 +80019,40 @@
       "OriginalItemSpec": "wwwroot\\Admin\\vendors\\validator\\validator.js"
     },
     {
+      "Identity": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaApp-Backend\\CallaApp\\CallaApp\\wwwroot\\assets\\images\\18b07773-0009-4ac9-bcf7-2b42f65ae755_about-1.png",
+      "SourceId": "CallaApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaApp-Backend\\CallaApp\\CallaApp\\wwwroot\\",
+      "BasePath": "_content/CallaApp",
+      "RelativePath": "assets/images/18b07773-0009-4ac9-bcf7-2b42f65ae755_about-1.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\18b07773-0009-4ac9-bcf7-2b42f65ae755_about-1.png"
+    },
+    {
+      "Identity": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaApp-Backend\\CallaApp\\CallaApp\\wwwroot\\assets\\images\\8ee59184-6e99-4e40-a92b-41c4342e092a_about-1.png",
+      "SourceId": "CallaApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaApp-Backend\\CallaApp\\CallaApp\\wwwroot\\",
+      "BasePath": "_content/CallaApp",
+      "RelativePath": "assets/images/8ee59184-6e99-4e40-a92b-41c4342e092a_about-1.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\8ee59184-6e99-4e40-a92b-41c4342e092a_about-1.png"
+    },
+    {
       "Identity": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaApp-Backend\\CallaApp\\CallaApp\\wwwroot\\assets\\images\\about-page-bg-img.jpg",
       "SourceId": "CallaApp",
       "SourceType": "Discovered",
@@ -80425,23 +80476,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\images\\brand-photo-7.png"
-    },
-    {
-      "Identity": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaApp-Backend\\CallaApp\\CallaApp\\wwwroot\\assets\\images\\cc912cee-b8b2-4e19-bde7-cdd3b5a489a4_about-2.png",
-      "SourceId": "CallaApp",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaApp-Backend\\CallaApp\\CallaApp\\wwwroot\\",
-      "BasePath": "_content/CallaApp",
-      "RelativePath": "assets/images/cc912cee-b8b2-4e19-bde7-cdd3b5a489a4_about-2.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\assets\\images\\cc912cee-b8b2-4e19-bde7-cdd3b5a489a4_about-2.png"
     },
     {
       "Identity": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaApp-Backend\\CallaApp\\CallaApp\\wwwroot\\assets\\images\\contact-bg-img.jpg",

@@ -28,8 +28,13 @@
     <!-- bootstrap-daterangepicker -->
     <link href="~/Admin/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    @await RenderSectionAsync("Css",required:false)
     <!-- Custom Theme Style -->
+    <link href="~/Admin/build/css/custom.css" rel="stylesheet">
+
     <link href="~/Admin/build/css/custom.min.css" rel="stylesheet">
+
 </head>
 
 <body class="nav-md">
@@ -55,7 +60,7 @@
                                     <a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a asp-area="Admin" asp-controller="Slider" asp-action="Index">Slider</a></li>
-                                        <li><a href="index2.html">Dashboard2</a></li>
+                                        <li><a asp-area="Admin" asp-controller="Banner" asp-action="Index">Banner</a></li>
                                         <li><a href="index3.html">Dashboard3</a></li>
                                     </ul>
                                 </li>
@@ -359,6 +364,7 @@
     <!-- bootstrap-daterangepicker -->
     <script src="~/Admin/vendors/moment/min/moment.min.js"></script>
     <script src="~/Admin/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+
 
     <!-- Custom Theme Scripts -->
     <script src="~/Admin/build/js/custom.min.js"></script>

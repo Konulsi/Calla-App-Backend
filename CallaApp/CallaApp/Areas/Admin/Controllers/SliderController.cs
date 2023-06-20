@@ -101,26 +101,21 @@ namespace CallaApp.Areas.Admin.Controllers
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int? id)
         {
             try
             {
                 if (id == null) return BadRequest();
-
                 Slider dbSlider = await _sliderService.GetByIdAsync(id);
-
                 if (dbSlider is null) return NotFound();
 
                 string path = FileHelper.GetFilePath(_env.WebRootPath, "assets/images", dbSlider.Image);
-
                 FileHelper.DeleteFile(path);
 
                 _context.Sliders.Remove(dbSlider);
-
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction(nameof(Index));
+                return Ok();
             }
             catch (Exception ex)
             {

@@ -495,29 +495,20 @@
             <div class="row">
                 <div class="col-lg-8 col-md-12 col-sm-12">
                     <div class="banner-big-img">
-                        <img class="img-fluid" src="~/assets/images/@Model.Banners.FirstOrDefault(b =>!b.IsLarge)?.Image"
+                        <img class="img-fluid" src="~/assets/images/@Model.Banners.FirstOrDefault(b =>b.IsLarge)?.Image"
                              alt="">
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-12 col-sm-12">
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-12">
-                            <div class="banner-small-img">
-                                <img class="img-fluid" src="~/assets/images/@Model.Banners.FirstOrDefault(b => b.IsLarge)?.Image" alt="">
+                        @foreach (var banner in Model.Banners.Where(b => !b.IsLarge))
+                        {
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="banner-small-img">
+                                    <img class="img-fluid" src="~/assets/images/@banner.Image" alt="">
+                                </div>
                             </div>
-                            <div class="banner-small-img">
-                                <img class="img-fluid" src="~/assets/images/@Model.Banners.LastOrDefault(b => b.IsLarge)?.Image" alt="">
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 col-md-6  col-sm-12">
-                            <div class="banner-small-img">
-                                <img class="img-fluid" src="~/assets/images/@Model.Banners.LastOrDefault(b => b.IsLarge)?.Image" alt="">
-                            </div>
-                            <div class="banner-small-img">
-                                <img class="img-fluid" src="~/assets/images/@Model.Banners.FirstOrDefault(b => b.IsLarge)?.Image" alt="">
-                            </div>
-                        </div>
+                        }
                     </div>
                 </div>
             </div>

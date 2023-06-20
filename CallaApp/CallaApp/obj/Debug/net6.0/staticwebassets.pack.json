@@ -517,6 +517,10 @@
       "PackagePath": "staticwebassets\\Admin\\src\\js\\helpers\\smartresize.js"
     },
     {
+      "Id": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaApp-Backend\\CallaApp\\CallaApp\\wwwroot\\Admin\\src\\js\\index.js",
+      "PackagePath": "staticwebassets\\Admin\\src\\js\\index.js"
+    },
+    {
       "Id": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaApp-Backend\\CallaApp\\CallaApp\\wwwroot\\Admin\\src\\scss\\custom.css",
       "PackagePath": "staticwebassets\\Admin\\src\\scss\\custom.css"
     },
@@ -18817,6 +18821,14 @@
       "PackagePath": "staticwebassets\\Admin\\vendors\\validator\\validator.js"
     },
     {
+      "Id": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaApp-Backend\\CallaApp\\CallaApp\\wwwroot\\assets\\images\\18b07773-0009-4ac9-bcf7-2b42f65ae755_about-1.png",
+      "PackagePath": "staticwebassets\\assets\\images\\18b07773-0009-4ac9-bcf7-2b42f65ae755_about-1.png"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaApp-Backend\\CallaApp\\CallaApp\\wwwroot\\assets\\images\\8ee59184-6e99-4e40-a92b-41c4342e092a_about-1.png",
+      "PackagePath": "staticwebassets\\assets\\images\\8ee59184-6e99-4e40-a92b-41c4342e092a_about-1.png"
+    },
+    {
       "Id": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaApp-Backend\\CallaApp\\CallaApp\\wwwroot\\assets\\images\\about-page-bg-img.jpg",
       "PackagePath": "staticwebassets\\assets\\images\\about-page-bg-img.jpg"
     },
@@ -18915,10 +18927,6 @@
     {
       "Id": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaApp-Backend\\CallaApp\\CallaApp\\wwwroot\\assets\\images\\brand-photo1.png",
       "PackagePath": "staticwebassets\\assets\\images\\brand-photo1.png"
-    },
-    {
-      "Id": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaApp-Backend\\CallaApp\\CallaApp\\wwwroot\\assets\\images\\cc912cee-b8b2-4e19-bde7-cdd3b5a489a4_about-2.png",
-      "PackagePath": "staticwebassets\\assets\\images\\cc912cee-b8b2-4e19-bde7-cdd3b5a489a4_about-2.png"
     },
     {
       "Id": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaApp-Backend\\CallaApp\\CallaApp\\wwwroot\\assets\\images\\contact-bg-img.jpg",
