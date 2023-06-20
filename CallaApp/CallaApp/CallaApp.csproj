@@ -25,10 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\ViewModels\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="wwwroot\Admin\vendors\bootstrap\.github\CODEOWNERS" />
     <None Include="wwwroot\Admin\vendors\bootstrap\.github\CONTRIBUTING.md" />
     <None Include="wwwroot\Admin\vendors\bootstrap\.github\ISSUE_TEMPLATE\bug.md" />
