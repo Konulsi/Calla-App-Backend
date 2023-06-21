@@ -1,6 +1,5 @@
 body {
     user-select: none;
-
 }
 
 #detail-header-img {
@@ -28,6 +27,7 @@ body {
 
     .blog-post-text {
         margin-top: 50px;
+        text-align: left !important;
 
         .post-info-top {
             justify-content: space-between !important;
@@ -95,7 +95,6 @@ body {
                 font-weight: 600;
                 letter-spacing: .05em;
                 font-size: 34px;
-
                 margin-top: 10px;
 
                 a {
@@ -118,7 +117,6 @@ body {
             font-weight: 300;
             color: #676767b0;
             -webkit-font-smoothing: antialiased;
-
         }
 
         .blog-social {
@@ -137,10 +135,7 @@ body {
                         }
                     }
                 }
-
-
             }
-
         }
 
         .post-readmore-btn {
@@ -161,15 +156,15 @@ body {
     }
 
     .related-blog-header {
+        text-align: left;
+
         h2 {
             display: block;
             margin: 70px 0 40px;
             font-family: "Crimson Text";
             text-transform: uppercase;
             color: #2e2e2e;
-
         }
-
     }
 
     .related-blog {
@@ -188,6 +183,7 @@ body {
         }
 
         .post-title {
+            text-align: left !important;
 
             h3 {
                 font-family: "Crimson Text";
@@ -257,6 +253,7 @@ body {
         text-transform: uppercase;
         color: #2e2e2e;
         transition: 0.6s;
+        text-align: left !important;
 
         &:hover {
             transition: 0.6s;
@@ -270,6 +267,7 @@ body {
 
         .review {
             margin-top: 50px;
+            text-align: left !important;
 
             .comment_container {
                 display: flex;
@@ -321,6 +319,7 @@ body {
 
     .comment {
         margin-top: 50px;
+        text-align: left !important;
 
         .comment-header {
             font-family: "Crimson Text";
@@ -353,7 +352,6 @@ body {
             margin: 30px 0px 30px 0px;
 
             input {
-
                 height: 60px;
                 border: 1px solid rgb(128 128 128 / 35%);
                 outline: none;
@@ -369,7 +367,6 @@ body {
 
 
         .submit-button {
-
             margin: 50px 20px 10px 0px;
 
 
@@ -439,12 +436,12 @@ body {
                         }
                     }
                 }
-
             }
         }
 
         .lates-posts {
             margin-top: 50px;
+            text-align: left !important;
 
             h4 {
                 font-family: "Crimson Text";
@@ -506,6 +503,7 @@ body {
             font-weight: 700;
             letter-spacing: 0.1em;
             margin-top: 50px;
+            text-align: left !important;
 
             .category-header {
                 h6 {
@@ -535,8 +533,6 @@ body {
                     }
                 }
             }
-
-
         }
 
         .tag {
@@ -545,6 +541,7 @@ body {
             font-weight: 700;
             letter-spacing: 0.1em;
             margin-top: 50px;
+            text-align: left !important;
 
             .tag-header {
                 h6 {
@@ -586,6 +583,7 @@ body {
             font-weight: 700;
             letter-spacing: 0.1em;
             margin-top: 50px;
+            text-align: left !important;
 
             .instagram-header {
                 h6 {
@@ -602,34 +600,23 @@ body {
 
                     img {
                         width: 100%;
-
                     }
                 }
-
             }
-
-
         }
-
-        
     }
 
 
 
-    
+
     textarea:focus {
         outline: none !important;
         border-color: #e1a385;
         box-shadow: 0 0 10px #e1a385;
-
-
     }
 
     input:focus {
         border-color: #e1a385;
         box-shadow: 0 0 10px #e1a385;
     }
-    
-
 }
-

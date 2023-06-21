@@ -9,6 +9,10 @@ td {
     vertical-align: inherit !important;
 }
 
+    td a i {
+        margin-left: 10px !important;
+    }
+
 
 
 

@@ -2,42 +2,65 @@
 @{
     ViewData["Title"] = "Index";
 }
+@section Css{
+    <link href="~/Admin/build/css/custom.min.css" rel="stylesheet">
 
+
+}
 
 <div class="container my-5">
     <a class="btn btn-success text-white" asp-action="Create" style="float:right; margin: 30px;">Create</a>
     <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th style="font-size: 20px;">
-                        Image
-                    </th>
-                    <th style="font-size: 20px;">
-                        Operations
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var bannner in Model)
-                {
+        @if(Model.Count() > 0)
+        {
+            <table class="table table-striped">
+                <thead>
                     <tr>
-                        <td class="py-1">
-                            <img src="~/assets/images/@bannner.Image" style="width: 170px; height: 120px" alt="image" />
-                        </td>
-                        <td style="display: flex; gap: 10px;">
-                            <a class="btn btn-outline-info" asp-action="Detail" asp-route-id="@bannner.Id">Info</a>
-                            <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@bannner.Id">Edit</a>
-                            <form asp-action="Delete" asp-route-id="@bannner.Id" method="post">
-                                <button type="submit" class="btn btn-outline-danger">Delete</button>
-                            </form>
-                        </td>
-
+                        <th style="font-size: 20px;">
+                            Image
+                        </th>
+                        <th style="font-size: 20px;">
+                            Large or Small
+                        </th>
+                        <th style="font-size: 20px;">
+                            Options
+                        </th>
                     </tr>
-                }
+                </thead>
+                <tbody>
+                    @foreach (var banner in Model)
+                    {
+                        <tr data-id="@banner.Id">
+                            <td class="py-1">
+                                <img src="~/assets/images/@banner.Image" style="width: 170px; height: 120px" alt="image" />
+                            </td>
+                            @if (@banner.IsLarge)
+                            {
+                                <td>Large</td>
+                            }
+                            else
+                            {
+                                <td>Small</td>
+                            }
+                            <td>
+                                <a asp-action="Detail" asp-route-id="@banner.Id" data-toggle="tooltip" data-original-title="Detail">
+                                    <i class="fa-solid fa-circle-info" style="color: #dbd530;"></i>
+                                </a>
+                                <a asp-action="Edit" asp-route-id="@banner.Id" data-toggle="tooltip" data-original-title="Edit">
+                                    <i class="fa-solid fa-pen-to-square" style="color: #16cac7;"></i>
+                                </a>
+                                <a class="delete-banner" data-toggle="tooltip" data-original-title="Remove">
+                                    <i class="fa-solid fa-trash" style="color: #da3e45;"></i>
+                                </a>
+                            </td>
 
-            </tbody>
-        </table>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        }
+
     </div>
 
 
@@ -45,4 +68,7 @@
 </div>
 
 
+@section Scripts{
+    <script src="~/Admin/src/js/index.js"></script>
+}
 

@@ -1,6 +1,5 @@
 body {
     user-select: none;
-
 }
 
 #detail-header-img {
@@ -42,6 +41,7 @@ body {
 
     .right {
         padding-left: 50px;
+        text-align: left;
 
         .product-name {
             h1 {
@@ -71,7 +71,6 @@ body {
             i {
                 font-size: 14px;
                 line-height: 25px;
-
             }
 
             span {
@@ -93,7 +92,6 @@ body {
                 font-weight: 300;
                 color: #67676799;
             }
-
         }
 
         .product-count {
@@ -151,14 +149,12 @@ body {
                 }
 
                 .add-btn-second {
-
                     width: 155px;
                     border: 2px solid #e1a385;
                     height: 50px;
                     cursor: pointer !important;
                     margin-top: 15px;
                     margin-left: 36px;
-
                 }
             }
 
@@ -183,14 +179,12 @@ body {
                 }
 
                 .add-btn-second {
-
                     width: 155px;
                     border: 2px solid #e1a385;
                     height: 50px;
                     cursor: pointer !important;
                     margin-top: 15px;
                     margin-left: 36px;
-
                 }
             }
         }
@@ -212,7 +206,6 @@ body {
                 &:hover {
                     color: #b97a56 !important;
                     transition: 0.5s;
-
                 }
             }
 
@@ -224,7 +217,6 @@ body {
                     &:hover {
                         color: #b97a56 !important;
                         transition: 0.5s;
-
                     }
                 }
             }
@@ -262,7 +254,6 @@ body {
             ul.tabs li.current {
                 background: #006767;
                 color: white;
-
             }
 
             .tab-content {
@@ -296,19 +287,16 @@ body {
                 margin: 28px 26px;
                 justify-content: start;
                 align-items: baseline;
-
             }
 
             .color {
-                margin: 28px 26px;               
-                 justify-content: start;
+                margin: 28px 26px;
+                justify-content: start;
                 align-items: baseline;
-
             }
 
             .product-rewiev {
                 margin: 28px 26px;
-
             }
 
             .product-rate {
@@ -324,9 +312,6 @@ body {
                 font-size: 15px;
                 caret-color: #e1a385;
             }
-
-
-
         }
 
         .label {
@@ -347,7 +332,6 @@ body {
             margin: 20px 18px -10px 22px;
 
             input {
-
                 height: 60px;
                 border: 1px solid rgb(128 128 128 / 35%);
                 outline: none;
@@ -379,16 +363,13 @@ body {
             }
         }
     }
-
-
-    
-
-
 }
 
 #related {
-    .related-title{
-        h4{
+    .related-title {
+        text-align: left;
+
+        h4 {
             display: block;
             margin: 150px 0 30px;
             font-family: "Crimson Text";
@@ -396,6 +377,7 @@ body {
             color: #545050;
         }
     }
+
     .related-product {
         .product-card {
             width: 340px !important;
@@ -419,13 +401,14 @@ body {
                 opacity: 0;
                 transition: 0.5s;
 
-                i{
+                i {
                     position: absolute;
                     right: 17px;
                     top: 17px;
                     font-size: 20px;
                     color: #e1a385;
                 }
+
                 .add-btn-first {
                     position: absolute;
                     left: 18%;
@@ -453,7 +436,6 @@ body {
                     border: 1px solid #e1a385;
                     height: 15%;
                     cursor: pointer !important;
-
                 }
             }
 
@@ -487,11 +469,8 @@ body {
                 .product-img-hover {
                     opacity: 1;
                 }
-
             }
-
         }
-
     }
 }
 
