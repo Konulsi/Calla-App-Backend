@@ -11,7 +11,7 @@
                 <form method="post" enctype="multipart/form-data" asp-action="Create">
                     <span class="text-danger">@ViewBag.error</span>
                     <div class="form-group">
-                        <label>Image</label>
+                        <label>Choose an image for banner</label>
                         <input type="file" class="form-control" asp-for="Photo">
                         <span class="text-danger" asp-validation-for="Photo"></span>
                     </div>

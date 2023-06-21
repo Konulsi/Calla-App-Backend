@@ -4,14 +4,16 @@
 }
 @section Css{
     <link href="~/Admin/build/css/custom.min.css" rel="stylesheet">
-
-
 }
 
 <div class="container my-5">
-    <a class="btn btn-success text-white" asp-action="Create" style="float:right; margin: 30px;">Create</a>
+    <div class="card-header">
+        <a asp-action="Create" data-toggle="tooltip" data-original-title="Create" class="create">
+            <i class="fa-solid fa-square-plus fa-lg" style="color: #1abb9c; font-size: 30px; margin-top: 16px;"></i>
+        </a>
+    </div>
     <div class="table-responsive">
-        @if(Model.Count() > 0)
+        @if (Model.Count() > 0)
         {
             <table class="table table-striped">
                 <thead>

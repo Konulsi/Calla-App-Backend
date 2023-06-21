@@ -9,11 +9,14 @@ td {
     vertical-align: inherit !important;
 }
 
-    td a i {
-        margin-left: 10px !important;
-    }
+td a i {
+    margin-left: 10px !important;
+}
 
 
+/*.nav-md .container.body .right_col {
+    padding: 35px 0px 0 !important;
+}*/
 
 
 

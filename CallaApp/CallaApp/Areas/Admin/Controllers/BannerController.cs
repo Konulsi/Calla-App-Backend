@@ -119,97 +119,85 @@ namespace CallaApp.Areas.Admin.Controllers
 
 
 
-        //[HttpGet]
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id is null) return BadRequest();
-        //    Banner dbBanner = await _bannerService.GetByIdAsync(id);
-        //    if (dbBanner is null) return NotFound();
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id is null) return BadRequest();
+            Banner dbBanner = await _bannerService.GetByIdAsync(id);
+            if (dbBanner is null) return NotFound();
 
-        //    BannerUpdateVM model = new()
-        //    {
-        //        Image = dbBanner.Image,
-        //        Name = dbBanner.Name,
-        //        Title = dbBanner.Title,
-        //        IsLarge = dbBanner.IsLarge,
-
-        //    };
-        //    return View(model);
-        //}
+            BannerUpdateVM model = new()
+            {
+                Image = dbBanner.Image,
+                IsLarge = dbBanner.IsLarge,
+            };
+            return View(model);
+        }
 
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int? id, BannerUpdateVM banner)
-        //{
-        //    try
-        //    {
-        //        if (id is null) return BadRequest();
-        //        Banner dbBanner = await _bannerService.GetByIdAsync(id);
-        //        if (dbBanner is null) return NotFound();
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int? id, BannerUpdateVM banner)
+        {
+            try
+            {
+                if (id is null) return BadRequest();
+                Banner dbBanner = await _bannerService.GetByIdAsync(id);
+                if (dbBanner is null) return NotFound();
 
-        //        BannerUpdateVM model = new()
-        //        {
-        //            Image = dbBanner.Image,
-        //            Name = dbBanner.Name,
-        //            Title = dbBanner.Title,
-        //            IsLarge = dbBanner.IsLarge,
+                BannerUpdateVM model = new()
+                {
+                    Image = dbBanner.Image,
+                    IsLarge = dbBanner.IsLarge,
+                };
 
-        //        };
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
 
-        //        if (!ModelState.IsValid)
-        //        {
-        //            return View(model);
-        //        }
+                if (banner.Photo != null)
+                {
 
-        //        if (banner.Photo != null)
-        //        {
+                    if (!banner.Photo.CheckFileType("image/"))
+                    {
+                        ModelState.AddModelError("Photo", "File type must be image");
+                        return View(banner);
+                    }
+                    if (!banner.Photo.CheckFileSize(600))
+                    {
+                        ModelState.AddModelError("Photo", "Image size must be max 600kb");
+                        return View(banner);
+                    }
 
-        //            if (!banner.Photo.CheckFileType("image/"))
-        //            {
-        //                ModelState.AddModelError("Photo", "File type must be image");
-        //                return View(banner);
-        //            }
-        //            if (!banner.Photo.CheckFileSize(200))
-        //            {
-        //                ModelState.AddModelError("Photo", "Image size must be max 200kb");
-        //                return View(banner);
-        //            }
+                    string oldPath = FileHelper.GetFilePath(_env.WebRootPath, "assets/images", dbBanner.Image);
+                    FileHelper.DeleteFile(oldPath);
 
-        //            string oldPath = FileHelper.GetFilePath(_env.WebRootPath, "assets/images/website-images", dbBanner.Image);
-        //            FileHelper.DeleteFile(oldPath);
+                    string fileName = Guid.NewGuid().ToString() + "_" + banner.Photo.FileName;
+                    string newPath = FileHelper.GetFilePath(_env.WebRootPath, "assets/images", fileName);
+                    await FileHelper.SaveFileAsync(newPath, banner.Photo);
 
-        //            string fileName = Guid.NewGuid().ToString() + "_" + banner.Photo.FileName;
+                    dbBanner.Image = fileName;
+                }
+                else
+                {
+                    BannerUpdateVM newBanner = new()
+                    {
+                        Image = dbBanner.Image
+                    };
+                }
 
-        //            string newPath = FileHelper.GetFilePath(_env.WebRootPath, "assets/images/website-images", fileName);
+                dbBanner.IsLarge = banner.IsLarge;
 
-        //            await FileHelper.SaveFileAsync(newPath, banner.Photo);
-
-        //            dbBanner.Image = fileName;
-        //        }
-        //        else
-        //        {
-        //            BannerUpdateVM newBanner = new()
-        //            {
-        //                Image = dbBanner.Image
-        //            };
-        //        }
-
-
-        //        dbBanner.Name = banner.Name;
-        //        dbBanner.Title = banner.Title;
-        //        dbBanner.IsLarge = banner.IsLarge;
-
-
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ViewBag.error = ex.Message;
-        //        return View();
-        //    }
-        //}
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ViewBag.error = ex.Message;
+                return View();
+            }
+        }
 
 
 
