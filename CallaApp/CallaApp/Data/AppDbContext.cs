@@ -14,6 +14,7 @@ namespace CallaApp.Data
         public DbSet<Advertising> Advertisings { get; set; }
         public DbSet<Decor> Decors { get; set; }
         public DbSet<MiniImage> MiniImages { get; set; }
+        public DbSet<WebSiteSocial> WebSiteSocials { get; set; }
         public DbSet<HeaderBackground> HeaderBackgrounds { get; set; }
 
 
@@ -29,6 +30,8 @@ namespace CallaApp.Data
             modelBuilder.Entity<HeaderBackground>().HasQueryFilter(p => !p.SoftDelete);
             modelBuilder.Entity<Settings>().HasQueryFilter(p => !p.SoftDelete);
             modelBuilder.Entity<MiniImage>().HasQueryFilter(p => !p.SoftDelete);
+            modelBuilder.Entity<WebSiteSocial>().HasQueryFilter(p => !p.SoftDelete);
+
 
 
         }

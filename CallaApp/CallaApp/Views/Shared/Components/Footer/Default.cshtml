@@ -1,0 +1,135 @@
+﻿@model FooterVM
+<footer>
+
+    <section id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="footer-first-list">
+
+                        <div class="footer-logo">
+                            <img src="~/assets/images/footer-logo.png" alt="">
+                        </div>
+                        <div class="footer-text">
+                            <p>
+                                Lorem ipsum dolor sit amet, consec tetur a elit. Inutark ullamcorper leo, ege
+                                euismod orci
+                                natoquepen etma.
+                            </p>
+                        </div>
+                        <div class="footer-payment-img">
+                            <img src="~/assets/images/footer-payment-img.png" alt="">
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="footer-second-list">
+                        <div class="quick-links">
+                            <h5>QUICK LINKS</h5>
+                        </div>
+                        <div class="quick-link-list">
+                            <ul>
+                                <li><a href="">About Us</a></li>
+                                <li><a href="">Contact Us</a></li>
+                                <li><a href="">Blog</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="footer-third-list">
+                        <div class="find-store">
+                            <h5>FIND A STORE</h5>
+                        </div>
+                        <div class="store-list">
+                            <ul>
+                                <li>
+                                    <i class="fa-solid fa-location-dot" style="color:  #909090;"></i><a href="">Hemlock, Brooklyn, NY 11208</a>
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-location-dot" style="color:  #909090;"></i><a href="">
+                                        5
+                                        Bridge, Brooklyn, NY 11201
+                                    </a>
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-phone" style="color:  #909090;"></i><a href="">
+                                        +994
+                                        0121234567
+                                    </a>
+                                </li>
+                                <ul class="social">
+                                    @foreach (var item in Model.Socials)
+                                    {
+                                        <li>
+                                            <a class="social-icon" href="@item.Link"
+                                               target="_blank">
+                                                <i class="@item.Icon" style="color:  #767575;"></i>
+                                            </a>
+                                        </li>
+
+                                    }
+                                </ul>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="footer-fourth-list">
+                        <div class="row">
+                            @foreach (var miniImage in Model.MiniImages)
+                            {
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                    <div class="footer-img">
+                                        <img class="img-fluid" src="~/assets/images/@miniImage.Image" alt="">
+                                    </div>
+                                </div>
+                            }
+
+@*                            <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                <div class="footer-img">
+                                    <img class="img-fluid" src="~/assets/images/footer-img2.jpg" alt="">
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                <div class="footer-img">
+                                    <img class="img-fluid" src="~/assets/images/footer-img3.jpg" alt="">
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                <div class="footer-img">
+                                    <img class="img-fluid" src="~/assets/images/footer-img4.jpg" alt="">
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                <div class="footer-img">
+                                    <img class="img-fluid" src="~/assets/images/footer-img5.jpg" alt="">
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                <div class="footer-img">
+                                    <img class="img-fluid" src="~/assets/images/footer-img6.jpg" alt="">
+                                </div>
+                            </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <section id="footer-end">
+        <div class="col-12 d-lg-block d-none">
+            <div class="footer-end-text">
+                <p>© 2018 Qode Interactive, All Rights Reserved</p>
+                <button id="topbtn"><i class="fa-solid fa-arrow-up" style="color: #8a8a8a;"></i></button>
+            </div>
+        </div>
+    </section>
+
+</footer>

@@ -1,0 +1,42 @@
+﻿@model WebSiteSocial
+@{
+    ViewData["Title"] = "Edit";
+}
+@section Css{
+    <link rel="stylesheet" href="~/admin/assets/css/index.css">
+}
+<section class="pcoded-main-container">
+    <div class="pcoded-content">
+        <div class="row">
+            <div class="col-12">
+                <span class="text-danger">@ViewBag.error</span>
+                <form method="post" enctype="multipart/form-data" asp-action="Edit">
+                    @if (Model.Icon.Contains(".png") || Model.Icon.Contains(".jpg") || Model.Icon.Contains(".jpeg"))
+                    {
+                        <div class="image"><img class="img-fluid" src="~/assets/images/@Model.Icon" /></div>
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <input class="form-control" asp-for="@Model.Icon">
+                        </div>
+                    }
+                    <td>
+                        @Model.Link
+                    </td>
+                    <button type="submit" class="btn btn-success"><i class="feather mr-2 icon-check-circle"></i>Submit</button>
+                    <a asp-action="Index" class="btn btn-danger"><i class="feather mr-2 icon-check-circle"></i>Cancel</a>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
+
+
+
+

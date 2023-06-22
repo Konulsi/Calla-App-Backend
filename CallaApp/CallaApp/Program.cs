@@ -27,6 +27,7 @@ builder.Services.AddScoped<IBannerService, BannerService>();
 builder.Services.AddScoped<IDecorService, DecorService>();
 builder.Services.AddScoped<IMiniImageService, MiniImageService>();
 builder.Services.AddScoped<IAdvertisingService, AdvertisingService>();
+builder.Services.AddScoped<IWebSiteSocialService, WebSiteSocialService>();
 
 
 
