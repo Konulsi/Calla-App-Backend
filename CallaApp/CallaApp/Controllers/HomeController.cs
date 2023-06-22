@@ -3,35 +3,29 @@ using CallaApp.Models;
 using CallaApp.Services.Interfaces;
 using CallaApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using static Org.BouncyCastle.Asn1.Cmp.Challenge;
 
 namespace CallaApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly ILayoutService _layoutService;
         private readonly ISliderService _sliderService;
         private readonly IBannerService _bannerService;
         private readonly IDecorService _decorService;
         private readonly IAdvertisingService _advertisingService;
-        private readonly IHeaderBackgroundService _headerBackgroundService;
 
 
-        public HomeController(AppDbContext context,
-                              ISliderService sliderService,
-                              IHeaderBackgroundService headerBackgroundService,
+        public HomeController(ISliderService sliderService,
+                              ILayoutService layoutService,
                               IBannerService bannerService,
                               IAdvertisingService advertisingService,
                               IDecorService decorService)
         {
-            _context = context;
             _sliderService = sliderService;
-            _headerBackgroundService = headerBackgroundService;
             _bannerService = bannerService;
             _advertisingService = advertisingService;
             _decorService = decorService;
-
+            _layoutService = layoutService;
         }
         public async Task<IActionResult> Index()
         {
@@ -39,7 +33,7 @@ namespace CallaApp.Controllers
             List<Banner> banners = await _bannerService.GetAllAsync();
             List<Decor> decors = await _decorService.GetAllAsync();
             List<Advertising> advertisings = await _advertisingService.GetAllAsync();
-            List<HeaderBackground> headerBackgrounds =  _headerBackgroundService.GetHeaderBackgroundsAsync();
+            List<HeaderBackground> headerBackgrounds = _layoutService.GetAllAsync();
 
             HomeVM model = new()
             {

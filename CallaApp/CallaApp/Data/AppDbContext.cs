@@ -13,6 +13,7 @@ namespace CallaApp.Data
         public DbSet<Banner> Banners { get; set; }
         public DbSet<Advertising> Advertisings { get; set; }
         public DbSet<Decor> Decors { get; set; }
+        public DbSet<MiniImage> MiniImages { get; set; }
         public DbSet<HeaderBackground> HeaderBackgrounds { get; set; }
 
 
@@ -21,6 +22,14 @@ namespace CallaApp.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Slider>().HasQueryFilter(p => !p.SoftDelete);
+            modelBuilder.Entity<Banner>().HasQueryFilter(p => !p.SoftDelete);
+            modelBuilder.Entity<Advertising>().HasQueryFilter(p => !p.SoftDelete);
+            modelBuilder.Entity<Decor>().HasQueryFilter(p => !p.SoftDelete);
+            modelBuilder.Entity<HeaderBackground>().HasQueryFilter(p => !p.SoftDelete);
+            modelBuilder.Entity<Settings>().HasQueryFilter(p => !p.SoftDelete);
+            modelBuilder.Entity<MiniImage>().HasQueryFilter(p => !p.SoftDelete);
+
 
         }
     }

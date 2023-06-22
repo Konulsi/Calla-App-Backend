@@ -214,6 +214,31 @@ namespace CallaApp.Migrations
                     b.ToTable("HeaderBackgrounds");
                 });
 
+            modelBuilder.Entity("CallaApp.Models.MiniImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("SoftDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MiniImages");
+                });
+
             modelBuilder.Entity("CallaApp.Models.Settings", b =>
                 {
                     b.Property<int>("Id")

@@ -1,0 +1,55 @@
+﻿@model List<HeaderBackground>
+@{
+    ViewData["Title"] = "Index";
+}
+@section Css{
+    <link href="~/Admin/build/css/custom.min.css" rel="stylesheet">
+}
+
+<section class="pcoded-main-container">
+    <div class="pcoded-content">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body table-border-style">
+                        <div class="table-responsive">
+
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Key</th>
+                                        <th>Value</th>
+                                        <th>Options</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var headerBg in Model)
+                                    {
+                                        <tr data-id="@headerBg.Id">
+                                            <td>
+                                                @headerBg.Key
+                                            </td>
+                                            <td>@Html.Raw(headerBg.Value)</td>
+                                            <td>
+                                                <a asp-action="Edit" asp-route-id="@headerBg.Id" data-toggle="tooltip" data-original-title="Edit">
+                                                    <i class="fa-solid fa-pen-to-square" style="color: #16cac7;"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section Scripts{
+    <script src="~/Admin/src/js/index.js"></script>
+}
+
+

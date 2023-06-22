@@ -1,0 +1,65 @@
+﻿@model List<Settings>
+
+@{
+    ViewData["Title"] = "Index";
+}
+@section Css{
+    <link href="~/Admin/build/css/custom.min.css" rel="stylesheet">
+}
+<section class="pcoded-main-container">
+    <div class="pcoded-content">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body table-border-style">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Key</th>
+                                        <th>Value</th>
+                                        <th>Option</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var setting in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @setting.Key
+                                            </td>
+                                            @if (setting.Value.Contains(".png") || setting.Value.Contains(".jpg") || setting.Value.Contains(".jpeg"))
+                                            {
+                                                <td>
+                                                    <div class="image"><img class="img-fluid" src="~/assets/images/@setting.Value" /></div>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    @setting.Value
+                                                </td>
+                                            }
+                                            <td>
+                                                <a asp-action="Edit" asp-route-id="@setting.Id" data-toggle="tooltip" data-original-title="Edit">
+                                                    <i class="fa-solid fa-pen-to-square" style="color: #16cac7;"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    <script src="~/Admin/src/js/index.js"></script>
+}
+
+

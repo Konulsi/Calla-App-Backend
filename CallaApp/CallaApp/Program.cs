@@ -21,12 +21,12 @@ builder.Services.AddDbContext<AppDbContext>(option =>
 
 builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
-
+builder.Services.AddScoped<ILayoutService, LayoutService>();
 builder.Services.AddScoped<ISliderService, SliderService>();
 builder.Services.AddScoped<IBannerService, BannerService>();
 builder.Services.AddScoped<IDecorService, DecorService>();
+builder.Services.AddScoped<IMiniImageService, MiniImageService>();
 builder.Services.AddScoped<IAdvertisingService, AdvertisingService>();
-builder.Services.AddScoped<IHeaderBackgroundService, HeaderBackgroundService>();
 
 
 

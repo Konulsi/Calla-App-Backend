@@ -92,6 +92,29 @@
         })
     })
 
+    $(document).on("click", ".delete-miniImage", function (e) {
+        debugger
+        e.preventDefault();
+        let Id = $(this).parent().parent().attr("data-id");
+        let deletedElem = $(this).parent().parent();
+        let data = { id: Id };
+
+        $.ajax({
+            url: "MiniImage/Delete",
+            type: "post",
+            data: data,
+            success: function (res) {
+                debugger
+                $(deletedElem).remove();
+                $(".tooltip-inner").remove();
+                $(".arrow").remove();
+                if ($(tbody).length == 1) {
+                    $(".table").remove();
+                }
+            }
+        })
+    })
+
 
 
 

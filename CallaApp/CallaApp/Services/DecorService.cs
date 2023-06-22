@@ -12,18 +12,7 @@ namespace CallaApp.Services
         {
             _context = context;
         }
-        public async Task<List<Decor>> GetAllAsync()
-        {
-            return await _context.Decors.Where(m => !m.SoftDelete).ToListAsync();
-
-        }
-
-
-
-        public async Task<Decor> GetByIdAsync(int? id)
-        {
-            return await _context.Decors.Where(m => !m.SoftDelete).FirstOrDefaultAsync(m => m.Id == id);
-
-        }
+        public async Task<List<Decor>> GetAllAsync() => await _context.Decors.ToListAsync();
+        public async Task<Decor> GetByIdAsync(int? id) => await _context.Decors.FirstOrDefaultAsync(m => m.Id == id);
     }
 }
