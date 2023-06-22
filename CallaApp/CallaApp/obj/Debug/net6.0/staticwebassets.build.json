@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "rFYrCZaOpgKVzOil3xT5FX0WmK2l4WxNCuP9KAA3/Wo=",
+  "Hash": "Dob/+TF1sjGPB0Vn5Vbpqlmr5Wm/T95s05BH/Vo1HOE=",
   "Source": "CallaApp",
   "BasePath": "_content/CallaApp",
   "Mode": "Default",
@@ -80019,12 +80019,12 @@
       "OriginalItemSpec": "wwwroot\\Admin\\vendors\\validator\\validator.js"
     },
     {
-      "Identity": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaApp-Backend\\CallaApp\\CallaApp\\wwwroot\\assets\\images\\21332dae-c2cd-4d84-bfcd-71247bfe7cb6_about-3.png",
+      "Identity": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaApp-Backend\\CallaApp\\CallaApp\\wwwroot\\assets\\images\\823c5f45-e9a3-4995-ab41-4102beddedd0_about-1.png",
       "SourceId": "CallaApp",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaApp-Backend\\CallaApp\\CallaApp\\wwwroot\\",
       "BasePath": "_content/CallaApp",
-      "RelativePath": "assets/images/21332dae-c2cd-4d84-bfcd-71247bfe7cb6_about-3.png",
+      "RelativePath": "assets/images/823c5f45-e9a3-4995-ab41-4102beddedd0_about-1.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -80033,15 +80033,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\assets\\images\\21332dae-c2cd-4d84-bfcd-71247bfe7cb6_about-3.png"
+      "OriginalItemSpec": "wwwroot\\assets\\images\\823c5f45-e9a3-4995-ab41-4102beddedd0_about-1.png"
     },
     {
-      "Identity": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaApp-Backend\\CallaApp\\CallaApp\\wwwroot\\assets\\images\\a1a3c6f5-3f85-4ec9-9e07-07cfd6d7f864_about-1.png",
+      "Identity": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaApp-Backend\\CallaApp\\CallaApp\\wwwroot\\assets\\images\\9b934744-fe58-4f99-9923-abb3b47419cd_about-3.png",
       "SourceId": "CallaApp",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaApp-Backend\\CallaApp\\CallaApp\\wwwroot\\",
       "BasePath": "_content/CallaApp",
-      "RelativePath": "assets/images/a1a3c6f5-3f85-4ec9-9e07-07cfd6d7f864_about-1.png",
+      "RelativePath": "assets/images/9b934744-fe58-4f99-9923-abb3b47419cd_about-3.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -80050,7 +80050,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\assets\\images\\a1a3c6f5-3f85-4ec9-9e07-07cfd6d7f864_about-1.png"
+      "OriginalItemSpec": "wwwroot\\assets\\images\\9b934744-fe58-4f99-9923-abb3b47419cd_about-3.png"
     },
     {
       "Identity": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaApp-Backend\\CallaApp\\CallaApp\\wwwroot\\assets\\images\\about-page-bg-img.jpg",
@@ -80799,6 +80799,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\images\\decor-img9-hover.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaApp-Backend\\CallaApp\\CallaApp\\wwwroot\\assets\\images\\ffc1196f-e3e7-4668-8433-50fdaf600d0e_about-3.png",
+      "SourceId": "CallaApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaApp-Backend\\CallaApp\\CallaApp\\wwwroot\\",
+      "BasePath": "_content/CallaApp",
+      "RelativePath": "assets/images/ffc1196f-e3e7-4668-8433-50fdaf600d0e_about-3.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\ffc1196f-e3e7-4668-8433-50fdaf600d0e_about-3.png"
     },
     {
       "Identity": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaApp-Backend\\CallaApp\\CallaApp\\wwwroot\\assets\\images\\footer-img1.jpg",
