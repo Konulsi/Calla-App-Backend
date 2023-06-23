@@ -13,11 +13,23 @@ namespace CallaApp.Data
         public DbSet<Banner> Banners { get; set; }
         public DbSet<Advertising> Advertisings { get; set; }
         public DbSet<Decor> Decors { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductImage> ProductImages { get; set; }
+        public DbSet<Brand> Brands { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Color> Colors { get; set; }
+        public DbSet<Size> Sizes { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<ProductCategory> ProductCategory { get; set; }
+        public DbSet<ProductSize> ProductSize { get; set; }
+        public DbSet<ProductTag> ProductTag { get; set; }
+        public DbSet<ProductColor> ProductColor { get; set; }
+
+
+
         public DbSet<MiniImage> MiniImages { get; set; }
         public DbSet<WebSiteSocial> WebSiteSocials { get; set; }
         public DbSet<HeaderBackground> HeaderBackgrounds { get; set; }
-
-
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -31,9 +43,13 @@ namespace CallaApp.Data
             modelBuilder.Entity<Settings>().HasQueryFilter(p => !p.SoftDelete);
             modelBuilder.Entity<MiniImage>().HasQueryFilter(p => !p.SoftDelete);
             modelBuilder.Entity<WebSiteSocial>().HasQueryFilter(p => !p.SoftDelete);
-
-
-
+            modelBuilder.Entity<Product>().HasQueryFilter(p => !p.SoftDelete);
+            modelBuilder.Entity<ProductImage>().HasQueryFilter(p => !p.SoftDelete);
+            modelBuilder.Entity<Category>().HasQueryFilter(p => !p.SoftDelete);
+            modelBuilder.Entity<Color>().HasQueryFilter(p => !p.SoftDelete);
+            modelBuilder.Entity<Brand>().HasQueryFilter(p => !p.SoftDelete);
+            modelBuilder.Entity<Size>().HasQueryFilter(p => !p.SoftDelete);
+            modelBuilder.Entity<Tag>().HasQueryFilter(p => !p.SoftDelete);
         }
     }
 }
