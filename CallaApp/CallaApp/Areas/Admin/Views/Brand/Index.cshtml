@@ -1,0 +1,66 @@
+﻿@model List<Brand>
+@{
+    ViewData["Title"] = "Index";
+}
+@section Css{
+    <link href="~/Admin/build/css/custom.min.css" rel="stylesheet">
+
+
+}
+
+<div class="container my-5">
+
+    <div class="card-header">
+        <a asp-action="Create" data-toggle="tooltip" data-original-title="Create" class="create">
+            <i class="fa-solid fa-square-plus fa-lg" style="color: #1abb9c; font-size: 30px; margin-top: 16px;"></i>
+        </a>
+    </div>
+
+    <div class="table-responsive">
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="font-size: 20px;">
+                            Image
+                        </th>
+                        <th style="font-size: 20px;">
+                            Name
+                        </th>
+                        <th style="font-size: 20px;">
+                            Options
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var brand in Model)
+                    {
+                        <tr data-id="@brand.Id">
+                            <td class="py-1">
+                                <img src="~/assets/images/@brand.Image" style="width: 250px; height: 150px" alt="image" />
+                            </td>
+                            <td class="py-1" style="font-size: 20px;">
+                                @brand.Name
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@brand.Id" data-toggle="tooltip" data-original-title="Edit">
+                                    <i class="fa-solid fa-pen-to-square" style="color: #16cac7;"></i>
+                                </a>
+                                <a class="delete-brand" data-toggle="tooltip" data-original-title="Remove">
+                                    <i class="fa-solid fa-trash" style="color: #da3e45;"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/Admin/src/js/index.js"></script>
+}
+

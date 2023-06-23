@@ -833,33 +833,6 @@
                         </div>
                     </div>
                 }
-
-
-@*                <div class="col-lg-4 col-md-12 col-sm-12 my-2">
-                    <div class="adverb-img" style="background-image: url(./assets/images/adverb-img2.jpg);">
-                        <div class="adverb-icon">
-                            <i class="fa-solid fa-arrows-rotate" style="color: #444546;"></i>
-                        </div>
-
-                        <div class="adverb-content">
-                            <h4> 100% MONEY BACK </h4>
-                            <p>With in 14 days</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-12 col-sm-12 my-2">
-                    <div class="adverb-img" style="background-image: url(./assets/images/adverb-img1.jpg);">
-                        <div class="adverb-icon">
-                            <i class="fa-solid fa-lock" style="color: #444546;"></i>
-                        </div>
-
-                        <div class="adverb-content">
-                            <h4> SECURE PAYMENT </h4>
-                            <p>Mastercard/Visa/Paypal</p>
-                        </div>
-                    </div>
-                </div>*@
             </div>
         </div>
     </section>
@@ -892,71 +865,6 @@
                         </div>
                     </div>
                 }
-
-@*                <div class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="single-decor">
-                        <div class="decor-imgs">
-                            <img class="img-fluid decor-img" src="~/assets/images/decor-img5.jpg" alt="">
-                            <img class="img-fluid decor-hover-img" src="~/assets/images/decor-img5-hover.jpg"
-                                 alt="">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="single-decor">
-                        <div class="decor-imgs">
-                            <img class="img-fluid decor-img" src="~/assets/images/decor-img6.jpg" alt="">
-                            <img class="img-fluid decor-hover-img" src="~/assets/images/decor-img6-hover.jpg"
-                                 alt="">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="single-decor">
-                        <div class="decor-imgs">
-                            <img class="img-fluid decor-img" src="~/assets/images/decor-img4.jpg" alt="">
-                            <img class="img-fluid decor-hover-img" src="~/assets/images/decor-img4-hover.jpg"
-                                 alt="">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="single-decor">
-                        <div class="decor-imgs">
-                            <img class="img-fluid decor-img" src="~/assets/images/decor-img9.jpg" alt="">
-                            <img class="img-fluid decor-hover-img" src="~/assets/images/decor-img9-hover.jpg"
-                                 alt="">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="single-decor">
-                        <div class="decor-imgs">
-                            <img class="img-fluid decor-img" src="~/assets/images/decor-img8.jpg" alt="">
-                            <img class="img-fluid decor-hover-img" src="~/assets/images/decor-img8-hover.jpg"
-                                 alt="">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="single-decor">
-                        <div class="decor-imgs">
-                            <img class="img-fluid decor-img" src="~/assets/images/decor-img7.jpg" alt="">
-                            <img class="img-fluid decor-hover-img" src="~/assets/images/decor-img7-hover.jpg"
-                                 alt="">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="single-decor">
-                        <div class="decor-imgs">
-                            <img class="img-fluid decor-img" src="~/assets/images/decor-img3.jpg" alt="">
-                            <img class="img-fluid decor-hover-img" src="~/assets/images/decor-img3-hover.jpg"
-                                 alt="">
-                        </div>
-                    </div>
-                </div>*@
             </div>
         </div>
     </section>
@@ -1000,25 +908,12 @@
     <section id="brands">
         <div class="container">
             <div class="brands-list d-flex">
-                <div class="single-brands">
-                    <img src="~/assets/images/brand-photo1.png" alt="">
-                </div>
-                <div class="single-brands">
-                    <img src="~/assets/images/brand-photo-2.png" alt="">
-                </div>
-                <div class="single-brands">
-                    <img src="~/assets/images/brand-photo-3.png" alt="">
-                </div>
-                <div class="single-brands">
-                    <img src="~/assets/images/brand-photo-4.png" alt="">
-                </div>
-                <div class="single-brands">
-                    <img src="~/assets/images/brand-photo-5.png" alt="">
-                </div>
-                <div class="single-brands">
-                    <img src="~/assets/images/brand-photo-6.png" alt="">
-                </div>
-
+                @foreach (var brand in Model.Brands)
+                {
+                    <div class="single-brands">
+                        <img src="~/assets/images/@brand.Image" alt="">
+                    </div>
+                }
             </div>
         </div>
 

@@ -12,7 +12,7 @@ namespace CallaApp.Services
         {
             _context = context;
         }
-        public async Task<List<Brand>> GetAllAsync() => await _context.Brands.ToListAsync();
+        public async Task<List<Brand>> GetAllAsync() => await _context.Brands.Include(b => b.Products).ToListAsync();
         public async Task<Brand> GetByIdAsync(int? id) => await _context.Brands.FirstOrDefaultAsync(m => m.Id == id);
     }
 }

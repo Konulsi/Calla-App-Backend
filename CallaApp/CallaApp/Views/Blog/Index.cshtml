@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Blog";
+    int sumCategoryProducts = 0;
 }
 
 <!-- Main star -->
@@ -339,10 +340,21 @@
                             </div>
                             <div class="categories">
                                 <ul>
-                                    <li><a href="">Interior</a></li>
-                                    <li><a href="">Modern</a></li>
-                                    <li><a href="">Style</a></li>
-                                    <li><a href="">Uncategorized</a></li>
+                                    <li>
+                                        <a href="" class="all-products">
+                                            @foreach (var category in Model.Categories)
+                                            {
+                                                sumCategoryProducts += (int)category.ProductCategories?.Count;
+                                            }
+                                            All (@sumCategoryProducts)
+                                        </a>
+                                    </li>
+                                    @foreach (var category in Model.Categories)
+                                    {
+                                        <li>
+                                            <a href="" data-id="@category.Id" class="prod-size">@category.Name (@category.ProductCategories?.Count)</a>
+                                        </li>
+                                    }
                                 </ul>
                             </div>
                         </div>
@@ -353,14 +365,10 @@
                             </div>
                             <div class="tags">
                                 <ul>
-                                    <li><a href="">Casual,</a></li>
-                                    <li><a href="">Classic,</a></li>
-                                    <li><a href="">Creative,</a></li>
-                                    <li><a href="">Elegant,</a></li>
-                                    <li><a href="">Lifestyle,</a></li>
-                                    <li><a href="">Minimal,</a></li>
-                                    <li><a href="">Modern,</a></li>
-                                    <li><a href="">Style,</a></li>
+                                    @foreach (var tag in Model.Tags)
+                                    {
+                                        <li><a href="">@tag.Name</a></li>
+                                    }
                                 </ul>
                             </div>
                         </div>

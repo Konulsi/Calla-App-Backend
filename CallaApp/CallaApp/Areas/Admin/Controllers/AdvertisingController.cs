@@ -197,7 +197,7 @@ namespace CallaApp.Areas.Admin.Controllers
                 Advertising dbAdvertising = await _advertisingService.GetByIdAsync(id);
                 if (dbAdvertising is null) return NotFound();
 
-                string path = FileHelper.GetFilePath(_env.WebRootPath, "assets/images/website-images", dbAdvertising.Image);
+                string path = FileHelper.GetFilePath(_env.WebRootPath, "assets/images", dbAdvertising.Image);
                 FileHelper.DeleteFile(path);
 
                 _context.Advertisings.Remove(dbAdvertising);
