@@ -13,6 +13,7 @@ namespace CallaApp.Controllers
         private readonly IBannerService _bannerService;
         private readonly IDecorService _decorService;
         private readonly IBrandService _brandService;
+        private readonly ITeamService _teamService;
         private readonly IAdvertisingService _advertisingService;
 
 
@@ -21,7 +22,8 @@ namespace CallaApp.Controllers
                               IBannerService bannerService,
                               IAdvertisingService advertisingService,
                               IDecorService decorService,
-                              IBrandService brandService)
+                              IBrandService brandService,
+                              ITeamService teamService)
         {
             _sliderService = sliderService;
             _bannerService = bannerService;
@@ -29,7 +31,7 @@ namespace CallaApp.Controllers
             _decorService = decorService;
             _layoutService = layoutService;
             _brandService = brandService;
-
+            _teamService = teamService;
         }
         public async Task<IActionResult> Index()
         {
@@ -37,6 +39,7 @@ namespace CallaApp.Controllers
             List<Banner> banners = await _bannerService.GetAllAsync();
             List<Decor> decors = await _decorService.GetAllAsync();
             List<Brand> brands = await _brandService.GetAllAsync();
+            List<Team> teams = await _teamService.GetAllAsync();
             List<Advertising> advertisings = await _advertisingService.GetAllAsync();
             List<HeaderBackground> headerBackgrounds = _layoutService.GetAllAsync();
 
@@ -47,7 +50,8 @@ namespace CallaApp.Controllers
                 Banners = banners,
                 Advertisings = advertisings,
                 Decors = decors,
-                Brands = brands
+                Brands = brands,
+                Teams = teams
             };
 
             return View(model);
