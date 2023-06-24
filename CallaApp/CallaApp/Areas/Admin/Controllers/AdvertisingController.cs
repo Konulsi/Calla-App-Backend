@@ -165,7 +165,7 @@ namespace CallaApp.Areas.Admin.Controllers
                 }
                 else
                 {
-                    AdvertisingUpdateVM newSlider = new()
+                    AdvertisingUpdateVM newAdvertising = new()
                     {
                         Image = dbAdvertising.Image
                     };

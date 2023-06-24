@@ -1,0 +1,69 @@
+﻿@model List<About>
+@{
+    ViewData["Title"] = "Index";
+}
+@section Css{
+    <link href="~/Admin/build/css/custom.min.css" rel="stylesheet">
+}
+
+<div class="container my-5">
+
+    <div class="card-header">
+        <a asp-action="Create" data-toggle="tooltip" data-original-title="Create" class="create">
+            <i class="fa-solid fa-square-plus fa-lg" style="color: #1abb9c; font-size: 30px; margin-top: 16px;"></i>
+        </a>
+    </div>
+
+    <div class="table-responsive">
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="font-size: 20px;">
+                            Image
+                        </th>
+                        <th style="font-size: 20px;">
+                            Title
+                        </th>
+                        <th style="font-size: 20px;">
+                            Options
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var about in Model)
+                    {
+                        <tr data-id="@about.Id">
+                            <td class="py-1">
+                                <img src="~/assets/images/@about.Image" style="width: 250px; height: 150px" alt="image" />
+                            </td>
+                            <td class="py-1" style="font-size: 20px;">
+                                @about.Title
+                            </td>
+                            <td>
+                                <a asp-action="Detail" asp-route-id="@about.Id" data-toggle="tooltip" data-original-title="Detail">
+                                    <i class="fa-solid fa-circle-info" style="color: #dbd530;"></i>
+                                </a>
+                                <a asp-action="Edit" asp-route-id="@about.Id" data-toggle="tooltip" data-original-title="Edit">
+                                    <i class="fa-solid fa-pen-to-square" style="color: #16cac7;"></i>
+                                </a>
+                                <a class="delete-about" data-toggle="tooltip" data-original-title="Remove">
+                                    <i class="fa-solid fa-trash" style="color: #da3e45;"></i>
+                                </a>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/Admin/src/js/index.js"></script>
+}
+
+

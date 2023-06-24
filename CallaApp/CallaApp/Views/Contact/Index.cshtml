@@ -1,4 +1,7 @@
-﻿@{
+﻿@model ContactVM
+@inject UserManager<AppUser> userManager;
+@inject ILayoutService layout;
+@{
     ViewData["Title"] = "Contact";
 }
 
@@ -39,10 +42,10 @@
                                 </div>
                                 <div class="store-location">
                                     <ul>
-                                        <li><span><a href="">Hemlock St, Brooklyn, NY 11208, USA</a></span></li>
-                                        <li><a href="">+321 856 964 108</a></li>
+                                        <li><span><a href=""> @Model.Settings["StoreOnePlace"]</a></span></li>
+                                        <li><a href=""> @Model.Settings["StoreOne Phone"]</a></li>
                                         <li>
-                                            <a href="https://calla.qodeinteractive.com/">calla@qodeinteractive.com</a>
+                                            <a href="https://calla.qodeinteractive.com/">@Model.Settings["Stores Email"]</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -91,10 +94,10 @@
                                 </div>
                                 <div class="store-location">
                                     <ul>
-                                        <li><span><a href="">Hemlock St, Brooklyn, NY 11208, USA</a></span></li>
-                                        <li><a href="">+321 856 964 108</a></li>
+                                        <li><span><a href=""> @Model.Settings["StoreTwoPlace"]</a></span></li>
+                                        <li><a href="">@Model.Settings["StoreTwo Phone"]</a></li>
                                         <li>
-                                            <a href="https://calla.qodeinteractive.com/">calla@qodeinteractive.com</a>
+                                            <a href="https://calla.qodeinteractive.com/">@Model.Settings["Stores Email"]</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -108,30 +111,15 @@
                                         </li>
                                         <ul>
                                             <ul class="social">
-                                                <li>
-                                                    <a href="">
-                                                        <i class="fa-brands fa-instagram"
-                                                           style="color:  #909090;"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="">
-                                                        <i class="fa-brands fa-twitter"
-                                                           style="color:  #909090;"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="">
-                                                        <i class="fa-brands fa-facebook-f"
-                                                           style="color: #909090;"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="">
-                                                        <i class="fa-brands fa-linkedin-in"
-                                                           style="color: #909090;"></i>
-                                                    </a>
-                                                </li>
+                                                @foreach (var item in Model.Socials)
+                                                {
+                                                    <li>
+                                                        <a class="social-icon" href="@item.Link"
+                                                           target="_blank">
+                                                            <i class="@item.Icon" style="color:  #767575;"></i>
+                                                        </a>
+                                                    </li>
+                                                }
                                             </ul>
                                         </ul>
                                     </ul>
@@ -158,73 +146,56 @@
                     <img src="~/assets/images/banner-on-logo.png" alt="">
                 </div>
             </div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <form id="contact-form"
+                      class="contact-form"
+                      method="post" asp-action="PostComment">
+                    <div class="inputs">
+                        <input type="text" placeholder="NAME" value="@userManager.Users.FirstOrDefault(u=>u.UserName==User.Identity.Name).FirstName">
+                        <input type="text" placeholder="E-MAIL" value="@userManager.Users.FirstOrDefault(u=>u.UserName==User.Identity.Name).Email">
+                        <input type="text" placeholder="TELEPHONE">
+                    </div>
+                    <div class="text-area">
+                        <textarea name="" id="" cols="30" rows="10" placeholder="WRITE YOUR MESSAGE HERE..."></textarea>
+                    </div>
 
-            <div class="inputs">
-                <input type="text" placeholder="NAME">
-                <input type="text" placeholder="E-MAIL">
-                <input type="text" placeholder="TELEPHONE">
-            </div>
+                    <div class="subscribe-button">
+                        <button>SUBSCRIBE</button>
+                    </div>
+                </form>
+            }
+            else
+            {
+                <form id="contact-form"
+                      class="contact-form"
+                      method="post" asp-action="PostComment">
+                    <div class="inputs">
+                        <input type="text" placeholder="NAME">
+                        <input type="text" placeholder="E-MAIL">
+                        <input type="text" placeholder="TELEPHONE">
+                    </div>
+                    <div class="text-area">
+                        <textarea name="" id="" cols="30" rows="10" placeholder="WRITE YOUR MESSAGE HERE..."></textarea>
+                    </div>
 
-            <div class="text-area">
-                <textarea name="" id="" cols="30" rows="10" placeholder="WRITE YOUR MESSAGE HERE..."></textarea>
-            </div>
-
-            <div class="subscribe-button">
-                <button>SUBSCRIBE</button>
-            </div>
+                    <div class="subscribe-button">
+                        <button>SUBSCRIBE</button>
+                    </div>
+                </form>
+            }
         </div>
-
     </section>
-
 
     <section id="brands">
         <div class="container">
             <div class="brands-list d-flex">
-                <div class="single-brands">
-                    <img src="~/assets/images/brand-photo1.png" alt="">
-                </div>
-                <div class="single-brands">
-                    <img src="~/assets/images/brand-photo-2.png" alt="">
-                </div>
-                <div class="single-brands">
-                    <img src="~/assets/images/brand-photo-3.png" alt="">
-                </div>
-                <div class="single-brands">
-                    <img src="~/assets/images/brand-photo-4.png" alt="">
-                </div>
-                <div class="single-brands">
-                    <img src="~/assets/images/brand-photo-5.png" alt="">
-                </div>
-                <div class="single-brands">
-                    <img src="~/assets/images/brand-photo1.png" alt="">
-                </div>
-                <div class="single-brands">
-                    <img src="~/assets/images/brand-photo-2.png" alt="">
-                </div>
-                <div class="single-brands">
-                    <img src="~/assets/images/brand-photo-3.png" alt="">
-                </div>
-                <div class="single-brands">
-                    <img src="~/assets/images/brand-photo-4.png" alt="">
-                </div>
-                <div class="single-brands">
-                    <img src="~/assets/images/brand-photo-5.png" alt="">
-                </div>
-                <div class="single-brands">
-                    <img src="~/assets/images/brand-photo1.png" alt="">
-                </div>
-                <div class="single-brands">
-                    <img src="~/assets/images/brand-photo-2.png" alt="">
-                </div>
-                <div class="single-brands">
-                    <img src="~/assets/images/brand-photo-3.png" alt="">
-                </div>
-                <div class="single-brands">
-                    <img src="~/assets/images/brand-photo-4.png" alt="">
-                </div>
-                <div class="single-brands">
-                    <img src="~/assets/images/brand-photo-5.png" alt="">
-                </div>
+                @foreach (var brand in Model.Brands)
+                {
+                    <div class="single-brands">
+                        <img src="~/assets/images/@brand.Image" alt="">
+                    </div>
+                }
             </div>
         </div>
 

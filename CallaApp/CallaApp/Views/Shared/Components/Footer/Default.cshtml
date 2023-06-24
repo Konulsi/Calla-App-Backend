@@ -8,7 +8,7 @@
                     <div class="footer-first-list">
 
                         <div class="footer-logo">
-                            <img src="~/assets/images/footer-logo.png" alt="">
+                            <img src="~/assets/images/@Model.Settings["Footer Logo"]" alt="">
                         </div>
                         <div class="footer-text">
                             <p>
@@ -18,7 +18,7 @@
                             </p>
                         </div>
                         <div class="footer-payment-img">
-                            <img src="~/assets/images/footer-payment-img.png" alt="">
+                            <img src="~/assets/images/@Model.Settings["Payment Photo"]" alt="">
                         </div>
 
 
@@ -48,18 +48,18 @@
                         <div class="store-list">
                             <ul>
                                 <li>
-                                    <i class="fa-solid fa-location-dot" style="color:  #909090;"></i><a href="">Hemlock, Brooklyn, NY 11208</a>
+                                    <i class="fa-solid fa-location-dot" style="color:  #909090;"></i><a href="">
+                                        @Model.Settings["LocationOne"]
+                                    </a>
                                 </li>
                                 <li>
                                     <i class="fa-solid fa-location-dot" style="color:  #909090;"></i><a href="">
-                                        5
-                                        Bridge, Brooklyn, NY 11201
+                                        @Model.Settings["LocationTwo"]
                                     </a>
                                 </li>
                                 <li>
                                     <i class="fa-solid fa-phone" style="color:  #909090;"></i><a href="">
-                                        +994
-                                        0121234567
+                                        @Model.Settings["Footer Phone"]
                                     </a>
                                 </li>
                                 <ul class="social">
@@ -89,32 +89,6 @@
                                     </div>
                                 </div>
                             }
-
-@*                            <div class="col-lg-4 col-md-4 col-sm-6 col-6">
-                                <div class="footer-img">
-                                    <img class="img-fluid" src="~/assets/images/footer-img2.jpg" alt="">
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 col-6">
-                                <div class="footer-img">
-                                    <img class="img-fluid" src="~/assets/images/footer-img3.jpg" alt="">
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 col-6">
-                                <div class="footer-img">
-                                    <img class="img-fluid" src="~/assets/images/footer-img4.jpg" alt="">
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 col-6">
-                                <div class="footer-img">
-                                    <img class="img-fluid" src="~/assets/images/footer-img5.jpg" alt="">
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 col-6">
-                                <div class="footer-img">
-                                    <img class="img-fluid" src="~/assets/images/footer-img6.jpg" alt="">
-                                </div>
-                            </div>*@
                         </div>
                     </div>
                 </div>

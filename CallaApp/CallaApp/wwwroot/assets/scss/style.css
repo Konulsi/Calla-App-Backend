@@ -1870,6 +1870,7 @@ body {
   font-size: 34px;
 }
 #contact-content .contact-right .store-name {
+  text-align: left;
   margin-top: 25px;
   transition: 0.5s;
 }

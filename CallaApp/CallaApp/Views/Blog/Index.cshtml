@@ -1,4 +1,6 @@
-﻿@{
+﻿@model BlogVM
+
+@{
     ViewData["Title"] = "Blog";
     int sumCategoryProducts = 0;
 }
@@ -6,7 +8,7 @@
 <!-- Main star -->
 <main>
     <section id="about-header-img">
-        <div class="about-bg-img" style="background-image: url('./assets/images/about-page-bg-img.jpg')">
+        <div class="about-bg-img" style="background-image: url('./assets/images/@Model.HeaderBackgrounds.Where(h=>h.Id == 20).FirstOrDefault().Value')">
             <h1>Blog</h1>
             <img src="~/assets/images/banner-on-logo.png" alt="">
         </div>
@@ -367,59 +369,31 @@
                                 <ul>
                                     @foreach (var tag in Model.Tags)
                                     {
-                                        <li><a href="">@tag.Name</a></li>
+                                        <li><a href="">@tag.Name,</a></li>
                                     }
                                 </ul>
                             </div>
                         </div>
 
-
                         <div class="instagram">
-
                             <div class="instagram-header">
                                 <h6>INSTAGRAM</h6>
                             </div>
                             <div class="instagram-photo">
                                 <div class="row">
-                                    <div class="col-lg-4 col-md-4 col-sm-6 images">
-                                        <div class="instagram-img">
-                                            <img src="~/assets/images/footer-img1.jpg" alt="">
+                                    @foreach (var miniImage in Model.MiniImages)
+                                    {
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                            <div class="instagram-img">
+                                                <img  src="~/assets/images/@miniImage.Image" alt="">
+                                            </div>
                                         </div>
-                                        <div class="instagram-img">
-                                            <img src="~/assets/images/footer-img2.jpg" alt="">
-
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md- col-sm-6 images">
-                                        <div class="instagram-img">
-                                            <img src="~/assets/images/footer-img3.jpg" alt="">
-                                        </div>
-                                        <div class="instagram-img">
-                                            <img src="~/assets/images/footer-img4.jpg" alt="">
-
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-6 col-sm-6 images">
-                                        <div class="instagram-img">
-                                            <img src="~/assets/images/footer-img5.jpg" alt="">
-                                        </div>
-                                        <div class="instagram-img">
-                                            <img src="~/assets/images/footer-img6.jpg" alt="">
-
-                                        </div>
-                                    </div>
+                                    }
                                 </div>
                             </div>
-
-
                         </div>
-
-
-
                     </div>
-
                 </div>
-
             </div>
         </div>
 
