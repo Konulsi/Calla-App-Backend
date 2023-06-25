@@ -1,10 +1,11 @@
 ﻿using CallaApp.Data;
 using CallaApp.Models;
+using CallaApp.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace CallaApp.Services
 {
-    public class PositionService
+    public class PositionService: IPositionService
     {
         private readonly AppDbContext _context;
         public PositionService(AppDbContext context)

@@ -1,0 +1,48 @@
+﻿@model TeamCreateVM
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="container my-5">
+
+    <form asp-action="Create" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label class="my-2">Images</label>
+            <input class="form-control" id="customFile" asp-for="Photo" />
+            <span class="text-danger" asp-validation-for="Photo"></span>
+        </div>
+        <div class="form-group">
+            <label class="my-2">Name</label>
+            <input class="form-control " id="customFile" asp-for="Name" />
+            <span class="text-danger" asp-validation-for="Name"></span>
+        </div>
+        <div class="form-group">
+            <label class="my-2">Testimonial</label>
+            <textarea class="form-control" id="description-text" asp-for="Testimonial" rows="5"></textarea>
+            <span class="text-danger" asp-validation-for="Testimonial"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="my-2">Position</label>
+            <select class="form-control" id="customFile" asp-for="PositionId" asp-items="@ViewBag.positions"></select>
+        </div>
+
+        <div class="form-group">
+            <label class="my-2">Social Icon</label>
+           @* <select class="form-control" id="customFile" asp-for="Icons" asp-items="@ViewBag.socialIcon"></select>*@
+        
+        </div>
+
+        <div class="buttons my-3">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <a class="btn btn-light" asp-action="Index">Cancel</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
+
+

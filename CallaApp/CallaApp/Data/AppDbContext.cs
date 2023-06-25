@@ -28,7 +28,8 @@ namespace CallaApp.Data
         public DbSet<Contact> Contact { get; set; }
         public DbSet<Team> Teams { get; set; }
         public DbSet<Position> Positions { get; set; }
-        public DbSet<TeamSocial> TeamSocials { get; set; }
+
+        //public DbSet<TeamSocial> TeamSocials { get; set; }
 
 
 
@@ -60,7 +61,6 @@ namespace CallaApp.Data
             modelBuilder.Entity<About>().HasQueryFilter(p => !p.SoftDelete);
             modelBuilder.Entity<Team>().HasQueryFilter(p => !p.SoftDelete);
             modelBuilder.Entity<Position>().HasQueryFilter(p => !p.SoftDelete);
-            modelBuilder.Entity<TeamSocial>().HasQueryFilter(p => !p.SoftDelete);
         }
     }
 }

@@ -758,39 +758,6 @@ namespace CallaApp.Migrations
                     b.ToTable("Teams");
                 });
 
-            modelBuilder.Entity("CallaApp.Models.TeamSocial", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Icon")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Link")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("SoftDelete")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("TeamId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TeamId");
-
-                    b.ToTable("TeamSocials");
-                });
-
             modelBuilder.Entity("CallaApp.Models.WebSiteSocial", b =>
                 {
                     b.Property<int>("Id")
@@ -1061,17 +1028,6 @@ namespace CallaApp.Migrations
                     b.Navigation("Position");
                 });
 
-            modelBuilder.Entity("CallaApp.Models.TeamSocial", b =>
-                {
-                    b.HasOne("CallaApp.Models.Team", "Team")
-                        .WithMany("TeamSocials")
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Team");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -1164,11 +1120,6 @@ namespace CallaApp.Migrations
             modelBuilder.Entity("CallaApp.Models.Tag", b =>
                 {
                     b.Navigation("ProductTags");
-                });
-
-            modelBuilder.Entity("CallaApp.Models.Team", b =>
-                {
-                    b.Navigation("TeamSocials");
                 });
 #pragma warning restore 612, 618
         }

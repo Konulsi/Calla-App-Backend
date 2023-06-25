@@ -1,0 +1,65 @@
+﻿@model Team
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<div class="container my-5">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th style="font-size: 20px;">
+                    Image
+                </th>
+                <th style="font-size: 20px;">
+                    Name
+                </th>
+                <th style="font-size: 20px;">
+                    Position
+                </th>
+                <th style="font-size: 20px;">
+                    Testimonial
+                </th>
+                <th style="font-size: 20px;">
+                    Social account
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr style="font-size: 14px">
+                <td class="py-1">
+                    <img src="~/assets/images/@Model.Image" style="width:250px;height:200px" />
+                </td>
+                <td class="py-1">
+                    @Model.Name
+                </td>
+                <td class="py-1">
+                    @Model.Position.Name
+                </td>
+                <td class="py-1">
+                    @Model.Testimontial
+                </td>
+                
+                <td class="py-1">
+              @*      @foreach (var item in Model.TeamSocials)
+                    {
+                        <div class="d-flex" style="color: #53bac8;">
+                            @item.Link
+                        </div>
+                    }*@
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+
+
+    <a class="btn btn-info mt-3" asp-action="Index">Back</a>
+</div>
+
+
+
+
+
+
+

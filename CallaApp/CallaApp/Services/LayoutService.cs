@@ -14,6 +14,7 @@ namespace CallaApp.Services
             _context = context;
         }
         public Dictionary<string, string> GetSettingsData() =>  _context.Settings.AsEnumerable().ToDictionary(m => m.Key, m => m.Value);
+        public Dictionary<string, string> GetHeaderBackgroundData() =>  _context.HeaderBackgrounds.AsEnumerable().ToDictionary(m => m.Key, m => m.Value);
         public List<HeaderBackground> GetAllAsync() => _context.HeaderBackgrounds.ToList();
         public async Task<HeaderBackground> GetByIdAsync(int? id) => await _context.HeaderBackgrounds.FirstOrDefaultAsync(m => m.Id == id);
         public List<Settings> GetSettingDatas() => _context.Settings.ToList();
