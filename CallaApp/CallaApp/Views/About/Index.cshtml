@@ -4,12 +4,10 @@
     ViewData["Title"] = "About";
 }
 
-
-<!-- Main star -->
 <main>
 
     <section id="about-header-img">
-        <div class="about-bg-img" style="background-image: url('./assets/images/about-page-bg-img.jpg')">
+        <div class="about-bg-img" style="background-image: url('./assets/images/@Model.HeaderBackgrounds.Where(h=>h.Id == 20).FirstOrDefault().Value')">
             <h1>ABOUT US</h1>
             <img src="~/assets/images/banner-on-logo.png" alt="">
         </div>
@@ -40,8 +38,6 @@
                 </div>
             </div>
         </div>
-
-
     </section>
 
     <section id="about-strategy">
@@ -70,8 +66,6 @@
                 </div>
             </div>
         </div>
-
-
     </section>
 
     <section id="our-success">
@@ -83,102 +77,44 @@
                     <div class="arrival-img"> <img src="~/assets/images/slider-on-logo.png" alt=""> </div>
                 </div>
             </div>
-
         </div>
-
-
     </section>
 
     <section id="successes">
         <div class="container mt-5">
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide slider1">
+                    @foreach (var team in Model.Teams.Skip(4))
+                    {
+                        <div class="swiper-slide slider1">
 
-                        <div class="row">
-                            <div class="col-lg-3 col-mg-3 col-sm-3">
-                                <img src="~/assets/images/testimonials-img1.png" alt="">
-                            </div>
-                            <div class="col-lg-9 col-md-9 col-sm-9">
-                                <div class="successes-content">
-                                    <div class="success-text">
-                                        <p>
-                                            “Tacimates nominati duo cu, unum munere id has. Lorem ipsum dolor sit
-                                            amet,
-                                            ea nec
-                                            invidunt reprehendunt, enim viderer praesent ad vim. At cum esse
-                                            putant.”
-                                        </p>
-                                    </div>
-                                    <div class="author">
-                                        <div class="author-name"><span>STELLA JANSON</span></div>
-                                        <div class="author-job"><span> - COPYWRITER</span></div>
-                                    </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-mg-3 col-sm-3">
+                                    <img src="~/assets/images/@team.Image" alt="">
                                 </div>
+                                <div class="col-lg-9 col-md-9 col-sm-9">
+                                    <div class="successes-content">
+                                        <div class="success-text">
+                                            <p>
+                                                @team.Testimontial
+                                            </p>
+                                        </div>
+                                        <div class="author">
+                                            <div class="author-name"><span>@team.Name</span></div>
+                                            <div class="author-job"><span> - @team.Position.Name</span></div>
+                                        </div>
+                                    </div>
 
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="swiper-slide slider2">
-                        <div class="row">
-                            <div class="col-lg-3 col-mg-3 col-sm-3">
-                                <img src="~/assets/images/testimonials-img2.png" alt="">
-                            </div>
-                            <div class="col-lg-9 col-md-9 col-sm-9">
-                                <div class="successes-content">
-                                    <div class="success-text">
-                                        <p>
-                                            “Lorem ipsum dolor sit amet dictum ante tempor eget faucibus et urna eu
-                                            maecenas viverra aliquam lorem id tincidunt praesent et viverra massa
-                                            non
-                                            varius magna eget nibh vitae el.”
-                                        </p>
-                                    </div>
-                                    <div class="author">
-                                        <div class="author-name"><span>JANE LAWRENCE </span></div>
-                                        <div class="author-job"><span> - ELLE DECOR</span></div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide slider3">
-                        <div class="row">
-                            <div class="col-lg-3 col-mg-3 col-sm-3">
-                                <img src="~/assets/images/testimonials-img3.png" alt="">
-                            </div>
-                            <div class="col-lg-9 col-md-9 col-sm-9">
-                                <div class="successes-content">
-                                    <div class="success-text">
-                                        <p>
-                                            “Lorem ipsum dolor sit amet dictum ante tempor eget faucibus et urna eu
-                                            maecenas viverra aliquam lorem id tincidunt praesent et viverra massa
-                                            non
-                                            varius magna eget nibh vitae el.”
-                                        </p>
-                                    </div>
-                                    <div class="author">
-                                        <div class="author-name"><span>ALARA SILVA</span></div>
-                                        <div class="author-job"><span> - INTERIOR DESIGNER</span></div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
-
-
         </div>
-
     </section>
-
 </main>
-<!-- Main end -->
+
 @section Scripts{
     <script src="~/assets/js/about.js"></script>
 }

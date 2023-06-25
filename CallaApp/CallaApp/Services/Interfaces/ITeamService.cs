@@ -6,6 +6,6 @@ namespace CallaApp.Services.Interfaces
     {
         Task<Team> GetByIdAsync(int id);
         Task<List<Team>> GetAllAsync();
-        Task<Team> GetFullDataByIdAsync(int? id);
+        //Task<Team> GetFullDataByIdAsync(int? id);
     }
 }

@@ -1,12 +1,14 @@
-﻿@{
+﻿@model CartVM
+
+@{
     ViewData["Title"] = "Cart";
 }
 
 <!-- Main star -->
 <main>
     <section id="cart-header-img">
-        <div class="cart-bg-img" style="background-image: url('./assets/images/about-page-bg-img.jpg')">
-            <h1>Cart</h1>
+        <div class="cart-bg-img" style="background-image: url('./assets/images/@Model.HeaderBackgrounds.Where(h=>h.Id == 20).FirstOrDefault().Value')">
+            <h1>CART</h1>
             <img src="~/assets/images/banner-on-logo.png" alt="">
         </div>
     </section>

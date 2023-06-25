@@ -37,7 +37,6 @@ namespace CallaApp.Areas.Admin.Controllers
             };
 
             return View(model);
-
         }
 
 

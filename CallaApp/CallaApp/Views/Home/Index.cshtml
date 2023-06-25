@@ -618,197 +618,42 @@
             </div>
             <div class="members">
                 <div class="row">
-                    <div class="col-lg-3 col-md-6 col-sm-12 my-2">
-                        <div class="single-member">
-                            <div class="member-img">
-                                <img class="img-fluid" src="~/assets/images/team-member1.jpg" alt="">
-                            </div>
-                            <div class="member-img-hover">
-                                <div class="member-detail">
-                                    <div class="member-name">
-                                        <h5>Lisa Austin</h5>
-                                    </div>
-                                    <div class="member-position">
-                                        <span>designer</span>
-                                    </div>
-                                    <div class="member-social">
-                                        <div class="social-icons">
-                                            <a class="social-icon" href="https://twitter.com/qodeinteractive/"
-                                               target="_blank">
-                                                <span class="social_twitter">
-                                                    <i class="fa-brands fa-twitter"
-                                                       style="color:  #767575;"></i>
-                                                </span>
-                                            </a>
-                                            <a class="social-icon" href="https://www.facebook.com/qodeinteractive/"
-                                               target="_blank">
-                                                <span class="social_facebook">
-                                                    <i class="fa-brands fa-facebook-f"
-                                                       style="color: #767575;"></i>
-                                                </span>
-                                            </a>
-                                            <a class="social-icon"
-                                               href="https://www.linkedin.com/company/qode-themes/"
-                                               target="_blank">
-                                                <span class="social_linkedin">
-                                                    <i class="fa-brands fa-linkedin-in"
-                                                       style="color: #767575;"></i>
-                                                </span>
-                                            </a>
+                    @foreach (var team in Model.Teams.Take(4))
+                    {
+                        <div class="col-lg-3 col-md-6 col-sm-12 my-2">
+                            <div class="single-member">
+                                <div class="member-img">
+                                    <img class="img-fluid" src="~/assets/images/@team.Image" alt="">
+                                </div>
+                                <div class="member-img-hover">
+                                    <div class="member-detail">
+                                        <div class="member-name">
+                                            <h5>@team.Name</h5>
+                                        </div>
+                                        <div class="member-position">
+                                            <span>@team.Position.Name</span>
+                                        </div>
+                                        <div class="member-social">
+                                            <div class="social-icons">
+                                                @foreach (var item in team.TeamSocials.Take(3))
+                                                {
+                                                    <a class="social-icon" href="@item.Icon"
+                                                       target="_blank">
+                                                        <span class="social_twitter">
+                                                            <i class="@item.Icon"
+                                                               style="color:  #767575;"></i>
+                                                        </span>
+                                                    </a>
+                                                }
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 col-sm-12 my-2">
-                        <div class="single-member">
-                            <div class="member-img">
-                                <img class="img-fluid" src="~/assets/images/team-member2.jpg" alt="">
-                            </div>
-                            <div class="member-img-hover">
-                                <div class="member-detail">
-                                    <div class="member-name">
-                                        <h5>Helen Howell</h5>
-                                    </div>
-                                    <div class="member-position">
-                                        <span>manager</span>
-                                    </div>
-                                    <div class="member-social">
-                                        <div class="social-icons">
-                                            <a class="social-icon" href="https://twitter.com/qodeinteractive/"
-                                               target="_blank">
-                                                <span class="social_twitter">
-                                                    <i class="fa-brands fa-twitter"
-                                                       style="color:  #767575;"></i>
-                                                </span>
-                                            </a>
-                                            <a class="social-icon" href="https://www.facebook.com/qodeinteractive/"
-                                               target="_blank">
-                                                <span class="social_facebook">
-                                                    <i class="fa-brands fa-facebook-f"
-                                                       style="color: #767575;"></i>
-                                                </span>
-                                            </a>
-                                            <a class="social-icon"
-                                               href="https://www.linkedin.com/company/qode-themes/"
-                                               target="_blank">
-                                                <span class="social_linkedin">
-                                                    <i class="fa-brands fa-linkedin-in"
-                                                       style="color: #767575;"></i>
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 col-sm-12 my-2">
-                        <div class="single-member">
-                            <div class="member-img">
-                                <img class="img-fluid" src="~/assets/images/team-member3.jpg" alt="">
-                            </div>
-                            <div class="member-img-hover ">
-                                <div class="member-detail">
-                                    <div class="member-name">
-                                        <h5>Blake Hanson</h5>
-                                    </div>
-                                    <div class="member-position">
-                                        <span>photographer</span>
-                                    </div>
-                                    <div class="member-social">
-                                        <div class="social-icons">
-                                            <a class="social-icon" href="https://twitter.com/qodeinteractive/"
-                                               target="_blank">
-                                                <span class="social_twitter">
-                                                    <i class="fa-brands fa-twitter"
-                                                       style="color:  #767575;"></i>
-                                                </span>
-                                            </a>
-                                            <a class="social-icon" href="https://www.facebook.com/qodeinteractive/"
-                                               target="_blank">
-                                                <span class="social_facebook">
-                                                    <i class="fa-brands fa-facebook-f"
-                                                       style="color: #767575;"></i>
-                                                </span>
-                                            </a>
-                                            <a class="social-icon"
-                                               href="https://www.linkedin.com/company/qode-themes/"
-                                               target="_blank">
-                                                <span class="social_linkedin">
-                                                    <i class="fa-brands fa-linkedin-in"
-                                                       style="color: #767575;"></i>
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                            </div>
-
-
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 col-sm-12 my-2">
-                        <div class="single-member">
-                            <div class="member-img">
-                                <img class="img-fluid" src="~/assets/images/team-member4.jpg" alt="">
-                            </div>
-                            <div class="member-img-hover ">
-                                <div class="member-detail">
-                                    <div class="member-name">
-                                        <h5>Larisa Austin</h5>
-                                    </div>
-                                    <div class="member-position">
-                                        <span>interior designer</span>
-                                    </div>
-                                    <div class="member-social">
-                                        <div class="social-icons">
-                                            <a class="social-icon" href="https://twitter.com/qodeinteractive/"
-                                               target="_blank">
-                                                <span class="social_twitter">
-                                                    <i class="fa-brands fa-twitter"
-                                                       style="color:  #767575;"></i>
-                                                </span>
-                                            </a>
-                                            <a class="social-icon" href="https://www.facebook.com/qodeinteractive/"
-                                               target="_blank">
-                                                <span class="social_facebook">
-                                                    <i class="fa-brands fa-facebook-f"
-                                                       style="color: #767575;"></i>
-                                                </span>
-                                            </a>
-                                            <a class="social-icon"
-                                               href="https://www.linkedin.com/company/qode-themes/"
-                                               target="_blank">
-                                                <span class="social_linkedin">
-                                                    <i class="fa-brands fa-linkedin-in"
-                                                       style="color: #767575;"></i>
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                            </div>
-
-
-                        </div>
-                    </div>
+                    }
                 </div>
-
-
             </div>
-
         </div>
     </section>
 

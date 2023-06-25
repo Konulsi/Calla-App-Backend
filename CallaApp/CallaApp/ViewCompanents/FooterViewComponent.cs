@@ -21,7 +21,7 @@ namespace CallaApp.ViewCompanents
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            FooterVM model = new FooterVM()
+            LayoutVM model = new LayoutVM()
             {
                 Settings = _layoutService.GetSettingsData(),
                 Socials = await _webSiteSocialService.GetAllAsync(),

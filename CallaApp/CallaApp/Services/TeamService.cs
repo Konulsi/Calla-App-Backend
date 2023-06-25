@@ -16,10 +16,10 @@ namespace CallaApp.Services
                                                                      .Include(t => t.TeamSocials)
                                                                      .Include(t => t.Position)
                                                                      .ToListAsync();
-        public async Task<Team> GetFullDataByIdAsync(int? id) => await _context.Teams
-                                                                                .Include(t => t.TeamSocials)
-                                                                                .Include(t => t.Position)
-                                                                                .FirstOrDefaultAsync(m => m.Id == id);
+        //public async Task<Team> GetFullDataByIdAsync(int? id) => await _context.Teams
+        //                                                                        .Include(t => t.TeamSocials)
+        //                                                                        .Include(t => t.Position)
+        //                                                                        .FirstOrDefaultAsync(m => m.Id == id);
         public async Task<Team> GetByIdAsync(int id) => await _context.Teams.FindAsync(id);
     }
 }

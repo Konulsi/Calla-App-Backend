@@ -35,6 +35,8 @@ builder.Services.AddScoped<IMiniImageService, MiniImageService>();
 builder.Services.AddScoped<IAdvertisingService, AdvertisingService>();
 builder.Services.AddScoped<IWebSiteSocialService, WebSiteSocialService>();
 builder.Services.AddScoped<IAboutService, AboutService>();
+builder.Services.AddScoped<ITeamService, TeamService>();
+
 
 
 

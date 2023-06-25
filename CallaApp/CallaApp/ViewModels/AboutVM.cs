@@ -6,5 +6,6 @@ namespace CallaApp.ViewModels
     {
         public List<HeaderBackground> HeaderBackgrounds { get; set; }
         public List<About> Abouts { get; set; }
+        public List<Team> Teams { get; set; }
     }
 }
