@@ -9,8 +9,9 @@ namespace CallaApp.ViewModels
         public List<Decor> Decors { get; set; }
         public List<Brand> Brands { get; set; }
         public List<Team> Teams { get; set; }
+        public List<Blog> Blogs { get; set; }
         public List<Advertising> Advertisings { get; set; }
-        public List<HeaderBackground> HeaderBackgrounds { get; set; }
+        public Dictionary<string, string> HeaderBackgrounds { get; set; }
 
     }
 }

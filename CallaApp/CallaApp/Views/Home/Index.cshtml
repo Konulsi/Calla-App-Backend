@@ -32,8 +32,8 @@
         <div class="container mt-5">
             <div class="col-lg-12">
                 <div class="arrivals-content">
-                    <h4>@Model.HeaderBackgrounds.Where(h=>h.Id == 1).FirstOrDefault().Value</h4>
-                    <h2> @Model.HeaderBackgrounds.Where(h=>h.Id == 3).FirstOrDefault().Value </h2>
+                    <h4>@Model.HeaderBackgrounds["Arrival Header"]</h4>
+                    <h2> @Model.HeaderBackgrounds["Arrival Content"] </h2>
                     <div class="arrival-img"> <img src="~/assets/images/slider-on-logo.png" alt=""> </div>
                 </div>
             </div>
@@ -520,8 +520,8 @@
         <div class="container mt-5">
             <div class="col-lg-12">
                 <div class="blog-header-content">
-                    <h4> @Model.HeaderBackgrounds.Where(h=>h.Id == 5).FirstOrDefault().Value </h4>
-                    <h2> @Model.HeaderBackgrounds.Where(h=>h.Id == 7).FirstOrDefault().Value </h2>
+                    <h4> @Model.HeaderBackgrounds["Articles Header"]</h4>
+                    <h2> @Model.HeaderBackgrounds["Home Blog Header"] </h2>
                     <div class="blog-header-logo"> <img src="~/assets/images/slider-on-logo.png" alt=""> </div>
                 </div>
             </div>
@@ -532,61 +532,25 @@
     <section id="blogs">
         <div class="container mt-5">
             <div class="row">
-                <div class="col-lg-4 col-md-6 col-sm-12 mt-5">
-                    <div class="blog-date">
-                        <span>26.03.2023</span>
+               @foreach (var blog in Model.Blogs.Take(3))
+                {
+                    <div class="col-lg-4 col-md-6 col-sm-12 mt-5">
+                        <div class="blog-date">
+                            <span>@blog.CreateDate</span>
+                        </div>
+                        <div class="blog-name">
+                            <h5>@blog.Title </h5>
+                        </div>
+                        <div class="blog-description">
+                           @blog.Description.Substring(0,300)
+                        </div>
+                        <div class="read-more">
+                            <a href="~/BlogDetail.html">Read More</a>
+                        </div>
                     </div>
-                    <div class="blog-name">
-                        <h5>CALLA COLLECTION </h5>
-                    </div>
-                    <div class="blog-description">
-                        Lorem ipsum dolor sit amet, consectetur a elit. In ut ullamcorper leo, eget euismod orci.
-                        Cum sociis
-                        natoque penatibus et magnis dis parturient montes, nascetur ridiculus musbulum ultricies
-                        aliquam.
-                    </div>
-                    <div class="read-more">
-                        <a href="~/BlogDetail.html">Read More</a>
-                    </div>
-                </div>
+                }        
 
-                <div class="col-lg-4 col-md-6 col-sm-12 mt-5">
-                    <div class="blog-date">
-                        <span>30.03.2023</span>
-                    </div>
-                    <div class="blog-name">
-                        <h5>DECORATE YOUR TABLE</h5>
-                    </div>
-                    <div class="blog-description">
-                        Lorem ipsum dolor sit amet, consectetur a elit. In ut ullamcorper leo, eget euismod orci.
-                        Cum sociis
-                        natoque penatibus et magnis dis parturient montes, nascetur ridiculus musbulum ultricies
-                        aliquam.
-                    </div>
-                    <div class="read-more">
-                        <a href="~/BlogDetail.html">Read More</a>
 
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 col-sm-12 mt-5">
-                    <div class="blog-date">
-                        <span>15.04.2023</span>
-                    </div>
-                    <div class="blog-name">
-                        <h5>ROUND MIRRORS</h5>
-                    </div>
-                    <div class="blog-description">
-                        Lorem ipsum dolor sit amet, consectetur a elit. In ut ullamcorper leo, eget euismod orci.
-                        Cum sociis
-                        natoque penatibus et magnis dis parturient montes, nascetur ridiculus musbulum ultricies
-                        aliquam.
-                    </div>
-                    <div class="read-more">
-                        <a href="~/BlogDetail.html">Read More</a>
-
-                    </div>
-                </div>
             </div>
 
         </div>
@@ -597,8 +561,8 @@
     <section id="gift">
         <div class="container">
             <div class="col-lg-12">
-                <div class="gift-img" style="background-image: url(./assets/images/@Model.HeaderBackgrounds.Where(h=>h.Id == 9).FirstOrDefault().Value);">
-                    <h2>@Model.HeaderBackgrounds.Where(h=>h.Id == 8).FirstOrDefault().Value </h2>
+                <div class="gift-img" style="background-image: url(../../assets/images/@Model.HeaderBackgrounds["Gift Backgroun"])">
+                    <h2>@Model.HeaderBackgrounds["Gift Description"]</h2>
                     <img src="~/assets/images/banner-on-logo.png" alt="">
 
                 </div>
@@ -609,10 +573,10 @@
 
     <section id="our-team">
         <div class="container mt-5">
-            <div class="team-img" style="background-image: url(./assets/images/@Model.HeaderBackgrounds.Where(h=>h.Id == 10).FirstOrDefault().Value );">
+            <div class="team-img" style="background-image: url(../../assets/images/@Model.HeaderBackgrounds["Our Team Background"])">
                 <div class="team-content">
-                    <h4> @Model.HeaderBackgrounds.Where(h=>h.Id == 12).FirstOrDefault().Value </h4>
-                    <h2> @Model.HeaderBackgrounds.Where(h=>h.Id == 13).FirstOrDefault().Value </h2>
+                    <h4>@Model.HeaderBackgrounds["Team Title"]</h4>
+                    <h2> @Model.HeaderBackgrounds["Team Description"]</h2>
                     <img src="~/assets/images/logo-white.png" alt="">
                 </div>
             </div>
@@ -669,8 +633,8 @@
         <div class="container mt-5">
             <div class="col-lg-12">
                 <div class="decor-header-content">
-                    <h4> @Model.HeaderBackgrounds.Where(h=>h.Id == 15).FirstOrDefault().Value </h4>
-                    <h2> @Model.HeaderBackgrounds.Where(h=>h.Id == 16).FirstOrDefault().Value</h2>
+                    <h4> @Model.HeaderBackgrounds["Decor Header"] </h4>
+                    <h2> @Model.HeaderBackgrounds["Decor Beutiful"]</h2>
                     <div class="decor-header-logo"> <img src="~/assets/images/slider-on-logo.png" alt=""> </div>
                 </div>
             </div>
@@ -702,13 +666,13 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="news-letter-content"
-                         style="background-image: url(./assets/images/@Model.HeaderBackgrounds.Where(h=>h.Id == 17).FirstOrDefault().Value);">
+                         style="background-image: url(../../assets/images/@Model.HeaderBackgrounds["News Letter Background"])">
 
                         <div class="row">
                             <div class="col-lg-6 col-md-12 col-sm-12">
                                 <div class="newsletter">
-                                    <h4> @Model.HeaderBackgrounds.Where(h=>h.Id == 18).FirstOrDefault().Value</h4>
-                                    <p>@Model.HeaderBackgrounds.Where(h=>h.Id == 19).FirstOrDefault().Value </p>
+                                    <h4> @Model.HeaderBackgrounds["News Letter Title"] </h4>
+                                    <p>@Model.HeaderBackgrounds["News Letter Description"]</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12 col-sm-12">

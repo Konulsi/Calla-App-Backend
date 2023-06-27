@@ -461,6 +461,7 @@ body {
   position: relative;
   top: 180px;
   padding: 0 7% 0 7%;
+  text-align: left;
 }
 #blogs .blog-date {
   color: #676767;

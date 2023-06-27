@@ -8,12 +8,14 @@ namespace CallaApp.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly AppDbContext _context;
         private readonly ILayoutService _layoutService;
         private readonly ISliderService _sliderService;
         private readonly IBannerService _bannerService;
         private readonly IDecorService _decorService;
         private readonly IBrandService _brandService;
         private readonly ITeamService _teamService;
+        private readonly IBlogService _blogService;
         private readonly IAdvertisingService _advertisingService;
 
 
@@ -23,7 +25,9 @@ namespace CallaApp.Controllers
                               IAdvertisingService advertisingService,
                               IDecorService decorService,
                               IBrandService brandService,
-                              ITeamService teamService)
+                              ITeamService teamService,
+                              AppDbContext context,
+                              IBlogService blogService)
         {
             _sliderService = sliderService;
             _bannerService = bannerService;
@@ -32,6 +36,8 @@ namespace CallaApp.Controllers
             _layoutService = layoutService;
             _brandService = brandService;
             _teamService = teamService;
+            _context = context;
+            _blogService = blogService;
         }
         public async Task<IActionResult> Index()
         {
@@ -40,8 +46,10 @@ namespace CallaApp.Controllers
             List<Decor> decors = await _decorService.GetAllAsync();
             List<Brand> brands = await _brandService.GetAllAsync();
             List<Team> teams = await _teamService.GetAllAsync();
+            List<Blog> blogs = await _blogService.GetAllAsync();
             List<Advertising> advertisings = await _advertisingService.GetAllAsync();
-            List<HeaderBackground> headerBackgrounds = _layoutService.GetAllAsync();
+            Dictionary<string, string> headerBackgrounds = _context.HeaderBackgrounds.AsEnumerable().ToDictionary(m => m.Key, m => m.Value);
+
 
             HomeVM model = new()
             {
@@ -51,7 +59,8 @@ namespace CallaApp.Controllers
                 Advertisings = advertisings,
                 Decors = decors,
                 Brands = brands,
-                Teams = teams
+                Teams = teams,
+                Blogs = blogs,
             };
 
             return View(model);
