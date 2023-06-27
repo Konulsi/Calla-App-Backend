@@ -4,7 +4,8 @@ namespace CallaApp.ViewModels
 {
     public class AboutVM
     {
-        public List<HeaderBackground> HeaderBackgrounds { get; set; }
+        //public List<HeaderBackground> HeaderBackgrounds { get; set; }
+        public Dictionary<string, string> HeaderBackgrounds { get; set; }
         public List<About> Abouts { get; set; }
         public List<Team> Teams { get; set; }
     }

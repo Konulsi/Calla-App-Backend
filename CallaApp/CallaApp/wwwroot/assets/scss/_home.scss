@@ -714,57 +714,36 @@ body {
 
                 .member-detail {
                     position: absolute;
-                    top: 35%;
-                    left: 15%;
+                    top: 43%;
+                    left: 23%;
 
                     .member-name {
                         h5 {
                             font-size: 30px;
                             font-family: serif;
                         }
-
                     }
 
                     .member-position {
                         color: #474141f2;
-                        font-size: 17px;
-                    }
-
-
-                    .social-icons {
-                        display: flex;
-                        justify-content: space-evenly;
-                        padding: 5% 30% 0 30%;
                         font-size: 20px;
-                        width: 210px;
                     }
                 }
-
-
             }
 
-            transition: all 1,
-            5s;
+            transition: all 1, 5s;
 
 
             &:hover {
                 transition: all 1, 5s;
 
                 .member-img-hover {
-
                     opacity: 1;
                     background-color: #ffffffeb;
-
                 }
-
             }
-
         }
-
-
-
     }
-
 }
 
 

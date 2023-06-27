@@ -1,0 +1,54 @@
+﻿@model BlogUpdateVM
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<div class="container my-5">
+    <div class="img-detail">
+        @foreach (var item in Model.BlogImages)
+        {
+            <img src="~/assets/images/@item.Image" style="width:250px;height:200px" />
+
+        }
+    </div>
+     <span class="text-danger "></span>
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+         <span class="text-danger">@ViewBag.error</span>
+        <div class="form-group">
+            <label class="my-2">Images</label>
+            <input class="form-control" id="customFile" asp-for="Photos" />
+            <span class="text-danger" asp-validation-for="Photos"></span>
+        </div>
+        <div class="form-group">
+            <label class="my-2">Title</label>
+            <input class="form-control " id="customFile" asp-for="Title" />
+            <span class="text-danger" asp-validation-for="Title"></span>
+        </div>
+        <div class="form-group">
+            <label class="my-2">Description</label>
+            <textarea class="form-control" id="description-text" asp-for="Description" rows="5"></textarea>
+            <span class="text-danger" asp-validation-for="Description"></span>
+        </div>
+        <div class="form-group">
+            <label class="my-2">Author</label>
+            <select class="form-control" id="customFile" asp-for="AuthorId" asp-items="@ViewBag.authors"></select>
+        </div>
+        <div class="buttons my-3">
+                    <button type="submit" class="btn btn-success"><i class="feather mr-2 icon-check-circle"></i>Submit</button>
+                    <a asp-action="Index" class="btn btn-danger"><i class="feather mr-2 icon-check-circle"></i>Cancel</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/Admin/src/js/index.js"></script>
+}
+
+
+
+
+
+

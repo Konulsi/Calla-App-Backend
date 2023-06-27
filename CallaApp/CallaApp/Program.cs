@@ -37,7 +37,9 @@ builder.Services.AddScoped<IWebSiteSocialService, WebSiteSocialService>();
 builder.Services.AddScoped<IAboutService, AboutService>();
 builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<IPositionService, PositionService>();
-//builder.Services.AddScoped<ITeamSocialService, TeamSocialService>();
+builder.Services.AddScoped<IBlogService, BlogService>();
+builder.Services.AddScoped<IAuthorService, AuthorService>();
+
 
 
 

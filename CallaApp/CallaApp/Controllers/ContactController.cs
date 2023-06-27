@@ -12,28 +12,28 @@ namespace CallaApp.Controllers
     {
         private readonly AppDbContext _context;
         private readonly IBrandService _brandService;
-        private readonly ILayoutService _layoutService;
         private readonly IWebSiteSocialService _webSiteSocialService;
         public ContactController(AppDbContext context, 
                                 IBrandService brandService,
-                                IWebSiteSocialService webSiteSocialService,
-                                ILayoutService layoutService)
+                                IWebSiteSocialService webSiteSocialService)
         {
             _context = context;
             _brandService = brandService;
             _webSiteSocialService = webSiteSocialService;
-            _layoutService = layoutService;
         }
         public async Task<IActionResult> Index()
         {
             List<Brand> brands = await _brandService.GetAllAsync();
             List<WebSiteSocial> socials = await _webSiteSocialService.GetAllAsync();
+            Dictionary<string, string> headerBackgrounds = _context.HeaderBackgrounds.AsEnumerable().ToDictionary(m => m.Key, m => m.Value);
+            Dictionary<string, string> settings = _context.Settings.AsEnumerable().ToDictionary(m => m.Key, m => m.Value);
 
             ContactVM model = new()
             {
                 Brands = brands,
                 Socials = socials,
-                Settings = _layoutService.GetSettingsData(),
+                Settings = settings,
+                HeaderBackgrounds = headerBackgrounds
             };
             return View(model);
         }

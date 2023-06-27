@@ -4,6 +4,6 @@ namespace CallaApp.ViewModels
 {
     public class CartVM
     {
-        public List<HeaderBackground> HeaderBackgrounds { get; set; }
+        public Dictionary<string, string> HeaderBackgrounds { get; set; }
     }
 }

@@ -16,5 +16,6 @@ namespace CallaApp.ViewModels
         public List<Brand> Brands { get; set; }
         public List<WebSiteSocial> Socials { get; set; }
         public Dictionary<string, string> Settings { get; set; }
+        public Dictionary<string, string> HeaderBackgrounds { get; set; }
     }
 }

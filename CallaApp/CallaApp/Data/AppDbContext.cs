@@ -28,16 +28,15 @@ namespace CallaApp.Data
         public DbSet<Contact> Contact { get; set; }
         public DbSet<Team> Teams { get; set; }
         public DbSet<Position> Positions { get; set; }
-
-        //public DbSet<TeamSocial> TeamSocials { get; set; }
-
-
-
-
-
         public DbSet<MiniImage> MiniImages { get; set; }
         public DbSet<WebSiteSocial> WebSiteSocials { get; set; }
         public DbSet<HeaderBackground> HeaderBackgrounds { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<Author> Authors { get; set; }
+        public DbSet<BlogComment> BlogComments { get; set; }
+        public DbSet<BlogImage> BlogImage { get; set; }
+
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -61,6 +60,11 @@ namespace CallaApp.Data
             modelBuilder.Entity<About>().HasQueryFilter(p => !p.SoftDelete);
             modelBuilder.Entity<Team>().HasQueryFilter(p => !p.SoftDelete);
             modelBuilder.Entity<Position>().HasQueryFilter(p => !p.SoftDelete);
+            modelBuilder.Entity<Blog>().HasQueryFilter(p => !p.SoftDelete);
+            modelBuilder.Entity<BlogComment>().HasQueryFilter(p => !p.SoftDelete);
+            modelBuilder.Entity<BlogImage>().HasQueryFilter(p => !p.SoftDelete);
+            modelBuilder.Entity<Author>().HasQueryFilter(p => !p.SoftDelete);
+
         }
     }
 }

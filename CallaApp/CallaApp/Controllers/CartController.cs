@@ -1,4 +1,5 @@
-﻿using CallaApp.Models;
+﻿using CallaApp.Data;
+using CallaApp.Models;
 using CallaApp.Services.Interfaces;
 using CallaApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -7,14 +8,14 @@ namespace CallaApp.Controllers
 {
     public class CartController : Controller
     {
-        private readonly ILayoutService _layoutService;
-        public CartController(ILayoutService layoutService)
+        private readonly AppDbContext _context;
+        public CartController(AppDbContext context)
         {
-            _layoutService = layoutService;
+            _context = context;
         }
         public async Task<IActionResult> Index()
         {
-            List<HeaderBackground> headerBackgrounds = _layoutService.GetAllAsync();
+            Dictionary<string, string> headerBackgrounds = _context.HeaderBackgrounds.AsEnumerable().ToDictionary(m => m.Key, m => m.Value);
 
             CartVM model = new()
             {

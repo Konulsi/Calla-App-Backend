@@ -8,7 +8,7 @@
 <!-- Main star -->
 <main>
     <section id="about-header-img">
-        <div class="about-bg-img" style="background-image: url('./assets/images/@Model.HeaderBackgrounds.Where(h=>h.Id == 20).FirstOrDefault().Value')">
+        <div class="about-bg-img" style="background-image: url(../../assets/images/@Model.HeaderBackgrounds["PagesBg"])">
             <h1>BLOG</h1>
             <img src="~/assets/images/banner-on-logo.png" alt="">
         </div>
@@ -17,65 +17,59 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-9 col-md-12 col-sm-12">
-                    <div class="blog-slide1">
-                        <div class="container my-5">
-                            <div class="swiper mySwiper">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide slider1">
-                                        <img src="~/assets/images/blog-img1.jpg" alt="">
+                    @foreach (var blog in Model.Blogs)
+                    {
+                        <div class="blog-slide1">
+                            <div class="container my-5">
+                                <div class="swiper mySwiper">
+                                    <div class="swiper-wrapper">
+                                        @foreach (var blogImage in blog.BlogImage)
+                                        {
+                                            <div class="swiper-slide slider1">
+                                                <img src="~/assets/images/@blogImage.Image" alt="">
+                                            </div>
+                                        }
+
+
+@*                                        <div class="swiper-slide slider2">
+                                            <img src="~/assets/images/blog-single-img-2.jpg" alt="">
+
+                                        </div>
+
+                                        <div class="swiper-slide slider3">
+                                            <img src="~/assets/images/blog-single-img-3.jpg" alt="">
+
+                                        </div>*@
+
                                     </div>
+                                </div>
+                            </div>
 
-                                    <div class="swiper-slide slider2">
-                                        <img src="~/assets/images/blog-single-img-2.jpg" alt="">
-
+                            <div class="container my-5">
+                                <div class="blog-post-text">
+                                    <div class="post-info-top">
+                                        <div class="post-info-author">
+                                            <span>BY @blog.Author.Name</span>
+                                        </div>
+                                        <div class="post-date">
+                                            <span> @blog.CreateDate </span>
+                                        </div>
                                     </div>
-
-                                    <div class="swiper-slide slider3">
-                                        <img src="~/assets/images/blog-single-img-3.jpg" alt="">
-
+                                    <div class="post-title">
+                                        <h3><a href="./BlogDetail.html">@blog.Title</a></h3>
                                     </div>
-
+                                    <div class="post-description">
+                                        <p> @blog.Description</p>
+                                    </div>
+                                    <div class="post-readmore-btn">
+                                        <a href="./BlogDetail.html">READ MORE</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    }
 
-                        <div class="container my-5">
-                            <div class="blog-post-text">
-                                <div class="post-info-top">
-                                    <div class="post-info-author">
-                                        <span>BY HEATHER BERRY</span>
-                                    </div>
-                                    <div class="post-date">
-                                        <span> 28.04.2023 </span>
-                                    </div>
-                                    <div class="post-info-category">
-                                        <span>FURNISHINGS</span>
-                                    </div>
-                                </div>
-                                <div class="post-title">
-                                    <h3><a href="./BlogDetail.html"> 5 IDEAS TO DECORATE YOUR TABLE</a></h3>
-                                </div>
-                                <div class="post-description">
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur a elit. In ut ullamcorper leo, eget euismod orci. Cum
-                                        sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus musbulum
-                                        ultricies
-                                        aliquam. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis
-                                        bibendum
-                                        auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet
-                                        nibh
-                                        vulputate. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-                                        himenaeos. Mauris in erat justo. Nullam ac urna eu felis dapibus condimentum sit amet a
-                                        augue.
-                                    </p>
-                                </div>
-                                <div class="post-readmore-btn">
-                                    <a href="./BlogDetail.html">READ MORE</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="blog-slide2">
+@*                    <div class="blog-slide2">
                         <div class="container my-5">
                             <div class="swiper mySwiper">
                                 <div class="swiper-wrapper">
@@ -106,9 +100,7 @@
                                     <div class="post-date">
                                         <span> 16.05.2023 </span>
                                     </div>
-                                    <div class="post-info-category">
-                                        <span>DECORATION</span>
-                                    </div>
+
                                 </div>
                                 <div class="post-title">
                                     <h3><a href="./BlogDetail.html">MASTER BEDROOM: THE FURNITURE</a></h3>
@@ -164,9 +156,6 @@
                                     </div>
                                     <div class="post-date">
                                         <span> 08.03.2023 </span>
-                                    </div>
-                                    <div class="post-info-category">
-                                        <span>ACCESSORIES</span>
                                     </div>
                                 </div>
                                 <div class="post-title">
@@ -225,9 +214,6 @@
                                     <div class="post-date">
                                         <span> 22.02.2023 </span>
                                     </div>
-                                    <div class="post-info-category">
-                                        <span>TABLEWARE</span>
-                                    </div>
                                 </div>
                                 <div class="post-title">
                                     <h3><a href="./BlogDetail.html">NEW ART FOR YOUR HOME</a></h3>
@@ -251,7 +237,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>*@
 
 
                 </div>

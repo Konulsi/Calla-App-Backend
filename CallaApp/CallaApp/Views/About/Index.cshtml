@@ -1,5 +1,4 @@
 ﻿@model AboutVM
-
 @{
     ViewData["Title"] = "About";
 }
@@ -7,7 +6,7 @@
 <main>
 
     <section id="about-header-img">
-        <div class="about-bg-img" style="background-image: url('./assets/images/@Model.HeaderBackgrounds.Where(h=>h.Id == 20).FirstOrDefault().Value')">
+        <div class="about-bg-img" style="background-image: url(../../assets/images/@Model.HeaderBackgrounds["PagesBg"])">
             <h1>ABOUT US</h1>
             <img src="~/assets/images/banner-on-logo.png" alt="">
         </div>
@@ -72,8 +71,8 @@
         <div class="container mt-5">
             <div class="col-lg-12">
                 <div class="success-content">
-                    <h4>@Model.HeaderBackgrounds.Where(h=>h.Id == 22).FirstOrDefault().Value</h4>
-                    <h2> @Model.HeaderBackgrounds.Where(h=>h.Id == 23).FirstOrDefault().Value </h2>
+                    <h4>@Model.HeaderBackgrounds["Our success"]</h4>
+                    <h2> @Model.HeaderBackgrounds["Testimontials"] </h2>
                     <div class="arrival-img"> <img src="~/assets/images/slider-on-logo.png" alt=""> </div>
                 </div>
             </div>

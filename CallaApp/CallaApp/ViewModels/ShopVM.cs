@@ -9,7 +9,6 @@ namespace CallaApp.ViewModels
         public List<Category> Categories { get; set; }
         public List<Color> Colors { get; set; }
         public List<Brand> Brands { get; set; }
-        public List<HeaderBackground> HeaderBackgrounds { get; set; }
-
+        public Dictionary<string, string> HeaderBackgrounds { get; set; }
     }
 }

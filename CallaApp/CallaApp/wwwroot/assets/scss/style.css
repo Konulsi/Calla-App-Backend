@@ -555,24 +555,24 @@ body {
 }
 #our-team .members .single-member .member-img-hover .member-detail {
   position: absolute;
-  top: 35%;
-  left: 15%;
+  top: 43%;
+  left: 23%;
 }
 #our-team .members .single-member .member-img-hover .member-detail .member-name h5 {
   font-size: 30px;
   font-family: serif;
 }
 #our-team .members .single-member .member-img-hover .member-detail .member-position {
-  color: rgba(71, 65, 65, 0.9490196078);
-  font-size: 17px;
+    color: rgb(86 78 78 / 95%);
+    font-size: 20px;
 }
-#our-team .members .single-member .member-img-hover .member-detail .social-icons {
+/*#our-team .members .single-member .member-img-hover .member-detail .social-icons {
   display: flex;
   justify-content: space-evenly;
   padding: 5% 30% 0 30%;
   font-size: 20px;
   width: 210px;
-}
+}*/
 #our-team .members .single-member:hover {
   transition: all 1, 5s;
 }
@@ -843,7 +843,7 @@ body {
 #blog-post-img .blog-post-text .post-info-top {
   justify-content: space-between;
   display: flex;
-  width: 340px;
+  width: 310px;
 }
 #blog-post-img .blog-post-text .post-info-top .post-info-author span {
   color: #b97a56;
@@ -869,20 +869,8 @@ body {
 #blog-post-img .blog-post-text .post-info-top .post-date span:hover {
   color: #b97a56;
 }
-#blog-post-img .blog-post-text .post-info-top .post-date span::after {
-  content: " /";
-}
-#blog-post-img .blog-post-text .post-info-top .post-info-category span {
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: #b97a56;
-  transition: 0.3s;
-}
-#blog-post-img .blog-post-text .post-info-top .post-info-category span:hover {
-  color: black;
-}
+
+
 #blog-post-img .blog-post-text .post-title h3 {
   font-family: "Crimson Text";
   text-transform: uppercase;

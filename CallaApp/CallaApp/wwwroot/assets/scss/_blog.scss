@@ -41,7 +41,7 @@ body {
         .post-info-top {
             justify-content: space-between;
             display: flex;
-            width: 340px;
+            width: 240px;
 
             .post-info-author {
                 span {
@@ -75,25 +75,7 @@ body {
                     }
                 }
 
-                span::after {
-                    content: ' /';
-                }
-            }
 
-            .post-info-category {
-                span {
-                    font-size: 12px;
-                    letter-spacing: .1em;
-                    font-weight: 600;
-                    text-transform: uppercase;
-                    color: #b97a56;
-                    transition: 0.3s;
-
-                    &:hover {
-                        color: black;
-                    }
-                }
-            }
         }
 
         .post-title {

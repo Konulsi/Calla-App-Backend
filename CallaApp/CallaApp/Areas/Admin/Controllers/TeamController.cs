@@ -15,20 +15,17 @@ namespace CallaApp.Areas.Admin.Controllers
     {
         private readonly AppDbContext _context;
         private readonly ITeamService _teamService;
-        //private readonly ITeamSocialService _teamSocialService;
         private readonly IPositionService _positionService;
         private readonly IWebHostEnvironment _env;
         public TeamController(AppDbContext context,
                               ITeamService teamService,
                               IWebHostEnvironment env,
-                              IPositionService positionService
-                              /*ITeamSocialService teamSocialService*/)
+                              IPositionService positionService)
         {
             _context = context;
             _teamService = teamService;
             _env = env;
             _positionService = positionService;
-            //_teamSocialService = teamSocialService;
         }
 
         public async Task<IActionResult> Index()
@@ -53,18 +50,11 @@ namespace CallaApp.Areas.Admin.Controllers
             List<Position> positions = await _positionService.GetAllAsync();
             return new SelectList(positions, "Id", "Name");
         }
-        //private async Task<SelectList> GetIconAsync()
-        //{
-        //    List<TeamSocial> socialIcon = await _teamSocialService.GetAllAsync();
-        //    return new SelectList(socialIcon, "Id", "Name");
-        //}
 
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            ViewBag.positions = await GetPositionAsync();
-            //ViewBag.socialIcon = await GetIconAsync();
-
+            @ViewBag.positions = await GetPositionAsync();
             return View();
         }
 
@@ -75,8 +65,7 @@ namespace CallaApp.Areas.Admin.Controllers
         {
             try
             {
-                ViewBag.positions = await GetPositionAsync();
-                //ViewBag.socialIcon = await GetIconAsync();
+                @ViewBag.positions = await GetPositionAsync();
 
                 if (!ModelState.IsValid)
                 {
@@ -96,33 +85,138 @@ namespace CallaApp.Areas.Admin.Controllers
                 }
 
                 string fileName = Guid.NewGuid().ToString() + "_" + createTeam.Photo.FileName;
-                string path = FileHelper.GetFilePath(_env.WebRootPath, "assets/images", fileName);
-                await FileHelper.SaveFileAsync(path, createTeam.Photo);
+                string newPath = FileHelper.GetFilePath(_env.WebRootPath, "assets/images", fileName);
+                await FileHelper.SaveFileAsync(newPath, createTeam.Photo);
 
                 Team newTeam = new()
                 {
                     Image = fileName,
                     Name = createTeam.Name,
+                    PositionId = createTeam.PositionId,
                     Testimontial = createTeam.Testimonial,
-                   
                 };
-                await _context.Teams.AddAsync(newTeam);
 
+                await _context.Teams.AddAsync(newTeam);
                 await _context.SaveChangesAsync();
 
-                //foreach (var item in createTeam.Icons)
-                //{
-                //    TeamSocial newSocial = new()
-                //    {
-                //        //TeamId = newTeam.Id,
-                //        //Link = item.Link,
-                //        Icon = item.Icon,
-                //    };
-                //    await _context.TeamSocials.AddAsync(newSocial);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ViewBag.error = ex.Message;
+                return View();
+            }
+        }
 
-                //    await _context.SaveChangesAsync();
-                //}
 
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            try
+            {
+                if (id == null) return BadRequest();
+                Team dbTeam = await _teamService.GetFullDataByIdAsync(id);
+                if (dbTeam == null) return NotFound();
+
+                string path = FileHelper.GetFilePath(_env.WebRootPath, "assets/images", dbTeam.Image);
+                FileHelper.DeleteFile(path);
+
+                _context.Teams.Remove(dbTeam);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ViewBag.error = ex.Message;
+                throw;
+            }
+
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            try
+            {
+                @ViewBag.positions = await GetPositionAsync();
+
+                if (id == null) return BadRequest();
+                Team dbTeam = await _teamService.GetFullDataByIdAsync(id);
+                if (dbTeam == null) return NotFound();
+
+                TeamUpdateVM model = new()
+                {
+                    Image = dbTeam.Image,
+                    Name = dbTeam.Name,
+                    Testimonial = dbTeam.Testimontial,
+                    PositionId = dbTeam.PositionId
+                };
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.error = ex.Message;
+                throw;
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int? id, TeamUpdateVM updatedTeam)
+        {
+            try
+            {
+                @ViewBag.positions = await GetPositionAsync();
+
+                if (id == null) return BadRequest();
+                Team dbTeam = await _teamService.GetFullDataByIdAsync(id);
+                if (dbTeam == null) return NotFound();
+
+                TeamUpdateVM model = new()
+                {
+                    Image = dbTeam.Image,
+                    Name = dbTeam.Name,
+                    Testimonial = dbTeam.Testimontial,
+                    PositionId = dbTeam.PositionId
+                };
+
+                if (updatedTeam.Photo != null)
+                {
+                    if (!updatedTeam.Photo.CheckFileType("image/"))
+                    {
+                        ModelState.AddModelError("Photo", "File type must be image");
+                        return View(model);
+                    }
+                    if (!updatedTeam.Photo.CheckFileSize(600))
+                    {
+                        ModelState.AddModelError("Photo", "Image size must be max 600kb");
+                        return View(model);
+                    }
+
+                    string oldPath = FileHelper.GetFilePath(_env.WebRootPath, "assets/images", dbTeam.Image);
+                    FileHelper.DeleteFile(oldPath);
+
+                    string fileName = Guid.NewGuid().ToString() + " " + updatedTeam.Photo.FileName;
+                    string newPath = FileHelper.GetFilePath(_env.WebRootPath, "assets/images", fileName);
+                    await FileHelper.SaveFileAsync(newPath, updatedTeam.Photo);
+                    dbTeam.Image = fileName;
+                }
+                else
+                {
+                    Team newTeam = new()
+                    {
+                        Image = dbTeam.Image
+                    };
+                }
+
+                dbTeam.Name = updatedTeam.Name;
+                dbTeam.PositionId = updatedTeam.PositionId;
+                dbTeam.Testimontial = updatedTeam.Testimonial;
+
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)

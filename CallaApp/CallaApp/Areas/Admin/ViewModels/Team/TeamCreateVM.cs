@@ -11,8 +11,8 @@ namespace CallaApp.Areas.Admin.ViewModels.Team
         [Required(ErrorMessage = "Don`t be empty")]
         public string Name { get; set; }
         public string Testimonial { get; set; }
-        public int PositionId { get; set; }
-        //public List<TeamSocial> Icons { get; set; }
-        public List<string> Link { get; set; }
+
+        [Required(ErrorMessage = "Don`t be empty")]
+        public int PositionId { get; set; } = new();
     }
 }
