@@ -35,6 +35,10 @@ namespace CallaApp.Data
         public DbSet<Author> Authors { get; set; }
         public DbSet<BlogComment> BlogComments { get; set; }
         public DbSet<BlogImage> BlogImage { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<ProductComment> ProductComments { get; set; }
+        public DbSet<CartProduct> CartProducts { get; set; }
+
 
 
 

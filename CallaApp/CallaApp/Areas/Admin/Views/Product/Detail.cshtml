@@ -1,0 +1,95 @@
+﻿@model ProductDetailVM
+@{
+    ViewData["Title"] = "Detail";
+}
+@section Css{
+    <link href="~/Admin/build/css/custom.min.css" rel="stylesheet">
+}
+<section class="pcoded-main-container">
+    <div class="pcoded-content">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex align-items-center images">
+                    @foreach (var item in Model.Images)
+                    {
+                        <div style="width:200px; margin-right:10px;" data-id="@item.Id">
+                            <img class="img-fluid" src="~/assets/images/website-images/@item.Image" />
+                            <div class=" d-flex align-items-center justify-content-center" data-id="@item.Id">
+                                <div class="statuses" style=" margin-left:10px;">
+                                    @if (item.IsMain)
+                                    {
+                                        <div class="active-status image-status"></div>
+                                    }
+                                    else
+                                    {
+                                        <div class="de-active image-status"></div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <span class="text-danger">@ViewBag.error</span>
+                <form asp-action="Detail">
+                    <span class="text-danger">@ViewBag.error</span>
+                    <div class="form-group">
+                        <label>SKU</label>
+                        <input disabled class="form-control" asp-for="SKU">
+                    </div>
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input disabled class="form-control" asp-for="Name">
+                    </div>
+                    <div class="form-group">
+                        <label>Price</label>
+                        <input disabled class="form-control" asp-for="Price">
+                    </div>
+                    <div class="form-group">
+                        <label>Stock Count</label>
+                        <input disabled class="form-control" asp-for="StockCount">
+                    </div>
+                    <div class="form-group">
+                        <label>Sale Count</label>
+                        <input disabled class="form-control" asp-for="SaleCount" type="number" />
+                    </div>
+                    <div class="form-group">
+                        <label>Rating</label>
+                        <input disabled class="form-control" asp-for="Rate" />
+                    </div>
+                    <div class="form-group">
+                        <label>Brand Name</label>
+                        <input disabled class="form-control" asp-for="@Model.BrandName">
+                    </div>
+                    <div class="form-group">
+                        <label>Category Name</label>
+                        <input disabled class="form-control" value="@string.Join(",", Model.ProductCategories.Select(pc=>pc.Category.Name))">
+                    </div>
+                    <div class="form-group">
+                        <label>Tag Name</label>
+                        <input disabled class="form-control" value="@string.Join(",", Model.ProductTags.Select(pc=>pc.Tag.Name))">
+                    </div>
+                    <div class="form-group">
+                        <label>Size Name</label>
+                        <input disabled class="form-control" value="@string.Join(",", Model.ProductSizes.Select(pc=>pc.Size.Name))">
+                    </div>
+                    <div class="form-group">
+                        <label>Color Name</label>
+                        <input disabled class="form-control" value="@string.Join(",", Model.ProductColors.Select(pc=>pc.Color.Name))">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea disabled class="form-control" rows="3" asp-for="Description"></textarea>
+                    </div>
+                    <a asp-action="Index" asp-route-page="@ViewBag.page" class="btn btn-success"><i class="feather mr-2 icon-check-circle"></i>Go to list</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    <script src="~/Admin/src/js/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+}
+
+

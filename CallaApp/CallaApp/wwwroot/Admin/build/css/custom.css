@@ -13,6 +13,34 @@ td a i {
     margin-left: 10px !important;
 }
 
+.active-status {
+    width: 20px;
+    height: 20px;
+    background-color: greenyellow;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.de-active {
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.img-detail {
+    width: 500px;
+}
+
+.delete-image {
+    font-size: 18px;
+}
+
+.statutes {
+    width: 60px !important;
+}
+
 
 /*.nav-md .container.body .right_col {
     padding: 35px 0px 0 !important;
