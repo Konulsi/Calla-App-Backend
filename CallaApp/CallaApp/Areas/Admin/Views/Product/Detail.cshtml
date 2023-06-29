@@ -13,7 +13,7 @@
                     @foreach (var item in Model.Images)
                     {
                         <div style="width:200px; margin-right:10px;" data-id="@item.Id">
-                            <img class="img-fluid" src="~/assets/images/website-images/@item.Image" />
+                            <img class="img-fluid" src="~/assets/images/@item.Image" />
                             <div class=" d-flex align-items-center justify-content-center" data-id="@item.Id">
                                 <div class="statuses" style=" margin-left:10px;">
                                     @if (item.IsMain)

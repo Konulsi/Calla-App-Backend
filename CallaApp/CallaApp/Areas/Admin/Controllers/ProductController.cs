@@ -549,7 +549,6 @@ namespace CallaApp.Areas.Admin.Controllers
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int? id)
         {
             try
@@ -575,85 +574,81 @@ namespace CallaApp.Areas.Admin.Controllers
         }
 
 
-        //[HttpPost]
-        //public async Task<IActionResult> DeleteProductImage(int? id)
-        //{
-        //    try
-        //    {
-        //        if (id is null) return BadRequest();
-        //        ProductImage image = await _productService.GetImageById((int)id);
+        [HttpPost]
+        public async Task<IActionResult> DeleteProductImage(int? id)
+        {
+            try
+            {
+                if (id is null) return BadRequest();
+                ProductImage image = await _productService.GetImageById((int)id);
 
-        //        if (image is null) return NotFound();
-        //        Product dbProduct = await _productService.GetProductByImageId((int)id);
-        //        if (dbProduct is null) return NotFound();
+                if (image is null) return NotFound();
+                Product dbProduct = await _productService.GetProductByImageId((int)id);
+                if (dbProduct is null) return NotFound();
 
-        //        DeleteResponse response = new();
-        //        response.Result = false;
+                DeleteResponse response = new();
+                response.Result = false;
 
-        //        if (dbProduct.ProductImages.Count > 1)
-        //        {
-        //            string path = FileHelper.GetFilePath(_env.WebRootPath, "assets/images/website-images", image.ImgName);
-        //            FileHelper.DeleteFile(path);
-        //            _productService.RemoveImage(image);
+                if (dbProduct.Images.Count > 1)
+                {
+                    string path = FileHelper.GetFilePath(_env.WebRootPath, "assets/images", image.Image);
+                    FileHelper.DeleteFile(path);
+                    _productService.RemoveImage(image);
 
-        //            await _crudService.SaveAsync();
-        //            response.Result = true;
-        //        }
+                    await _context.SaveChangesAsync();
+                    response.Result = true;
+                }
 
-        //        dbProduct.ProductImages.FirstOrDefault().IsMain = true;
+                dbProduct.Images.FirstOrDefault().IsMain = true;
+                response.Id = dbProduct.Images.FirstOrDefault().Id;
+                await _context.SaveChangesAsync();
 
-        //        response.Id = dbProduct.ProductImages.FirstOrDefault().Id;
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.error = ex.Message;
+                return View();
+            }
+        }
 
-        //        await _crudService.SaveAsync();
+        [HttpPost]
+        public async Task<IActionResult> SetStatus(int? id)
+        {
+            try
+            {
+                if (id == null) return BadRequest();
+                ProductImage image = await _productService.GetImageById((int)id);
+                if (image is null) return NotFound();
 
-        //        return Ok(response);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ViewBag.error = ex.Message;
-        //        return View();
-        //    }
-        //}
+                Product dbProduct = await _productService.GetProductByImageId((int)id);
+                if (dbProduct is null) return NotFound();
 
-        //[HttpPost]
-        //public async Task<IActionResult> SetStatus(int? id)
-        //{
-        //    try
-        //    {
-        //        if (id == null) return BadRequest();
+                if (!image.IsMain)
+                {
+                    image.IsMain = true;
+                    await _context.SaveChangesAsync();
+                }
 
-        //        ProductImage image = await _productService.GetImageById((int)id);
+                var images = dbProduct.Images.Where(m => m.Id != id).ToList();
 
-        //        if (image is null) return NotFound();
+                foreach (var item in images)
+                {
+                    if (item.IsMain)
+                    {
+                        item.IsMain = false;
+                        await _context.SaveChangesAsync();
+                    }
+                }
 
-        //        Product dbProduct = await _productService.GetProductByImageId((int)id);
-        //        if (dbProduct is null) return NotFound();
-
-        //        if (!image.IsMain)
-        //        {
-        //            image.IsMain = true;
-        //            await _crudService.SaveAsync();
-        //        }
-
-        //        var images = dbProduct.ProductImages.Where(m => m.Id != id).ToList();
-
-        //        foreach (var item in images)
-        //        {
-        //            if (item.IsMain)
-        //            {
-        //                item.IsMain = false;
-        //                await _crudService.SaveAsync();
-        //            }
-        //        }
-
-        //        return Ok(image.IsMain);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ViewBag.error = ex.Message;
-        //        return View();
-        //    }
-        //}
+                return Ok(image.IsMain);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.error = ex.Message;
+                return View();
+            }
+        }
 
     }
 }

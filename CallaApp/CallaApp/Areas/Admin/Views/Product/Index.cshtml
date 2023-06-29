@@ -1,6 +1,8 @@
 ﻿@model Paginate<ProductListVM>
 @{
     ViewData["Title"] = "Index";
+    int take = ViewBag.take;
+    int number = (Model.CurrentPage - 1) * take + 1;
 }
 @section Css{
     <link href="~/Admin/build/css/custom.min.css" rel="stylesheet">
@@ -28,6 +30,7 @@
                                             <th>#</th>
                                             <th>Image</th>
                                             <th>Name</th>
+                                            <th>SKU</th>
                                             <th>Price</th>
                                             <th>Options</th>
                                         </tr>
@@ -36,11 +39,12 @@
                                         @foreach (var product in Model.Datas)
                                         {
                                             <tr data-id="@product.Id">
-                                                <td>@product.SKU</td>
+                                                <td> @number</td>
                                                 <td>
-                                                    <div class="image"><img class="img-fluid" src="~/assets/images/@product.Images.Where(i=>i.IsMain).FirstOrDefault()?.Image" /></div>
+                                                    <div class="image"><img src="~/assets/images/@product.Images.Where(i=>i.IsMain).FirstOrDefault()?.Image" style="width: 150px; height: 150px;" /></div>
                                                 </td>
                                                 <td>@product.Name</td>
+                                                <td>@product.SKU</td>
                                                 <td>@product.Price</td>
                                                 <td>
                                                     <a asp-action="Detail" asp-route-id="@product.Id" data-toggle="tooltip" asp-route-page="@Model.CurrentPage" data-original-title="Detail">
@@ -54,11 +58,12 @@
                                                     </a>
                                                 </td>
                                             </tr>
+                                            number++;
                                         }
                                     </tbody>
                                 </table>
                                 <nav class="paginate-area" aria-label="...">
-                                    <ul class="pagination">
+                                    <ul class="pagination " style="justify-content: center;">
                                         <li class="page-item @(Model.HasPrevious ? " " : "disabled")">
                                             <a asp-action="Index" asp-route-page="@(Model.CurrentPage - 1)">
                                                 <span class="page-link @(Model.HasNext ? " " : "disabled")">Previous</span>

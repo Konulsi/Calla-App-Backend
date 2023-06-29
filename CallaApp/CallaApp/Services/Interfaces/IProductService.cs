@@ -15,6 +15,7 @@ namespace CallaApp.Services.Interfaces
         Task<int> GetCountAsync();
         void RemoveImage(ProductImage image);
         Task<Product> GetProductByImageId(int? id);
+        Task<ProductImage> GetImageById(int? id);
         Task<List<Product>> GetPaginatedDatasAsync(int page, int take, int? categoryId, int? colorId, int? tagId, int? brandId, int? sizeId);
         Task<List<ProductVM>> GetProductsByCategoryIdAsync(int? id, int page = 1, int take = 6);
         Task<List<ProductVM>> GetProductsByColorIdAsync(int? id, int page = 1, int take = 6);
