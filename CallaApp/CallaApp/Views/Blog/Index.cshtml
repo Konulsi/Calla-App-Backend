@@ -41,17 +41,17 @@
                                             <span>BY @blog.Author.Name</span>
                                         </div>
                                         <div class="post-date">
-                                            <span> @blog.CreateDate </span>
+                                            <span> @blog.CreateDate.ToString("dd.MM.yyyy") </span>
                                         </div>
                                     </div>
                                     <div class="post-title">
-                                        <h3><a href="./BlogDetail.html">@blog.Title</a></h3>
+                                        <h3><a asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@blog.Id">@blog.Title</a></h3>
                                     </div>
                                     <div class="post-description">
-                                        <p> @blog.Description</p>
+                                        <p> @blog.Description.Substring(0,1150)</p>
                                     </div>
                                     <div class="post-readmore-btn">
-                                        <a href="./BlogDetail.html">READ MORE</a>
+                                        <a asp-controller="Blog" asp-action="BlogDetail">READ MORE</a>
                                     </div>
                                 </div>
                             </div>
@@ -67,10 +67,10 @@
                                 <img class="img-fluid" src="~/assets/images/team-member2.jpg" alt="">
                                 <div class="author-detail">
                                     <div class="author-name">
-                                        <h5>Heather Berry</h5>
+                                        <h5>@Model.Authors.FirstOrDefault()?.Name</h5>
                                     </div>
                                     <div class="author-email">
-                                        <span>heatherberry@email.com</span>
+                                        <span>@Model.Authors.FirstOrDefault()?.Email</span>
                                     </div>
                                     <div class="author-social">
 
@@ -198,19 +198,26 @@
                         </div>
                     </div>
                 </div>
+@*                <div class="page-number">
+                    <ul class="pagination justify-content-end">
+                        <li class="page-item  @(Model.PaginateDatas.HasPrevious ? "" : "disabled")">
+
+                            <a class="page-link" asp-action="Index" asp-route-page="@(Model.PaginateDatas.CurrentPage - 1)" tabindex="-1" aria-label="Previous"><<</a>
+                        </li>
+                        @for (int i = 1; i <= Model.PaginateDatas.TotalPage; i++)
+                        {
+
+                            <li class="page-item active @(Model.PaginateDatas.CurrentPage == i ? "disabled" : "")"><a class="page-link" asp-controller="Blog" asp-action="Index" asp-route-page="@i">@i</a></li>
+
+                        }
+
+                        <li class="page-item  @(Model.PaginateDatas.HasNext ? "" : "disabled")">
+                            <a class="page-link" asp-action="Index" asp-route-page="@(Model.PaginateDatas.CurrentPage + 1)" aria-label="Next">>></a>
+                        </li>
+                    </ul>
+                </div>*@
             </div>
         </div>
-
-        <div class="page-number">
-            <ul>
-                <li><a href=""><i class="fa-solid fa-angle-left" style="color: #8a8a8a; font-size: 14px;"></i></a></li>
-                <li><a href="">1</a></li>
-                <li><a href="">2</a></li>
-                <li><a href=""><i class="fa-solid fa-chevron-right" style="color: #8a8a8a; font-size: 14px;"></i></a></li>
-            </ul>
-        </div>
-
-
     </section>
 </main>
 <!-- Main end -->

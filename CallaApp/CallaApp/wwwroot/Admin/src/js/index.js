@@ -296,6 +296,27 @@
     })
 
 
+    $(document).on("click", ".delete-author", function (e) {
+        e.preventDefault();
+        let Id = $(this).parent().parent().attr("data-id");
+        let deletedElem = $(this).parent().parent();
+        let data = { id: Id };
+
+        $.ajax({
+            url: "Author/Delete",
+            type: "post",
+            data: data,
+            success: function (res) {
+                $(deletedElem).remove();
+                $(".tooltip-inner").remove();
+                $(".arrow").remove();
+                if ($(tbody).length == 1) {
+                    $(".table").remove();
+                }
+            }
+        })
+    })
+
     $(document).on("click", ".delete-product", function (e) {
         e.preventDefault();
         let Id = $(this).parent().parent().attr("data-id");
@@ -326,6 +347,33 @@
     RemoveImage("/Admin/Product/DeleteProductImage");
 
 
+    function RemoveItem(clickedElem, url) {
+        $(document).on("click", clickedElem, function (e) {
+            e.preventDefault()
+            let deleteElem = $(this).parent().parent();
+            let id = $(this).parent().parent().attr("data-id");
+            let data = { id: id };
+            let tbody = $(deleteElem).parent().children();
+            $.ajax({
+                url: url,
+                type: "Post",
+                data: data,
+                success: function () {
+                    if ($(tbody).length == 1) {
+                        $(".table").remove();
+                        (".paginate-area").remove();
+                    }
+                    for (let item of deleteElem) {
+                        if ($(item).attr("data-id") == id) {
+                            $(item).remove();
+                            $(".tooltip-inner").remove()
+                            $(".arrow").remove()
+                        }
+                    }
+                }
+            })
+        })
+    }
 
     function RemoveImage(url) {
         $(document).on("click", ".delete-image", function (e) {

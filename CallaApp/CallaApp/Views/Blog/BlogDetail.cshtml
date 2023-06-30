@@ -1,0 +1,368 @@
+﻿@model BlogDetailVM
+@inject UserManager<AppUser> userManager
+@{
+    ViewData["Title"] = "BlogDetail";
+    int? sumOfProductsCountByCategory = 0;
+}
+
+<main>
+    <section id="detail-header-img">
+        <div class="detail-bg-img" style="background-image: url(../../assets/images/@Model.HeaderBackgrounds["PagesBg"])">
+            <h1>Blog's Detail</h1>
+            <img src="~/assets/images/banner-on-logo.png" alt="">
+        </div>
+    </section>
+
+    <section id="blog-info">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-lg-9 col-md-12 col-sm-12">
+                    <div class="single-blog-main-img">
+                        <img class="img-fluid" src="~/assets/images/@Model.SingleBlog.BlogImage.FirstOrDefault()?.Image" alt="">
+                    </div>
+
+                    <div class="blog-post-text">
+                        <div class="post-info-top">
+                            <div class="post-info-author">
+                                <span>@Model.SingleBlog.Author.Name</span>
+                            </div>
+                            <div class="post-date">
+                                <span> @Model.SingleBlog.CreateDate.ToString("dd.MM.yyyy") </span>
+                            </div>
+                        </div>
+                        <div class="post-title">
+                            <h3><a href="#"> @Model.SingleBlog.Title</a></h3>
+                        </div>
+                        <div class="post-description">
+                            <p>@Model.SingleBlog.Description
+                            </p>
+                        </div>
+                        <hr>
+                        <div class="blog-social">
+
+                            @foreach (var item in Model.Socials.Skip(1))
+                            {
+                                <a class="social-icon" href="@item.Link"
+                                   target="_blank">
+                                    <i class="@item.Icon" style="color:  #767575;"></i>
+                                </a>
+                            }
+
+
+                        </div>
+                    </div>
+                    <div class="related-blog-header">
+                        <h2>RELATED POSTS</h2>
+                    </div>
+
+
+                    <div class="related-blog">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                <div class="blog-card">
+                                    <div class="single-blog-main-img">
+                                        <img class="img-fluid" src="~/assets/images/blog-img1.jpg" alt="">
+                                    </div>
+                                    <div class="post-title">
+                                        <h3><a href="./BlogDetail.html">MASTER BEDROOM: THE FURNITURE</a></h3>
+                                    </div>
+                                    <div class="post-info">
+
+                                        <div class="post-info-author">
+                                            <span>BY HEATHER BERRY</span>
+                                        </div>
+                                        <div class="post-date">
+                                            <span> 28.04.2023 </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                <div class="blog-card">
+                                    <div class="single-blog-main-img">
+                                        <img class="img-fluid" src="~/assets/images/blog-single-img-3.jpg" alt="">
+                                    </div>
+                                    <div class="post-title">
+                                        <h3><a href="./BlogDetail.html">THE BEST LARGE ROUND MIRRORS</a></h3>
+                                    </div>
+                                    <div class="post-info">
+
+                                        <div class="post-info-author">
+                                            <span>BY HEATHER BERRY</span>
+                                        </div>
+                                        <div class="post-date">
+                                            <span> 28.04.2023 </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                <div class="blog-card">
+                                    <div class="single-blog-main-img">
+                                        <img class="img-fluid" src="~/assets/images/blog-single-img-6.jpg" alt="">
+                                    </div>
+                                    <div class="post-title">
+                                        <h3><a href="./BlogDetail.html">5 IDEAS TO DECORATE YOUR TABLE</a></h3>
+                                    </div>
+                                    <div class="post-info">
+
+                                        <div class="post-info-author">
+                                            <span>BY HEATHER BERRY</span>
+                                        </div>
+                                        <div class="post-date">
+                                            <span> 28.04.2023 </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <h2 class="product-rewiev">COMMENTS (@Model.BlogComments.Count)</h2>
+                    <ul class="commentlist">
+                        <li class="review">
+                            <div class="comment_container">
+                                @*<img src="~/assets/images/testimonials-img1.png" width="80" height="80" alt=""*@
+                                     @*class="avatar avatar-60 wp-user-avatar wp-user-avatar-60 alignnone photo">*@
+                                @foreach (var item in Model.SingleBlog.BlogComments)
+                                {
+                                    <div class="comment-text">
+                                        <p class="meta">
+                                            <div class="comment-info">
+                                                <h5 class="comment-user-name">
+                                                    @item.Name
+                                                </h5>
+                                                <a class="reply" href="">reply</a>
+                                            </div>
+                                            <span class="comment-date">@item.CreateDate.ToString("dd.MM.yyyy")</span>
+                                        </p>
+                                        <div class="comment-description">
+                                            <p>@item.Message</p>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                        </li>
+
+                    </ul>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="comment">
+                            <h5 class="comment-header">POST A COMMENT</h5>
+                            <form class="feedback-form" method="post" asp-action="PostComment" asp-route-id="@Model.SingleBlog.Id" asp-route-userId="@userManager.Users.FirstOrDefault(u=>u.UserName==User.Identity.Name).Id">
+                                <textarea name="" id="" cols="30" rows="10" placeholder="YOUR COMMENT" asp-for="BlogCommentVM.Message"></textarea>
+
+                                <div class="input">
+                                    <input type="text" placeholder="YOUR NAME"
+                                           readonly
+                                           value="@string.Join(" ", userManager.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).FirstName, userManager.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).LastName)"
+                                           asp-for="BlogCommentVM.Name" />
+                                </div>
+
+                                <div class="input">
+                                    <input type="email" placeholder="YOUR EMAIL"
+                                           readonly
+                                           value="@userManager.Users.FirstOrDefault(u=>u.UserName==User.Identity.Name).Email"
+                                           asp-for="BlogCommentVM.Email"/>
+                                </div>
+
+                                <div class="submit-button">
+                                    <button type="submit">SUBMIT</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    }
+
+                </div>
+                <div class="col-lg-3 col-md-12 col-sm-12">
+                    <div class="right">
+                        <div class="blog-author">
+                            <div class="author-img">
+                                <img class="img-fluid" src="~/assets/images/team-member2.jpg" alt="">
+                                <div class="author-detail">
+                                    <div class="author-name">
+                                        <h5>Heather Berry</h5>
+                                    </div>
+                                    <div class="author-email">
+                                        <span>heatherberry@email.com</span>
+                                    </div>
+                                    <div class="author-social">
+
+                                        <a class="social-icon" href="https://twitter.com/qodeinteractive/"
+                                           target="_blank">
+                                            <span class="social_twitter">
+                                                <i class="fa-brands fa-twitter"
+                                                   style="color:  #767575;"></i>
+                                            </span>
+                                        </a>
+                                        <a class="social-icon" href="https://www.facebook.com/qodeinteractive/"
+                                           target="_blank">
+                                            <span class="social_facebook">
+                                                <i class="fa-brands fa-facebook-f"
+                                                   style="color: #767575;"></i>
+                                            </span>
+                                        </a>
+                                        <a class="social-icon" href="https://www.linkedin.com/company/qode-themes/"
+                                           target="_blank">
+                                            <span class="social_linkedin">
+                                                <i class="fa-brands fa-linkedin-in"
+                                                   style="color: #767575;"></i>
+                                            </span>
+                                        </a>
+                                        <a class="social-icon" href="https://www.instagram.com/p/CGpBwI9BYQf/"
+                                           target="_blank">
+                                            <span class="social_linkedin">
+                                                <i class="fa-brands fa-square-instagram"
+                                                   style="color: #767575;"></i>
+                                            </span>
+                                        </a>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="lates-posts">
+                            <h4>LATEST POSTS</h4>
+                            <div class="lates-post">
+                                <div class="post-img">
+                                    <img src="~/assets/images/blog-img1.jpg" alt="">
+                                </div>
+                                <div class="post-info">
+                                    <p class="lates-title">5 Ideas To Decorate Your Table</p>
+                                    <span class="lates-date"> 28.04.2023 </span>
+                                </div>
+                            </div>
+                            <div class="lates-post">
+                                <div class="post-img">
+                                    <img src="~/assets/images/blog-single-img-2.jpg" alt="">
+                                </div>
+                                <div class="post-info">
+                                    <p class="lates-title">Master Bedroom: The Furniture</p>
+                                    <span class="lates-date"> 16.05.2023 </span>
+                                </div>
+                            </div>
+                            <div class="lates-post">
+                                <div class="post-img">
+                                    <img src="~/assets/images/blog-single-img-6.jpg" alt="">
+                                </div>
+                                <div class="post-info">
+                                    <p class="lates-title">The Best Large Round Mirrors</p>
+                                    <span class="lates-date"> 08.03.2023 </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="category">
+                            <div class="category-header">
+                                <h6>CATEGORIES</h6>
+                            </div>
+                            <div class="categories">
+                                <ul>
+                                    <li>
+                                        <a href="#">
+                                            All
+                                            @foreach (var item in Model?.Categories)
+                                            {
+                                                sumOfProductsCountByCategory += item.ProductCategories?.Count();
+                                            }
+                                            <span>(@sumOfProductsCountByCategory)</span>
+                                        </a>
+                                    </li>
+                                    @foreach (var category in Model?.Categories)
+                                    {
+                                        <li>
+                                            <a asp-controller="Shop" asp-action="Index" asp-route-categoryId="@category.Id" data-id="@category.Id" class="category">
+                                                @category.Name
+                                                <span>(@category.ProductCategories?.Count())</span>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="tag">
+                            <div class="tag-header">
+                                <h6>TAGS</h6>
+                            </div>
+                            <div class="tags">
+                                <ul>
+                                    @foreach (var item in Model?.Tags)
+                                    {
+                                        <li>
+                                            <a asp-controller="Shop" asp-action="Index" asp-route-tagId="@item.Id">@item.Name,</a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+
+
+                        <div class="instagram">
+
+                            <div class="instagram-header">
+                                <h6>INSTAGRAM</h6>
+                            </div>
+                            <div class="instagram-photo">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-6 images">
+                                        <div class="instagram-img">
+                                            <img src="~/assets/images/footer-img1.jpg" alt="">
+                                        </div>
+                                        <div class="instagram-img">
+                                            <img src="~/assets/images/footer-img2.jpg" alt="">
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md- col-sm-6 images">
+                                        <div class="instagram-img">
+                                            <img src="~/assets/images/footer-img3.jpg" alt="">
+                                        </div>
+                                        <div class="instagram-img">
+                                            <img src="~/assets/images/footer-img4.jpg" alt="">
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-6 images">
+                                        <div class="instagram-img">
+                                            <img src="~/assets/images/footer-img5.jpg" alt="">
+                                        </div>
+                                        <div class="instagram-img">
+                                            <img src="~/assets/images/footer-img6.jpg" alt="">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+
+</main>
+
+
+
+
+
+
+
+

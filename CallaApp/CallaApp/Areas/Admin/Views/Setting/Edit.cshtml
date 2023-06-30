@@ -14,6 +14,9 @@
                     @if (Model.Value.Contains(".png") || Model.Value.Contains(".jpg") || Model.Value.Contains(".jpeg"))
                     {
                         <div class="image"><img class="img-fluid" src="~/assets/images/@Model.Value" /></div>
+                        <div class="form-group mt-3">
+                            <input class="form-control" asp-for="LogoPhoto">
+                        </div>
                     }
                     else
                     {

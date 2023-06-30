@@ -172,6 +172,12 @@ namespace CallaApp.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -1157,7 +1163,7 @@ namespace CallaApp.Migrations
             modelBuilder.Entity("CallaApp.Models.Blog", b =>
                 {
                     b.HasOne("CallaApp.Models.Author", "Author")
-                        .WithMany("Blogs")
+                        .WithMany()
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1396,11 +1402,6 @@ namespace CallaApp.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("CallaApp.Models.Author", b =>
-                {
-                    b.Navigation("Blogs");
                 });
 
             modelBuilder.Entity("CallaApp.Models.Blog", b =>

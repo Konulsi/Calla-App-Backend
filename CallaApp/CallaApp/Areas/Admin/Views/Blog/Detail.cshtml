@@ -12,7 +12,7 @@
                 <label class="mt-3">Blog's images</label>
 
                 <div class="d-flex align-items-center images">
-                    @foreach (var item in Model.BlogImages)
+                    @foreach (var item in Model?.BlogImages)
                     {
                         <div style="width:200px; margin-right:10px;" data-id="@item.Id">
                             <img class="img-fluid" src="~/assets/images/@item.Image" />

@@ -1,7 +1,9 @@
 ﻿using CallaApp.Data;
+using CallaApp.Helpers;
 using CallaApp.Models;
 using CallaApp.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
 
 namespace CallaApp.Areas.Admin.Controllers
 {
@@ -30,12 +32,10 @@ namespace CallaApp.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
             Settings dbSetting = await _layoutService.GetById(id);
-
             Settings model = new()
             {
                 Value = dbSetting.Value,
             };
-
             return View(model);
         }
 
@@ -50,16 +50,65 @@ namespace CallaApp.Areas.Admin.Controllers
                 Settings dbSetting = await _layoutService.GetById(id);
                 if (dbSetting is null) return NotFound();
 
-                Settings model = new()
+                if (dbSetting.Value.Contains(".png") || dbSetting.Value.Contains(".jpg") || dbSetting.Value.Contains(".jpeg"))
                 {
-                    Value = dbSetting.Value,
-                };
+                    if (updatedSetting.LogoPhoto is not null)
+                    {
+                        if (!updatedSetting.LogoPhoto.CheckFileType("image/"))
+                        {
+                            ModelState.AddModelError("LogoPhoto", "File type must be image");
+                            return View();
+                        }
+                        if (!updatedSetting.LogoPhoto.CheckFileSize(600))
+                        {
+                            ModelState.AddModelError("LogoPhoto", "Image size must be max 600kb");
+                            return View();
+                        }
+                        string oldPath = FileHelper.GetFilePath(_env.WebRootPath, "assets/images", dbSetting.Value);
+                        FileHelper.DeleteFile(oldPath);
+                        dbSetting.Value = updatedSetting.LogoPhoto.CreateFile(_env, "assets/images");
+                    }
+                    else
+                    {
+                        Settings newSetting = new()
+                        {
+                            Value = dbSetting.Value
+                        };
+                    }
 
-                if (!ModelState.IsValid)
-                {
-                    return View(model);
+                    if (updatedSetting.PaymentPhoto is not null)
+                    {
+
+                        if (!updatedSetting.PaymentPhoto.CheckFileType("image/"))
+                        {
+                            ModelState.AddModelError("PaymentPhoto", "File type must be image");
+                            return View();
+                        }
+                        if (!updatedSetting.LogoPhoto.CheckFileSize(600))
+                        {
+                            ModelState.AddModelError("PaymentPhoto", "Image size must be max 600kb");
+                            return View();
+                        }
+                        string oldPath = FileHelper.GetFilePath(_env.WebRootPath, "assets/images", dbSetting.Value);
+                        FileHelper.DeleteFile(oldPath);
+                        dbSetting.Value = updatedSetting.PaymentPhoto.CreateFile(_env, "assets/images");
+                    }
+                    else
+                    {
+                        Settings newSetting = new()
+                        {
+                            Value = dbSetting.Value
+                        };
+                    }
                 }
-                dbSetting.Value = updatedSetting.Value;
+                else
+                {
+                    if (dbSetting.Value.Trim().ToLower() == updatedSetting.Value.Trim().ToLower())
+                    {
+                        return RedirectToAction(nameof(Index));
+                    }
+                    dbSetting.Value = updatedSetting.Value;
+                }
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

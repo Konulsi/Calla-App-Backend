@@ -9,7 +9,6 @@ namespace CallaApp.Controllers
     public class HomeController : Controller
     {
         private readonly AppDbContext _context;
-        private readonly ILayoutService _layoutService;
         private readonly ISliderService _sliderService;
         private readonly IBannerService _bannerService;
         private readonly IDecorService _decorService;
@@ -20,7 +19,6 @@ namespace CallaApp.Controllers
 
 
         public HomeController(ISliderService sliderService,
-                              ILayoutService layoutService,
                               IBannerService bannerService,
                               IAdvertisingService advertisingService,
                               IDecorService decorService,
@@ -33,7 +31,6 @@ namespace CallaApp.Controllers
             _bannerService = bannerService;
             _advertisingService = advertisingService;
             _decorService = decorService;
-            _layoutService = layoutService;
             _brandService = brandService;
             _teamService = teamService;
             _context = context;

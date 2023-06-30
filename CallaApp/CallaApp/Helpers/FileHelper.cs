@@ -35,5 +35,14 @@
                 await file.CopyToAsync(stream);
             }
         }
+
+        public static string CreateFile(this IFormFile file, IWebHostEnvironment env, string folderName)
+        {
+            string fileName = String.Concat(Guid.NewGuid().ToString(), file.FileName);
+            string path = GetFilePath(env.WebRootPath, folderName, fileName);
+            using (FileStream stream = new(path, FileMode.Create))
+                file.CopyTo(stream);
+            return fileName;
+        }
     }
 }
