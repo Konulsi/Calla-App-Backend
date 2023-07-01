@@ -72,38 +72,6 @@
                                     <div class="author-email">
                                         <span>@Model.Authors.FirstOrDefault()?.Email</span>
                                     </div>
-                                    <div class="author-social">
-
-                                        <a class="social-icon" href="https://twitter.com/qodeinteractive/"
-                                           target="_blank">
-                                            <span class="social_twitter">
-                                                <i class="fa-brands fa-twitter"
-                                                   style="color:  #767575;"></i>
-                                            </span>
-                                        </a>
-                                        <a class="social-icon" href="https://www.facebook.com/qodeinteractive/"
-                                           target="_blank">
-                                            <span class="social_facebook">
-                                                <i class="fa-brands fa-facebook-f"
-                                                   style="color: #767575;"></i>
-                                            </span>
-                                        </a>
-                                        <a class="social-icon" href="https://www.linkedin.com/company/qode-themes/"
-                                           target="_blank">
-                                            <span class="social_linkedin">
-                                                <i class="fa-brands fa-linkedin-in"
-                                                   style="color: #767575;"></i>
-                                            </span>
-                                        </a>
-                                        <a class="social-icon" href="https://www.instagram.com/p/CGpBwI9BYQf/"
-                                           target="_blank">
-                                            <span class="social_linkedin">
-                                                <i class="fa-brands fa-square-instagram"
-                                                   style="color: #767575;"></i>
-                                            </span>
-                                        </a>
-
-                                    </div>
                                 </div>
                             </div>
 
@@ -111,33 +79,19 @@
 
                         <div class="lates-posts">
                             <h4>LATEST POSTS</h4>
-                            <div class="lates-post">
-                                <div class="post-img">
-                                    <img src="~/assets/images/blog-img1.jpg" alt="">
+                            @foreach (var latesBlog in Model.LatesBlog.Take(3))
+                            {
+                                <div class="lates-post">
+                                    <div class="post-img">
+                                        <img src="~/assets/images/@latesBlog.BlogImage?.FirstOrDefault()?.Image" alt="">
+                                    </div>
+                                    <div class="post-info">
+                                        <p class="lates-title">@latesBlog.Title</p>
+                                        <span class="lates-date"> @latesBlog.CreateDate.ToString("dd.MM.yyyy") </span>
+                                    </div>
                                 </div>
-                                <div class="post-info">
-                                    <p class="lates-title">5 Ideas To Decorate Your Table</p>
-                                    <span class="lates-date"> 28.04.2023 </span>
-                                </div>
-                            </div>
-                            <div class="lates-post">
-                                <div class="post-img">
-                                    <img src="~/assets/images/blog-single-img-2.jpg" alt="">
-                                </div>
-                                <div class="post-info">
-                                    <p class="lates-title">Master Bedroom: The Furniture</p>
-                                    <span class="lates-date"> 16.05.2023 </span>
-                                </div>
-                            </div>
-                            <div class="lates-post">
-                                <div class="post-img">
-                                    <img src="~/assets/images/blog-single-img-6.jpg" alt="">
-                                </div>
-                                <div class="post-info">
-                                    <p class="lates-title">The Best Large Round Mirrors</p>
-                                    <span class="lates-date"> 08.03.2023 </span>
-                                </div>
-                            </div>
+                            }
+
                         </div>
 
                         <div class="category">
@@ -147,7 +101,7 @@
                             <div class="categories">
                                 <ul>
                                     <li>
-                                        <a href="" class="all-products">
+                                        <a asp-controller="Shop" asp-action="Index" class="category all-products">
                                             @foreach (var category in Model.Categories)
                                             {
                                                 sumCategoryProducts += (int)category.ProductCategories?.Count;
@@ -158,7 +112,7 @@
                                     @foreach (var category in Model.Categories)
                                     {
                                         <li>
-                                            <a href="" data-id="@category.Id" class="prod-size">@category.Name (@category.ProductCategories?.Count)</a>
+                                            <a asp-controller="Shop" asp-action="Index" asp-route-categoryId="@category.Id" data-id="@category.Id" class="category">@category.Name (@category.ProductCategories?.Count)</a>
                                         </li>
                                     }
                                 </ul>
@@ -173,7 +127,7 @@
                                 <ul>
                                     @foreach (var tag in Model.Tags)
                                     {
-                                        <li><a href="">@tag.Name,</a></li>
+                                        <li><a asp-controller="Shop" asp-action="Index" asp-route-tagId="@tag.Id" class="prod-tag">@tag.Name,</a></li>
                                     }
                                 </ul>
                             </div>

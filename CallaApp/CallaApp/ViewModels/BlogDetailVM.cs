@@ -13,6 +13,9 @@ namespace CallaApp.ViewModels
         public ICollection<BlogComment> BlogComments { get; set; }
         public BlogCommentVM BlogCommentVM { get; set; }
         public List<WebSiteSocial> Socials { get; set; }
-
+        public List<Blog> RelatedBlogs { get; set; }
+        public List<Author> Authors { get; set; }
+        public List<MiniImage> MiniImages { get; set; }
+        public List<Blog> LatesBlog { get; set; }
     }
 }

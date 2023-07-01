@@ -23,7 +23,7 @@ namespace CallaApp.Services
                                                                     .ThenInclude(m => m.Tag)
                                                                     .Include(m => m.ProductColors)
                                                                     .ThenInclude(m => m.Color)
-                                                                    //.Include(m => m.ProductComments)
+                                                                    .Include(m => m.ProductComments)
                                                                     .Include(m => m.ProductCategories)
                                                                     .ThenInclude(m => m.Category)
                                                                     .ToListAsync();
@@ -36,7 +36,7 @@ namespace CallaApp.Services
                                                                             .ThenInclude(m => m.Tag)
                                                                             .Include(m => m.ProductColors)
                                                                             .ThenInclude(m => m.Color)
-                                                                            //.Include(m => m.ProductComments)
+                                                                            .Include(m => m.ProductComments)
                                                                             .Include(m => m.ProductCategories)
                                                                             .ThenInclude(m => m.Category)
                                                                             .FirstOrDefaultAsync(m => m.Id == id);
@@ -59,10 +59,10 @@ namespace CallaApp.Services
             }
             return model;
         }
-        public async Task<List<Product>> GetFeaturedProducts() => await _context.Products.Where(m => !m.SoftDelete).OrderByDescending(m => m.Rate).ToListAsync();
-        public async Task<List<Product>> GetBestsellerProducts() => await _context.Products.Where(m => !m.SoftDelete).OrderByDescending(m => m.SaleCount).ToListAsync();
-        public async Task<List<Product>> GetLatestProducts() => await _context.Products.Where(m => !m.SoftDelete).OrderByDescending(m => m.CreateDate).ToListAsync();
-        public async Task<List<Product>> GetNewProducts() => await _context.Products.Include(m => m.Images).Where(m => !m.SoftDelete).OrderByDescending(m => m.CreateDate).Take(4).ToListAsync();
+        public async Task<List<Product>> GetFeaturedProducts() => await _context.Products.OrderByDescending(m => m.Rate).ToListAsync();
+        public async Task<List<Product>> GetBestsellerProducts() => await _context.Products.OrderByDescending(m => m.SaleCount).ToListAsync();
+        public async Task<List<Product>> GetLatestProducts() => await _context.Products.OrderByDescending(m => m.CreateDate).ToListAsync();
+        public async Task<List<Product>> GetNewProducts() => await _context.Products.Include(m => m.Images).OrderByDescending(m => m.CreateDate).Take(4).ToListAsync();
         public async Task<List<Product>> GetPaginatedDatasAsync(int page, int take, int? cateId, int? tagId, int? colorId, int? brandId, int? sizeId)
         {
             if (cateId != null)
@@ -204,8 +204,8 @@ namespace CallaApp.Services
                 .Include(p => p.Images)
                 .Include(c => c.Brand)
                 .Where(p => p.Brand.Id == id)
-                .Skip((page * take) - take)
-                .Take(take)
+                //.Skip((page * take) - take)
+                //.Take(take)
                 .ToListAsync();
 
             foreach (var item in products)
@@ -320,7 +320,7 @@ namespace CallaApp.Services
                    .Where(p => p.Brand.Id == (int)brandId)
                    .CountAsync();
         }
-        public async Task<IEnumerable<Product>> GetRelatedProducts()
+        public async Task<List<Product>> GetRelatedProducts()
         {
             return await _context.Products
                  .Include(p => p.Images)

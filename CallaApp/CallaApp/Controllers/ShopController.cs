@@ -19,16 +19,15 @@ namespace CallaApp.Controllers
         private readonly IBrandService _brandService;
         private readonly ICategoryService _categoryService;
         private readonly IProductService _productService;
-
-
-
+        private readonly ILayoutService _layoutService;
         public ShopController(ITagService tagService,
                               ISizeService sizeService,
                               ICategoryService categoryService,
                               IColorService colorService,
                               IBrandService brandService,
                               AppDbContext context,
-                              IProductService productService)
+                              IProductService productService,
+                              ILayoutService layoutService)
         {
             _tagService = tagService;   
             _sizeService = sizeService;
@@ -37,6 +36,7 @@ namespace CallaApp.Controllers
             _brandService = brandService;
             _context = context;
             _productService = productService;
+            _layoutService = layoutService;
         }
 
         public async Task<IActionResult> Index(int page = 1, int take = 6, int? categoryId = null, int? colorId = null, int? tagId = null, int? sizeId = null, int? brandId = null)
@@ -230,64 +230,65 @@ namespace CallaApp.Controllers
             return PartialView("_ProductListPartial", products);
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> SingleProduct(int? id)
-        //{
-        //    try
-        //    {
-        //        if (id is null) return BadRequest();
-        //        var dbProduct = await _productService.GetFullDataByIdAsync((int)id);
-        //        if (dbProduct is null) return NotFound();
+        [HttpGet]
+        public async Task<IActionResult> ProductDetail(int? id)
+        {
+            try
+            {
+                if (id is null) return BadRequest();
+                var dbProduct = await _productService.GetFullDataByIdAsync((int)id);
+                if (dbProduct is null) return NotFound();
 
-        //        SingleProductVM model = new()
-        //        {
-        //            Id = dbProduct.Id,
-        //            ProductName = dbProduct.Name,
-        //            Price = dbProduct.Price,
-        //            ProductCategories = dbProduct.ProductCategories,
-        //            ProductTags = dbProduct.ProductTags,
-        //            ProductImages = dbProduct.ProductImages,
-        //            ProductSizes = dbProduct.ProductSizes,
-        //            SKU = dbProduct.SKU,
-        //            Rating = dbProduct.Rating,
-        //            Description = dbProduct.Description,
-        //            ColorName = dbProduct.Color.Name,
-        //            Adverts = await _advertService.GetAllAsync(),
-        //            SectionBgs = _layoutService.GetSectionBackgroundImages(),
-        //            RelatedProducts = await _productService.GetRelatedProducts(),
-        //            ProductCommentVM = new(),
-        //            ProductComments = dbProduct.ProductComments
-        //        };
+                ProductDetailVM model = new()
+                {
+                    Id = dbProduct.Id,
+                    ProductName = dbProduct.Name,
+                    Price = dbProduct.Price,
+                    ProductCategories = dbProduct.ProductCategories,
+                    ProductTags = dbProduct.ProductTags,
+                    ProductImages = dbProduct.Images,
+                    ProductSizes = dbProduct.ProductSizes,
+                    ProductColors = dbProduct.ProductColors,
+                    SKU = dbProduct.SKU,
+                    Rating = dbProduct.Rate,
+                    Description = dbProduct.Description,
+                    BrandName = dbProduct.Brand.Name,
+                    HeaderBackgrounds = _layoutService.GetHeaderBackgroundData(),
+                    RelatedProducts = await _productService.GetRelatedProducts(),
+                    ProductCommentVM = new(),
+                    ProductComments = dbProduct.ProductComments
+                };
 
-        //        return View(model);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ViewBag.error = ex.Message;
-        //        return View();
-        //    }
-        //}
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.error = ex.Message;
+                return View();
+            }
+        }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //[Authorize]
-        //public async Task<IActionResult> PostComment(SingleProductVM model, int? id, string userId)
-        //{
-        //    if (id is null || userId == null) return BadRequest();
-        //    if (!ModelState.IsValid) return RedirectToAction(nameof(SingleProduct), new { id });
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<IActionResult> PostComment(ProductDetailVM model, int? id, string userId)
+        {
+            if (id is null || userId == null) return BadRequest();
+            if (!ModelState.IsValid) return RedirectToAction(nameof(ProductDetailVM), new { id });
 
-        //    ProductComment productComment = new()
-        //    {
-        //        Name = model.ProductCommentVM.Name,
-        //        Email = model.ProductCommentVM.Email,
-        //        Subject = model.ProductCommentVM.Subject,
-        //        Message = model.ProductCommentVM.Message,
-        //        AppUserId = userId,
-        //        ProductId = (int)id
-        //    };
-        //    await _crudService.CreateAsync(productComment);
-        //    return RedirectToAction(nameof(SingleProduct), new { id });
-        //}
+            ProductComment productComment = new()
+            {
+                Name = model.ProductCommentVM.Name,
+                Email = model.ProductCommentVM.Email,
+                Message = model.ProductCommentVM.Message,
+                AppUserId = userId,
+                ProductId = (int)id
+            };
+            await _context.ProductComments.AddAsync(productComment);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(ProductDetailVM), new { id });
+        }
 
         //[HttpPost]
         //public async Task<IActionResult> Filter(string value)
@@ -351,6 +352,6 @@ namespace CallaApp.Controllers
 
         //    return View(products);
         //}
-  
+
     }
 }

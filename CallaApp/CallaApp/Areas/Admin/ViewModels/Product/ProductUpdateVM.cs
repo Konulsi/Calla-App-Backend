@@ -24,7 +24,7 @@ namespace CallaApp.Areas.Admin.ViewModels.Product
         public int BrandId { get; set; }
         public ICollection<ProductImage> Images { get; set; }
 
-        [Required(ErrorMessage = "Don`t be empty")]
+        //[Required(ErrorMessage = "Don`t be empty")]
         public List<IFormFile> Photos { get; set; }
 
         [Required(ErrorMessage = "Don`t be empty")]

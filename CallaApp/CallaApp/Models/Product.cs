@@ -16,8 +16,7 @@
         public ICollection<ProductSize> ProductSizes { get; set; }
         public ICollection<ProductTag> ProductTags { get; set; }
         public ICollection<ProductColor> ProductColors { get; set; }
-
-        //public ICollection<ProductComment> ProductComments { get; set; }
+        public ICollection<ProductComment> ProductComments { get; set; }
         //public ICollection<ProductBasket> ProductBaskets { get; set; }
 
     }

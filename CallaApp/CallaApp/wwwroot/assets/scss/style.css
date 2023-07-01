@@ -2282,8 +2282,9 @@ body {
 
 .product-images {
   display: flex;
-  justify-content: space-between;
+  /*justify-content: space-between;*/
   padding-top: 50px;
+  gap: 23px;
 }
 .product-images .prod-img {
   width: 205px;
@@ -2297,6 +2298,7 @@ body {
 }
 #product-info .right {
   padding-left: 50px;
+  text-align: left;
 }
 #product-info .right .product-name h1 {
   display: block;
@@ -2489,7 +2491,7 @@ body {
 #product-info .right .tab-menu .tab-content.current p {
   margin: 5px 23px;
   font-family: "Open Sans";
-  font-size: 17px;
+  font-size: 15px;
   color: gray;
   line-height: 27px;
 }
@@ -3957,6 +3959,9 @@ h1, a {
   #related {
     margin-bottom: 90px;
   }
+#related .related-title{
+    text-align: left !important;
+}
   #related .related-title h4 {
     margin: 100px 0 10px;
   }

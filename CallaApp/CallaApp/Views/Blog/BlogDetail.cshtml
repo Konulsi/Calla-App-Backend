@@ -124,8 +124,7 @@
                     <ul class="commentlist">
                         <li class="review">
                             <div class="comment_container">
-                                @*<img src="~/assets/images/testimonials-img1.png" width="80" height="80" alt=""*@
-                                     @*class="avatar avatar-60 wp-user-avatar wp-user-avatar-60 alignnone photo">*@
+
                                 @foreach (var item in Model.SingleBlog.BlogComments)
                                 {
                                     <div class="comment-text">
@@ -183,45 +182,13 @@
                     <div class="right">
                         <div class="blog-author">
                             <div class="author-img">
-                                <img class="img-fluid" src="~/assets/images/team-member2.jpg" alt="">
+                                <img class="img-fluid" src="~/assets/images/@Model.Authors.FirstOrDefault()?.Image" alt="">
                                 <div class="author-detail">
                                     <div class="author-name">
-                                        <h5>Heather Berry</h5>
+                                        <h5>@Model.Authors.FirstOrDefault()?.Name</h5>
                                     </div>
                                     <div class="author-email">
-                                        <span>heatherberry@email.com</span>
-                                    </div>
-                                    <div class="author-social">
-
-                                        <a class="social-icon" href="https://twitter.com/qodeinteractive/"
-                                           target="_blank">
-                                            <span class="social_twitter">
-                                                <i class="fa-brands fa-twitter"
-                                                   style="color:  #767575;"></i>
-                                            </span>
-                                        </a>
-                                        <a class="social-icon" href="https://www.facebook.com/qodeinteractive/"
-                                           target="_blank">
-                                            <span class="social_facebook">
-                                                <i class="fa-brands fa-facebook-f"
-                                                   style="color: #767575;"></i>
-                                            </span>
-                                        </a>
-                                        <a class="social-icon" href="https://www.linkedin.com/company/qode-themes/"
-                                           target="_blank">
-                                            <span class="social_linkedin">
-                                                <i class="fa-brands fa-linkedin-in"
-                                                   style="color: #767575;"></i>
-                                            </span>
-                                        </a>
-                                        <a class="social-icon" href="https://www.instagram.com/p/CGpBwI9BYQf/"
-                                           target="_blank">
-                                            <span class="social_linkedin">
-                                                <i class="fa-brands fa-square-instagram"
-                                                   style="color: #767575;"></i>
-                                            </span>
-                                        </a>
-
+                                        <span>@Model.Authors.FirstOrDefault()?.Email</span>
                                     </div>
                                 </div>
                             </div>
@@ -230,33 +197,18 @@
 
                         <div class="lates-posts">
                             <h4>LATEST POSTS</h4>
-                            <div class="lates-post">
-                                <div class="post-img">
-                                    <img src="~/assets/images/blog-img1.jpg" alt="">
+                            @foreach (var latesBlog in Model.LatesBlog.Take(3))
+                            {
+                                <div class="lates-post">
+                                    <div class="post-img">
+                                        <img src="~/assets/images/@latesBlog.BlogImage?.FirstOrDefault()?.Image" alt="">
+                                    </div>
+                                    <div class="post-info">
+                                        <p class="lates-title">@latesBlog.Title</p>
+                                        <span class="lates-date"> @latesBlog.CreateDate.ToString("dd.MM.yyyy") </span>
+                                    </div>
                                 </div>
-                                <div class="post-info">
-                                    <p class="lates-title">5 Ideas To Decorate Your Table</p>
-                                    <span class="lates-date"> 28.04.2023 </span>
-                                </div>
-                            </div>
-                            <div class="lates-post">
-                                <div class="post-img">
-                                    <img src="~/assets/images/blog-single-img-2.jpg" alt="">
-                                </div>
-                                <div class="post-info">
-                                    <p class="lates-title">Master Bedroom: The Furniture</p>
-                                    <span class="lates-date"> 16.05.2023 </span>
-                                </div>
-                            </div>
-                            <div class="lates-post">
-                                <div class="post-img">
-                                    <img src="~/assets/images/blog-single-img-6.jpg" alt="">
-                                </div>
-                                <div class="post-info">
-                                    <p class="lates-title">The Best Large Round Mirrors</p>
-                                    <span class="lates-date"> 08.03.2023 </span>
-                                </div>
-                            </div>
+                            }
                         </div>
 
                         <div class="category">
@@ -266,7 +218,7 @@
                             <div class="categories">
                                 <ul>
                                     <li>
-                                        <a href="#">
+                                        <a asp-controller="Shop" asp-action="Index" class="category">
                                             All
                                             @foreach (var item in Model?.Categories)
                                             {
@@ -312,33 +264,14 @@
                             </div>
                             <div class="instagram-photo">
                                 <div class="row">
-                                    <div class="col-lg-4 col-md-4 col-sm-6 col-6 images">
-                                        <div class="instagram-img">
-                                            <img src="~/assets/images/footer-img1.jpg" alt="">
+                                    @foreach (var miniImage in Model.MiniImages)
+                                    {
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                            <div class="instagram-img">
+                                                <img src="~/assets/images/@miniImage.Image" alt="">
+                                            </div>
                                         </div>
-                                        <div class="instagram-img">
-                                            <img src="~/assets/images/footer-img2.jpg" alt="">
-
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md- col-sm-6 images">
-                                        <div class="instagram-img">
-                                            <img src="~/assets/images/footer-img3.jpg" alt="">
-                                        </div>
-                                        <div class="instagram-img">
-                                            <img src="~/assets/images/footer-img4.jpg" alt="">
-
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-6 col-sm-6 images">
-                                        <div class="instagram-img">
-                                            <img src="~/assets/images/footer-img5.jpg" alt="">
-                                        </div>
-                                        <div class="instagram-img">
-                                            <img src="~/assets/images/footer-img6.jpg" alt="">
-
-                                        </div>
-                                    </div>
+                                    }
                                 </div>
                             </div>
 

@@ -6,6 +6,7 @@ namespace CallaApp.ViewModels
     public class BlogVM
     {
         public List<Blog> Blogs { get; set; }
+        public List<Blog> LatesBlog { get; set; }
         public List<Tag> Tags { get; set; }
         public List<Category> Categories { get; set; }
         public List<Author> Authors { get; set; }
@@ -14,6 +15,5 @@ namespace CallaApp.ViewModels
         public List<Models.Product> Products { get; set; }
         public Paginate<Blog> PaginateDatas { get; set; }
         public BlogCommentVM BlogCommentVM { get; set; }
-
     }
 }

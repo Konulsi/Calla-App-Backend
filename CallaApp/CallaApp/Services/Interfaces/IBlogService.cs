@@ -14,5 +14,9 @@ namespace CallaApp.Services.Interfaces
         Task<List<BlogComment>> GetComments();
         Task<BlogComment> GetCommentById(int? id);
         Task<BlogComment> GetCommentByIdWithBlog(int? id);
+        Task<List<Blog>> GetLatestBlogs();
+
+        //Task<List<Blog>> GetRelatedBlogs();
+
     }
 }

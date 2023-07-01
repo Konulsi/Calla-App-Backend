@@ -41,9 +41,10 @@ namespace CallaApp.Controllers
             _layoutService = layoutService;
             _webSiteSocialService = webSiteSocialService;
         }
-        public async Task<IActionResult>  Index(int page = 1, int take = 2)
+        public async Task<IActionResult> Index(int page = 1, int take = 2)
         {
             List<Blog> blogs = await _blogService.GetAllAsync();
+            List<Blog> latesBlog = await _blogService.GetLatestBlogs();
             List<Tag> tags = await _tagService.GetAllAsync();
             List<Category> categories = await _categoryService.GetAllAsync();
             List<Author> authors = await _authorService.GetAllAsync();
@@ -63,6 +64,7 @@ namespace CallaApp.Controllers
                 Blogs = blogs,
                 Authors = authors,
                 PaginateDatas = paginatedDatas,
+                LatesBlog = latesBlog,
             };
 
             return View(model);
@@ -92,8 +94,11 @@ namespace CallaApp.Controllers
                 Products = await _productService.GetAllAsync(),
                 BlogComments = blogs.FirstOrDefault().BlogComments,
                 SingleBlog = await _blogService.GetByIdAsync(id),
-                HeaderBackgrounds =  _layoutService.GetHeaderBackgroundData(),
+                HeaderBackgrounds = _layoutService.GetHeaderBackgroundData(),
                 Socials = await _webSiteSocialService.GetAllAsync(),
+                Authors = await _authorService.GetAllAsync(),
+                MiniImages = await _miniImageService.GetAllAsync(),
+                LatesBlog = await _blogService.GetLatestBlogs()
             };
             return View(model);
         }

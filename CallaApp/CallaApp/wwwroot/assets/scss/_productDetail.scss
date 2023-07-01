@@ -24,8 +24,9 @@ body {
 
 .product-images {
     display: flex;
-    justify-content: space-between;
+    /*justify-content: space-between;*/
     padding-top: 50px;
+    gap: 23px;
 
     .prod-img {
         width: 205px;
@@ -225,7 +226,7 @@ body {
         .tab-menu {
             margin-top: 30px;
             border: 1px solid #80808030;
-
+            
             ul.tabs {
                 margin: 0px;
                 padding: 0px;
@@ -277,7 +278,7 @@ body {
                 p {
                     margin: 5px 23px;
                     font-family: "Open Sans";
-                    font-size: 17px;
+                    font-size: 15px;
                     color: gray;
                     line-height: 27px;
                 }
@@ -367,7 +368,7 @@ body {
 
 #related {
     .related-title {
-        text-align: left;
+        text-align: left !important;
 
         h4 {
             display: block;

@@ -27,6 +27,9 @@ namespace CallaApp.Services
         {
             return await _context.Blogs.Include(b => b.BlogImage).Include(b => b.BlogComments).Include(b => b.Author).FirstOrDefaultAsync(b => b.Id == id);
         }
+
+        public async Task<List<Blog>> GetLatestBlogs() => await _context.Blogs.OrderByDescending(m => m.CreateDate).ToListAsync();
+
         public async Task<BlogComment> GetCommentById(int? id)
         {
             return await _context.BlogComments.FindAsync(id);
@@ -36,6 +39,15 @@ namespace CallaApp.Services
         {
             return await _context.BlogComments.Include(b => b.Blog).FirstOrDefaultAsync(b => b.Id == id);
         }
+
+        //public async Task<List<Blog>> GetRelatedBlogs()
+        //{
+        //    return await _context.Blogs
+        //         .Include(p => p.BlogImage)
+        //         .Include(p => p.Author)
+        //         .OrderByDescending(p => p.CreateDate).ToList();
+        //}
+
 
         public async Task<List<BlogComment>> GetComments()
         {

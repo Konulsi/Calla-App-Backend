@@ -128,7 +128,7 @@ $(document).ready(function () {
 
 
 
-    function GetProductsById(clickedElem, url) {
+    function getProductsById(clickedElem, url) {
         $(document).on("click", clickedElem, function (e) {
             e.preventDefault();
             let id = $(this).attr("data-id");
@@ -146,9 +146,9 @@ $(document).ready(function () {
 
     }
 
-    GetProducts(".all", "/Shop/GetProducts")
+    getProducts(".all", "/Shop/GetProducts")
 
-    function GetProducts(clickedElem, url) {
+    function getProducts(clickedElem, url) {
         $(document).on("click", clickedElem, function (e) {
             e.preventDefault();
             let parent = $(".product-grid-view")
@@ -163,19 +163,19 @@ $(document).ready(function () {
 
     }
 
-    GetProductsById(".category", "/Shop/GetProductsByCategory")
-    GetProductsById(".color", "/Shop/GetProductsByColor")
-    GetProductsById(".tag", "/Shop/GetProductsByTag")
-    GetProductsById(".size", "/Shop/GetProductsBySize")
-    GetProductsById(".brand", "/Shop/GetProductsBySize")
+    getProductsById(".prod-category", "/Shop/GetProductsByCategory")
+    getProductsById(".prod-color", "/Shop/GetProductsByColor")
+    getProductsById(".prod-tag", "/Shop/GetProductsByTag")
+    getProductsById(".prod-size", "/Shop/GetProductsBySize")
+    getProductsById(".prod-brand", "/Shop/GetProductsByBrand")
 
 
 
 
     //add cart
-    AddToCart(".add-to-cart-btn", "/Shop/AddToCart");
+    addToCart(".add-to-cart-btn", "/Shop/AddToCart");
 
-    function AddToCart(clickedElem, url) {
+    function addToCart(clickedElem, url) {
         $(document).on("click", clickedElem, function (e) {
             let id = $(this).attr("data-id");
             let data = { id: id };
@@ -272,8 +272,6 @@ $(document).ready(function () {
         let subtotal = parseFloat(nativePrice * $(count).val());
         $(total).text(subtotal);
     }
-
-
 
     $(document).on("submit", ".hm-searchbox", function () {
         let value = $(".input-search").val();

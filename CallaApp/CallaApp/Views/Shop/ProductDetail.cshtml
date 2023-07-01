@@ -1,0 +1,319 @@
+﻿@model ProductDetailVM
+@inject UserManager<AppUser> userManager
+
+@{
+    ViewData["Title"] = "ProductDetail";
+}
+
+<main>
+    <section id="detail-header-img">
+        <div class="detail-bg-img" style="background-image: url(../.~/assets/images/@Model.HeaderBackgrounds["PagesBg"])">
+            <h1>Product's Detail</h1>
+            <img src="~/assets/images/banner-on-logo.png" alt="">
+        </div>
+    </section>
+
+    <section id="product-info">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="single-product-main-img">
+                        <img src="~/assets/images/@Model.ProductImages?.Where(p=>p.IsMain).FirstOrDefault()?.Image" alt="">
+                        </div>
+
+                    <div class="product-images">
+                        @foreach (var productImage in Model.ProductImages.Where(p => !p.IsMain))
+                        {
+                            <div class="prod-img">
+                                <img src="~/assets/images/@productImage.Image" alt="">
+                            </div>
+                        }
+                    </div>
+
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                    <div class="right">
+                        <div class="product-name">
+                            <h1>@Model.ProductName</h1>
+                        </div>
+                        <div class="product-price">
+                            <div class="sale"><del><span> £</span><span>@(Model.Price * 90 / 100) </span></del></div>
+                            <div class="price"><span> £</span><span>@Model.Price</span></div>
+                        </div>
+                        <div class="product-rate">
+@*                            @for (int i = 1; i < Model.Rating; i++)
+                            {
+                                <i class="a-solid fa-star"></i>
+                            }
+                            @for (int j = 0; j < 5 - Model.Rating; j++)
+                            {
+                                <i class="fa-solid fa-star" style="color: #b97a56;"></i>
+
+                            }*@
+                            <i class="fa-solid fa-star" style="color: #b97a56;"></i>
+                            <i class="fa-solid fa-star" style="color: #b97a56;"></i>
+                            <i class="fa-solid fa-star" style="color: #b97a56;"></i>
+                            <i class="fa-regular fa-star" style="color: #b97a56;"></i>
+                            <i class="fa-regular fa-star" style="color: #b97a56;"></i>
+
+                            @if (Model.ProductComments.Count == 0)
+                            {
+                                <span>(0 customer rewiev)</span>
+
+                            }
+                            else
+                            {
+                                <a href="#">( @Model.ProductComments.Count Review )</a>
+                            }
+                        </div>
+
+                        <div class="product-description">
+                            <p>
+                                @Model.Description.Substring(0,200)
+                            </p>
+                        </div>
+                        <div class="product-count">
+                            <input type="text" class="count-input" data-step="1" data-min="1" data-max=""
+                                   name="quantity" value="1" title="Qty" placeholder="" inputmode="numeric">
+                            <div class="icons">
+                                <span class="minus">-</span>
+                                <span class="plus">+</span>
+
+                            </div>
+                            <div class="add-card">
+                                <div class="add-btn-first">
+                                    <button>Add to Card</button>
+                                </div>
+                                <div class="add-btn-second">
+                                </div>
+                            </div>
+                            <div class="add-wishlist">
+                                <div class="add-btn-first">
+                                    <button>Add to Wishlist</button>
+                                </div>
+                                <div class="add-btn-second">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="product-meta">
+                            <div class="sku d-flex">
+                                <h5>SKU: </h5> <span>@Model.SKU</span>
+                            </div>
+                            <div class="product-category d-flex">
+                                <h5>CATEGORY: </h5>
+                                @foreach (var item in Model.ProductCategories)
+                                {
+                                    <span>@string.Join("," , item.Category.Name)</span>
+                                }
+                            </div>
+                            <div class="tags d-flex">
+                                <h5>TAGS: </h5>
+                                @foreach (var item in Model.ProductTags)
+                                {
+                                    <span>@string.Join("," , item.Tag.Name)</span>
+                                }
+                            </div>
+                            <div class="share d-flex">
+
+                                <h5>SHARE:</h5>
+                                <a class="social-icon" href="https://twitter.com/qodeinteractive/" target="_blank">
+                                    <i class="fa-brands fa-twitter" style="color:  #929292;"></i>
+                                </a>
+                                <a class="social-icon" href="https://www.facebook.com/qodeinteractive/"
+                                   target="_blank">
+                                    <i class="fa-brands fa-facebook-f" style="color: #929292;"></i>
+                                </a>
+                                <a class="social-icon" href="https://www.linkedin.com/company/qode-themes/"
+                                   target="_blank">
+                                    <i class="fa-brands fa-linkedin-in" style="color: #929292;"></i>
+                                </a>
+                            </div>
+                        </div>
+
+
+                        <div class="tab-menu">
+
+                            <ul class="tabs">
+                                <li class="tab-link current" data-tab="tab-1">DESCRIPTION</li>
+                                <li class="tab-link" data-tab="tab-2">ADDITIONAL INFORMATION</li>
+                                <li class="tab-link" data-tab="tab-3" style="width: 40%;">REVIEW(1)</li>
+                            </ul>
+
+                            <div id="tab-1" class="tab-content current">
+                                <p>
+                                    @Model.Description.Substring(0,200)
+                                </p>
+                            </div>
+                            <div id="tab-2" class="tab-content">
+                                <div class="size d-flex">
+                                    <h6>SIZE:</h6>
+                                    @foreach (var item in Model.ProductSizes)
+                                    {
+                                        <span>@string.Join("," , item.Size.Name)</span>
+                                    }
+                                </div>
+                                <div class="color d-flex">
+                                    <h6>COLOR:</h6>
+                                    @foreach (var item in Model.ProductColors)
+                                    {
+                                        <span>@string.Join("," , item.Color.Name)</span>
+                                    }
+                                </div>
+                            </div>
+                            <div id="tab-3" class="tab-content">
+                                <h5 class="product-rewiev">Comments (@Model.ProductComments.Count)</h5>
+                                <ol class="commentlist">
+                                    <li class="review">
+                                        <div class="comment_container d-flex">
+                                            <div class="comment-text">
+                                                <div class="star-rating">
+                                                    <div class="product-rate">
+                                                        <i class="fa-solid fa-star" style="color: #b97a56;"></i>
+                                                        <i class="fa-solid fa-star" style="color: #b97a56;"></i>
+                                                        <i class="fa-solid fa-star" style="color: #b97a56;"></i>
+                                                        <i class="fa-regular fa-star" style="color: #b97a56;"></i>
+                                                        <i class="fa-regular fa-star" style="color: #b97a56;"></i>
+                                                    </div>
+                                                </div>
+                                                <p class="meta">
+                                                    @foreach (var item in Model.ProductComments)
+                                                    {
+                                                        <strong class="comment-user-name">@item.Name</strong>
+                                                        <span class="comment-date">–</span> <time class="comment-published-date">@item.CreateDate.ToString("dd.MM.yyyy")</time>
+                                                    }
+
+                                                </p>
+                                                <div class="c-mment-description">
+                                                    <p>@Model.ProductCommentVM.Message</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                </ol>
+                                @if(User.Identity.IsAuthenticated)
+                                {
+                                    <p style="color: #b97a56;">Add a review</p>
+                                    <p>Your email address will not be published. Required fields are marked *</p>
+
+                                    <p>Your rating *</p>
+                                    <form>
+                                        <div class="product-rate">
+                                            <i class="fa-solid fa-star" style="color: #b97a56;"></i>
+                                            <i class="fa-solid fa-star" style="color: #b97a56;"></i>
+                                            <i class="fa-solid fa-star" style="color: #b97a56;"></i>
+                                            <i class="fa-regular fa-star" style="color: #b97a56;"></i>
+                                            <i class="fa-regular fa-star" style="color: #b97a56;"></i>
+                                        </div>
+                                        <p>Your review *</p>
+                                        <textarea name="" id="" cols="30" rows="10" asp-for="ProductCommentVM.Message"></textarea>
+
+                                        <div class="label">
+                                            <label for="">Name *</label>
+                                        </div>
+                                        <div class="input">
+                                            <input class="input-field"
+                                                   readonly
+                                                   value="@string.Join(" ", userManager.Users.FirstOrDefault(u=>u.UserName==User.Identity.Name).FirstName,userManager.Users.FirstOrDefault(u=>u.UserName==User.Identity.Name).LastName)"
+                                                   asp-for="ProductCommentVM.Name"/>
+                                        </div>
+                                        <div class="label">
+                                            <label for="">Email *</label>
+                                        </div>
+                                        <div class="input">
+                                            <input class="input-field"
+                                                   readonly
+                                                   value="@userManager.Users.FirstOrDefault(u=>u.UserName==User.Identity.Name).Email"
+                                                   asp-for="ProductCommentVM.Email" />
+                                        </div>
+
+
+                                        <div class="submit-button">
+                                            <button type="submit">SUBMIT</button>
+                                        </div>
+                                    </form>
+
+                                }
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <section id="related">
+        <div class="related-title">
+            <div class="container">
+                <h4>RELATED PRODUCTS</h4>
+
+            </div>
+        </div>
+        <div class="related-product">
+            <div class="container">
+                <div class="row">
+                    @foreach (var relatedProduct in Model.RelatedProducts.Take(4))
+                    {
+                        <div class="col-lg-3 col-md-6 col-sm-12">
+                            <div class="product-card">
+                                <a asp-action="ProductDetail" asp-route-id="@relatedProduct.Id">
+                                    <div class="product-img">
+                                        <img src="~/assets/images/@relatedProduct.Images.Where(p=>p.IsMain).FirstOrDefault()?.Image" alt="">
+                                    </div>
+                                    <div class="product-img-hover ">
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            <i class="fa-regular fa-heart"></i>
+                                            <i class="fa-solid fa-heart d-none"></i>
+                                            <div class="add-btn-first">
+                                                <button>Add to Card</button>
+                                            </div>
+                                            <div class="add-btn-second">
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <a asp-controller="Account" asp-action="Index">
+                                                <i class="fa-regular fa-heart"></i>
+                                                <i class="fa-solid fa-heart d-none"></i>
+                                                <div class="add-btn-first">
+                                                    <button>Add to Card</button>
+                                                </div>
+                                                <div class="add-btn-second">
+                                                </div>
+                                            </a>
+                                        }
+
+                                    </div>
+                                    <div class="product-name">
+                                        <h6><a asp-controller="Shop" asp-action="Index" asp-route-id="@relatedProduct.Id"> @relatedProduct.Name</a></h6>
+                                    </div>
+                                    <div class="product-price">
+                                        <span>
+                                            <spna>£</spna>@relatedProduct.Price
+                                        </span>
+                                    </div>
+                                </a>
+
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+@section Scripts{
+    <script src="~/assets/js/shop.js"></script>
+    <script src="~/assets/js/productDetail.js"></script>
+    <script src="~/assets/js/common.js"></script>
+
+}
