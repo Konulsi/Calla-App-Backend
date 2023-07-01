@@ -1,10 +1,12 @@
 ﻿using CallaApp.Data;
+using CallaApp.Helpers;
 using CallaApp.Models;
 using CallaApp.Services;
 using CallaApp.Services.Interfaces;
 using CallaApp.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CallaApp.Controllers
 {
@@ -39,7 +41,7 @@ namespace CallaApp.Controllers
             _layoutService = layoutService;
             _webSiteSocialService = webSiteSocialService;
         }
-        public async Task<IActionResult>  Index()
+        public async Task<IActionResult>  Index(int page = 1, int take = 2)
         {
             List<Blog> blogs = await _blogService.GetAllAsync();
             List<Tag> tags = await _tagService.GetAllAsync();
@@ -48,6 +50,9 @@ namespace CallaApp.Controllers
             List<MiniImage> miniImages = await _miniImageService.GetAllAsync();
             Dictionary<string, string> headerBackgrounds = _context.HeaderBackgrounds.AsEnumerable().ToDictionary(m => m.Key, m => m.Value);
 
+            List<Blog> datas = await _blogService.GetPaginatedDatasAsync(page, take);
+            int pageCount = await GetPageCountAsync(take);
+            Paginate<Blog> paginatedDatas = new(datas, page, pageCount);
 
             BlogVM model = new()
             {
@@ -56,7 +61,8 @@ namespace CallaApp.Controllers
                 HeaderBackgrounds = headerBackgrounds,
                 MiniImages = miniImages,
                 Blogs = blogs,
-                Authors = authors
+                Authors = authors,
+                PaginateDatas = paginatedDatas,
             };
 
             return View(model);

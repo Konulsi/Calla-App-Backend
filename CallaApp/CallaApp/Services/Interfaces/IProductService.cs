@@ -8,6 +8,7 @@ namespace CallaApp.Services.Interfaces
         Task<Product> GetByIdAsync(int id);
         Task<List<Product>> GetAllAsync();
         Task<Product> GetFullDataByIdAsync(int? id);
+        Task<List<ProductVM>> GetDatasAsync();
         Task<List<Product>> GetFeaturedProducts();
         Task<List<Product>> GetBestsellerProducts();
         Task<List<Product>> GetLatestProducts();

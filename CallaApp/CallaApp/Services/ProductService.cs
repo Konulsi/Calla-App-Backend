@@ -42,6 +42,23 @@ namespace CallaApp.Services
                                                                             .FirstOrDefaultAsync(m => m.Id == id);
         public async Task<Product> GetByIdAsync(int id) => await _context.Products.FindAsync(id);
         public async Task<int> GetCountAsync() => await _context.Products.CountAsync();
+        public async Task<List<ProductVM>> GetDatasAsync()
+        {
+            List<ProductVM> model = new();
+            var products = await _context.Products.Include(p => p.Images).ToListAsync();
+            foreach (var item in products)
+            {
+                model.Add(new ProductVM
+                {
+                    Id = item.Id,
+                    Price = item.Price,
+                    Name = item.Name,
+                    ProductImages = item.Images,
+                    Rating = item.Rate
+                });
+            }
+            return model;
+        }
         public async Task<List<Product>> GetFeaturedProducts() => await _context.Products.Where(m => !m.SoftDelete).OrderByDescending(m => m.Rate).ToListAsync();
         public async Task<List<Product>> GetBestsellerProducts() => await _context.Products.Where(m => !m.SoftDelete).OrderByDescending(m => m.SaleCount).ToListAsync();
         public async Task<List<Product>> GetLatestProducts() => await _context.Products.Where(m => !m.SoftDelete).OrderByDescending(m => m.CreateDate).ToListAsync();

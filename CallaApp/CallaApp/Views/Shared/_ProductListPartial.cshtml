@@ -1,0 +1,29 @@
+﻿@model Paginate<ProductVM>
+
+@foreach (var item in Model.PaginateDatas.Datas)
+{
+    <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="product-card">
+            <div class="product-img">
+                <img src="~/assets/images/product-img-cactusPot.jpg" alt="">
+            </div>
+            <div class="product-img-hover ">
+                <i class="fa-regular fa-heart"></i>
+                <i class="fa-solid fa-heart d-none"></i>
+                <div class="add-btn-first">
+                    <button>Add to Card</button>
+                </div>
+                <div class="add-btn-second">
+                </div>
+            </div>
+            <div class="product-name">
+                <h6><a href="./ProductDetail.html"> MODERN DECOR</a></h6>
+            </div>
+            <div class="product-price">
+                <span>
+                    <spna>£</spna>45.00
+                </span>
+            </div>
+        </div>
+    </div>
+}

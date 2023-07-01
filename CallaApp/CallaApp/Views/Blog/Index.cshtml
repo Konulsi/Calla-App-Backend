@@ -17,7 +17,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-9 col-md-12 col-sm-12">
-                    @foreach (var blog in Model.Blogs)
+                    @foreach (var blog in Model.PaginateDatas.Datas)
                     {
                         <div class="blog-slide1">
                             <div class="container my-5">
@@ -198,24 +198,22 @@
                         </div>
                     </div>
                 </div>
-@*                <div class="page-number">
-                    <ul class="pagination justify-content-end">
-                        <li class="page-item  @(Model.PaginateDatas.HasPrevious ? "" : "disabled")">
-
-                            <a class="page-link" asp-action="Index" asp-route-page="@(Model.PaginateDatas.CurrentPage - 1)" tabindex="-1" aria-label="Previous"><<</a>
+                <div class="page-number">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item  @(Model.PaginateDatas.HasPrevious ? " " : "d-none")">
+                            <a class="page-link" asp-action="Index" asp-route-page="@(Model.PaginateDatas.CurrentPage - 1)" aria-label="Previous">&laquo;</a>
                         </li>
                         @for (int i = 1; i <= Model.PaginateDatas.TotalPage; i++)
                         {
-
-                            <li class="page-item active @(Model.PaginateDatas.CurrentPage == i ? "disabled" : "")"><a class="page-link" asp-controller="Blog" asp-action="Index" asp-route-page="@i">@i</a></li>
-
+                            <li class="page-item  @(Model.PaginateDatas.CurrentPage == i ? "disabled" : "") ">
+                                <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
+                            </li>
                         }
-
-                        <li class="page-item  @(Model.PaginateDatas.HasNext ? "" : "disabled")">
-                            <a class="page-link" asp-action="Index" asp-route-page="@(Model.PaginateDatas.CurrentPage + 1)" aria-label="Next">>></a>
+                        <li class="page-item  @(Model.PaginateDatas.HasNext ? " " : "d-none")">
+                            <a class="page-link" asp-action="Index" asp-route-page="@(Model.PaginateDatas.CurrentPage + 1)" aria-label="Next">&raquo;</a>
                         </li>
                     </ul>
-                </div>*@
+                </div>
             </div>
         </div>
     </section>
