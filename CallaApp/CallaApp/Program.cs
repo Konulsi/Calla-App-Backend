@@ -68,11 +68,6 @@ builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<EmailSetting>();
 
 
-
-
-
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
