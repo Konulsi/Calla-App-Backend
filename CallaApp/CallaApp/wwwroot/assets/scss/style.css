@@ -8,6 +8,8 @@ body {
           user-select: none;
 }
 
+
+
 .up-navbar-sections {
   position: relative;
   justify-content: space-around;
@@ -346,8 +348,8 @@ body {
   border: 2px solid #e1a385;
   position: absolute;
   top: 0%;
-  height: 82%;
-  width: 5%;
+  height: 81.9%;
+  width: 10.5%;
   opacity: 0;
   transition: 0.5s;
   transition: 1s;
@@ -1513,7 +1515,8 @@ body {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 #login-form .shadow .login-content {
-  padding: 70px 20px 50px;
+  padding: 70px 20px 50px;  
+  text-align: left;
 }
 #login-form .shadow .login-content .login h2 {
   font-size: 34px;
@@ -1634,6 +1637,7 @@ body {
 }
 #register-form .shadow .register-content {
   padding: 70px 20px 50px;
+  text-align: left;
 }
 #register-form .shadow .register-content .register h2 {
   font-size: 34px;
@@ -3794,9 +3798,10 @@ h1, a {
     margin-top: 40px;
     margin-bottom: 40px;
   }
-  #login-form .shadow .login-content {
-    padding: 30px 20px 30px !important;
-  }
+#login-form .shadow .login-content {
+    padding: 70px 20px 50px;
+    text-align: left;
+}
   #login-form .shadow .login-content .login h2 {
     font-size: 20px;
   }
@@ -3845,9 +3850,10 @@ h1, a {
     margin-top: 40px;
     margin-bottom: 40px;
   }
-  #register-form .shadow .register-content {
-    padding: 30px 20px 30px !important;
-  }
+#register-form .shadow .register-content {
+    padding: 70px 20px 50px;
+    text-align: left !important;
+}
   #register-form .shadow .register-content .register h2 {
     font-size: 20px;
   }

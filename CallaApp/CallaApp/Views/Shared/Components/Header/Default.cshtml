@@ -1,5 +1,5 @@
 ﻿@model LayoutVM
-@*@inject UserManager<AppUser> usermanager;*@
+@inject UserManager<AppUser> usermanager;
 
 <header>
     <nav>
@@ -28,22 +28,31 @@
                     </div>
 
                     <div class="right">
-                        <div class="login-register">
-                            <div class="login">
-                                <a href="Login.html">Login</a>
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <div class="login-register">
+                                <div class="login">
+                                    <a asp-controller="Account" asp-action="Login">Login</a>
+                                </div>
+                                <div class="register">
+                                    <a asp-controller="Account" asp-action="Register">Register</a>
+                                </div>
                             </div>
-                            <div class="register">
-                                <a href="Register.html">Register</a>
+                        }
+                        else
+                        {
+                            <div class="account  d-none">
+                                <form asp-controller="Account" asp-action="Logout" asp-route-userId="@usermanager.Users.Where(u=>u.UserName==User.Identity.Name).FirstOrDefault().Id" method="post">
+                                    <div class="logout">
+                                        <button style="border:none; color: black; background: transparent; margin-left: 45px; " type="submit">Logout</button>
+                                    </div>
+                                </form>
+
+                                <div class="my-account">
+                                    <a href="">My account</a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="account  d-none">
-                            <div class="logout">
-                                <a href="">Logout</a>
-                            </div>
-                            <div class="my-account">
-                                <a href="">My account</a>
-                            </div>
-                        </div>
+                        }
                     </div>
                 </div>
 

@@ -1,7 +1,7 @@
 ﻿using CallaApp.Data;
 using CallaApp.Models;
 using CallaApp.Services.Interfaces;
-using CallaApp.ViewModels;
+using CallaApp.ViewModels.Home;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CallaApp.Controllers
@@ -15,6 +15,7 @@ namespace CallaApp.Controllers
         private readonly IBrandService _brandService;
         private readonly ITeamService _teamService;
         private readonly IBlogService _blogService;
+        private readonly IProductService _productService;
         private readonly IAdvertisingService _advertisingService;
 
 
@@ -25,7 +26,8 @@ namespace CallaApp.Controllers
                               IBrandService brandService,
                               ITeamService teamService,
                               AppDbContext context,
-                              IBlogService blogService)
+                              IBlogService blogService,
+                              IProductService productService)
         {
             _sliderService = sliderService;
             _bannerService = bannerService;
@@ -35,10 +37,13 @@ namespace CallaApp.Controllers
             _teamService = teamService;
             _context = context;
             _blogService = blogService;
+            _productService = productService;
+
         }
         public async Task<IActionResult> Index()
         {
             List<Slider> sliders = await _sliderService.GetAllAsync();
+            List<Product> products = await _productService.GetAllAsync();
             List<Banner> banners = await _bannerService.GetAllAsync();
             List<Decor> decors = await _decorService.GetAllAsync();
             List<Brand> brands = await _brandService.GetAllAsync();
@@ -58,6 +63,7 @@ namespace CallaApp.Controllers
                 Brands = brands,
                 Teams = teams,
                 Blogs = blogs,
+                Products = products,
             };
 
             return View(model);

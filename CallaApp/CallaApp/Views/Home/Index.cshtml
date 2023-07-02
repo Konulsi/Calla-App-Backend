@@ -46,30 +46,34 @@
     <section id="products-slider">
         <div class="container mt-5">
             <div class="product-cards ">
-                <div class="product-card">
-                    <div class="product-img">
-                        <img src="~/assets/images/product-img-cactusPot.jpg" alt="">
-                    </div>
-                    <div class="product-img-hover ">
-                        <i class="fa-regular fa-heart"></i>
-                        <i class="fa-solid fa-heart d-none"></i>
-                        <div class="add-btn-first">
-                            <button>Add to Card</button>
+                @foreach (var product in Model.Products)
+                {
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="~/assets/images/@product.Images?.Where(p => p.IsMain).FirstOrDefault()?.Image" alt="">
                         </div>
-                        <div class="add-btn-second">
+                        <div class="product-img-hover ">
+                            <i class="fa-regular fa-heart"></i>
+                            <i class="fa-solid fa-heart d-none"></i>
+                            <div class="add-btn-first">
+                                <button>Add to Card</button>
+                            </div>
+                            <div class="add-btn-second">
+                            </div>
+                        </div>
+                        <div class="product-name">
+                            <h6><a asp-controller="Shop" asp-action="ProductDetail" asp-route-id="@product.Id"> @product.Name</a></h6>
+                        </div>
+                        <div class="product-price">
+                            <span>
+                                <spna>£ </spna> @product.Price
+                            </span>
                         </div>
                     </div>
-                    <div class="product-name">
-                        <h6><a href="~/ProductDetail.html"> MODERN DECOR</a></h6>
-                    </div>
-                    <div class="product-price">
-                        <span>
-                            <spna>£</spna>45.00
-                        </span>
-                    </div>
-                </div>
+                }
 
-                <div class="product-card">
+
+@*                <div class="product-card">
                     <div class="product-img">
                         <img src="~/assets/images/product-img-candle.jpg" alt="">
                     </div>
@@ -415,7 +419,6 @@
                     </div>
                 </div>
 
-
                 <div class="product-card">
                     <div class="product-img">
                         <img src="~/assets/images/product-img-pineapple.jpg" alt="">
@@ -483,7 +486,7 @@
                             <spna>£</spna>35.00
                         </span>
                     </div>
-                </div>
+                </div>*@
             </div>
 
         </div>

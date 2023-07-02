@@ -1,7 +1,7 @@
 ﻿using CallaApp.Data;
 using CallaApp.Models;
 using CallaApp.Services.Interfaces;
-using CallaApp.ViewModels;
+using CallaApp.ViewModels.Contact;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;

@@ -1,7 +1,7 @@
 ﻿using CallaApp.Data;
 using CallaApp.Models;
 using CallaApp.Services.Interfaces;
-using CallaApp.ViewModels;
+using CallaApp.ViewModels.Cart;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CallaApp.Controllers

@@ -455,8 +455,8 @@ body {
             border: 2px solid #e1a385;
             position: absolute;
             top: 0%;
-            height: 82%;
-            width: 5%;
+            height: 81.9%;
+            width: 10.5%;
             opacity: 0;
             transition: 0.5s;
 
@@ -495,11 +495,9 @@ body {
                 border: 1px solid #e1a385;
                 height: 15%;
                 cursor: pointer !important;
-
             }
 
             transition: 1s;
-
         }
 
         .product-name {
@@ -533,14 +531,8 @@ body {
             .product-img-hover {
                 opacity: 1;
             }
-
         }
-
     }
-
-
-
-
 }
 
 

@@ -40,13 +40,13 @@ namespace CallaApp.Services
             return await _context.BlogComments.Include(b => b.Blog).FirstOrDefaultAsync(b => b.Id == id);
         }
 
-        //public async Task<List<Blog>> GetRelatedBlogs()
-        //{
-        //    return await _context.Blogs
-        //         .Include(p => p.BlogImage)
-        //         .Include(p => p.Author)
-        //         .OrderByDescending(p => p.CreateDate).ToList();
-        //}
+        public  List<Blog> GetRelatedBlogs()
+        {
+            return  _context.Blogs
+                 .Include(p => p.BlogImage)
+                 .Include(p => p.Author)
+                 .OrderByDescending(p => p.Author.Name).ToList();
+        }
 
 
         public async Task<List<BlogComment>> GetComments()

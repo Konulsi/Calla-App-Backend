@@ -131,6 +131,7 @@ $(document).ready(function () {
     function getProductsById(clickedElem, url) {
         $(document).on("click", clickedElem, function (e) {
             e.preventDefault();
+            debugger
             let id = $(this).attr("data-id");
             let data = { id: id };
             let parent = $(".product-grid-view")
@@ -139,6 +140,7 @@ $(document).ready(function () {
                 type: "Get",
                 data: data,
                 success: function (res) {
+                    debugger
                     $(parent).html(res);
                 }
             })

@@ -1,7 +1,7 @@
 ﻿using CallaApp.Data;
 using CallaApp.Models;
 using CallaApp.Services.Interfaces;
-using CallaApp.ViewModels;
+using CallaApp.ViewModels.Wishlist;
 using Microsoft.AspNetCore.Mvc;
 using static Org.BouncyCastle.Asn1.Cmp.Challenge;
 

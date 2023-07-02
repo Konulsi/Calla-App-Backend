@@ -21,6 +21,25 @@ builder.Services.AddDbContext<AppDbContext>(option =>
 
 builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
+builder.Services.Configure<IdentityOptions>(option =>
+{
+    option.Password.RequiredLength = 8;
+    option.Password.RequireDigit = true;
+    option.Password.RequireLowercase = true;
+    option.Password.RequireUppercase = true;
+    option.Password.RequireNonAlphanumeric = true;
+
+    option.User.RequireUniqueEmail = true;
+
+    option.Lockout.MaxFailedAccessAttempts = 3;
+    option.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+    option.Lockout.AllowedForNewUsers = true;
+
+});
+
+builder.Services.Configure<EmailSetting>(builder.Configuration.GetSection("EmailSettings"));
+
+
 builder.Services.AddScoped<ILayoutService, LayoutService>();
 builder.Services.AddScoped<ISliderService, SliderService>();
 builder.Services.AddScoped<IBannerService, BannerService>();
@@ -39,9 +58,14 @@ builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<IPositionService, PositionService>();
 builder.Services.AddScoped<IBlogService, BlogService>();
 builder.Services.AddScoped<IAuthorService, AuthorService>();
+builder.Services.AddScoped<ICartService, CartService>();
 
 
 
+builder.Services.AddScoped<IEmailService, EmailService>();
+
+
+builder.Services.AddScoped<EmailSetting>();
 
 
 

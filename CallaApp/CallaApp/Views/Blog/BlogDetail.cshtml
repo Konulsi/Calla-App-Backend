@@ -20,7 +20,6 @@
                     <div class="single-blog-main-img">
                         <img class="img-fluid" src="~/assets/images/@Model.SingleBlog.BlogImage.FirstOrDefault()?.Image" alt="">
                     </div>
-
                     <div class="blog-post-text">
                         <div class="post-info-top">
                             <div class="post-info-author">
@@ -47,84 +46,43 @@
                                     <i class="@item.Icon" style="color:  #767575;"></i>
                                 </a>
                             }
-
-
                         </div>
                     </div>
                     <div class="related-blog-header">
                         <h2>RELATED POSTS</h2>
                     </div>
 
-
                     <div class="related-blog">
                         <div class="row">
-                            <div class="col-lg-4 col-md-6 col-sm-12">
-                                <div class="blog-card">
-                                    <div class="single-blog-main-img">
-                                        <img class="img-fluid" src="~/assets/images/blog-img1.jpg" alt="">
-                                    </div>
-                                    <div class="post-title">
-                                        <h3><a href="./BlogDetail.html">MASTER BEDROOM: THE FURNITURE</a></h3>
-                                    </div>
-                                    <div class="post-info">
-
-                                        <div class="post-info-author">
-                                            <span>BY HEATHER BERRY</span>
+                            @foreach (var relatedBlog in Model.RelatedBlogs.Take(3))
+                            {
+                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="blog-card">
+                                        <div class="single-blog-main-img">
+                                            <img class="img-fluid" src="~/assets/images/@relatedBlog.BlogImage.FirstOrDefault()?.Image" alt="">
                                         </div>
-                                        <div class="post-date">
-                                            <span> 28.04.2023 </span>
+                                        <div class="post-title">
+                                            <h3><a href="./BlogDetail.html">@relatedBlog.Title</a></h3>
+                                        </div>
+                                        <div class="post-info">
+
+                                            <div class="post-info-author">
+                                                <span>BY @relatedBlog.Author.Name</span>
+                                            </div>
+                                            <div class="post-date">
+                                                <span> @relatedBlog.CreateDate.ToString("dd.MM.yyyy") </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-12">
-                                <div class="blog-card">
-                                    <div class="single-blog-main-img">
-                                        <img class="img-fluid" src="~/assets/images/blog-single-img-3.jpg" alt="">
-                                    </div>
-                                    <div class="post-title">
-                                        <h3><a href="./BlogDetail.html">THE BEST LARGE ROUND MIRRORS</a></h3>
-                                    </div>
-                                    <div class="post-info">
-
-                                        <div class="post-info-author">
-                                            <span>BY HEATHER BERRY</span>
-                                        </div>
-                                        <div class="post-date">
-                                            <span> 28.04.2023 </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-12">
-                                <div class="blog-card">
-                                    <div class="single-blog-main-img">
-                                        <img class="img-fluid" src="~/assets/images/blog-single-img-6.jpg" alt="">
-                                    </div>
-                                    <div class="post-title">
-                                        <h3><a href="./BlogDetail.html">5 IDEAS TO DECORATE YOUR TABLE</a></h3>
-                                    </div>
-                                    <div class="post-info">
-
-                                        <div class="post-info-author">
-                                            <span>BY HEATHER BERRY</span>
-                                        </div>
-                                        <div class="post-date">
-                                            <span> 28.04.2023 </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
+                            }
                         </div>
                     </div>
-
 
                     <h2 class="product-rewiev">COMMENTS (@Model.BlogComments.Count)</h2>
                     <ul class="commentlist">
                         <li class="review">
                             <div class="comment_container">
-
                                 @foreach (var item in Model.SingleBlog.BlogComments)
                                 {
                                     <div class="comment-text">
@@ -142,10 +100,8 @@
                                         </div>
                                     </div>
                                 }
-
                             </div>
                         </li>
-
                     </ul>
 
                     @if (User.Identity.IsAuthenticated)
@@ -154,29 +110,24 @@
                             <h5 class="comment-header">POST A COMMENT</h5>
                             <form class="feedback-form" method="post" asp-action="PostComment" asp-route-id="@Model.SingleBlog.Id" asp-route-userId="@userManager.Users.FirstOrDefault(u=>u.UserName==User.Identity.Name).Id">
                                 <textarea name="" id="" cols="30" rows="10" placeholder="YOUR COMMENT" asp-for="BlogCommentVM.Message"></textarea>
-
                                 <div class="input">
                                     <input type="text" placeholder="YOUR NAME"
                                            readonly
                                            value="@string.Join(" ", userManager.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).FirstName, userManager.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).LastName)"
                                            asp-for="BlogCommentVM.Name" />
                                 </div>
-
                                 <div class="input">
                                     <input type="email" placeholder="YOUR EMAIL"
                                            readonly
                                            value="@userManager.Users.FirstOrDefault(u=>u.UserName==User.Identity.Name).Email"
                                            asp-for="BlogCommentVM.Email"/>
                                 </div>
-
                                 <div class="submit-button">
                                     <button type="submit">SUBMIT</button>
                                 </div>
                             </form>
-
                         </div>
                     }
-
                 </div>
                 <div class="col-lg-3 col-md-12 col-sm-12">
                     <div class="right">
@@ -192,7 +143,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
 
                         <div class="lates-posts">
@@ -256,9 +206,7 @@
                             </div>
                         </div>
 
-
                         <div class="instagram">
-
                             <div class="instagram-header">
                                 <h6>INSTAGRAM</h6>
                             </div>
@@ -274,22 +222,12 @@
                                     }
                                 </div>
                             </div>
-
-
                         </div>
-
-
-
                     </div>
-
                 </div>
             </div>
         </div>
-
     </section>
-
-
-
 </main>
 
 

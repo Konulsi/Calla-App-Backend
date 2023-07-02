@@ -3,8 +3,8 @@ using CallaApp.Helpers;
 using CallaApp.Models;
 using CallaApp.Services;
 using CallaApp.Services.Interfaces;
-using CallaApp.ViewModels;
 using CallaApp.ViewModels.Product;
+using CallaApp.ViewModels.Shop;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -71,14 +71,14 @@ namespace CallaApp.Controllers
             }
             if (sizeId != null)
             {
-                pageCount = await GetPageCountAsync(take, null, null, sizeId, null, null);
+                pageCount = await GetPageCountAsync(take, null, null,  null, sizeId, null);
             }
             if (brandId != null)
             {
-                pageCount = await GetPageCountAsync(take, null, null, brandId, null, null);
+                pageCount = await GetPageCountAsync(take, null, null, null, null, brandId);
             }
 
-            if (categoryId == null && tagId == null && colorId == null && sizeId == null &&  brandId == null)
+            if (categoryId == null &&  colorId == null && tagId == null && sizeId == null &&  brandId == null)
             {
                 pageCount = await GetPageCountAsync(take, null, null, null, null, null);
             }
@@ -109,22 +109,18 @@ namespace CallaApp.Controllers
             if (colorId is not null)
             {
                 prodCount = await _productService.GetProductsCountByColorAsync(colorId);
-
             }
             if (tagId is not null)
             {
                 prodCount = await _productService.GetProductsCountByTagAsync(tagId);
-
             }
             if (sizeId is not null)
             {
                 prodCount = await _productService.GetProductsCountBySizeAsync(sizeId);
-
             }
             if (brandId is not null)
             {
                 prodCount = await _productService.GetProductsCountByBrandAsync(brandId);
-
             }
             if (catId == null && tagId == null && colorId == null && sizeId == null && brandId == null)
             {
@@ -187,7 +183,7 @@ namespace CallaApp.Controllers
 
             var products = await _productService.GetProductsByTagIdAsync(id);
 
-            int pageCount = await GetPageCountAsync(take, null, null, (int)id,null,null);
+            int pageCount = await GetPageCountAsync(take,  null, null, (int)id, null,null);
 
             Paginate<ProductVM> model = new(products, page, pageCount);
 
@@ -202,7 +198,7 @@ namespace CallaApp.Controllers
 
             var products = await _productService.GetProductsBySizeIdAsync(id);
 
-            int pageCount = await GetPageCountAsync(take, null, null, (int)id, null, null);
+            int pageCount = await GetPageCountAsync(take, null, null, null, (int)id, null);
 
             Paginate<ProductVM> model = new(products, page, pageCount);
 
@@ -216,7 +212,7 @@ namespace CallaApp.Controllers
 
             var products = await _productService.GetProductsByBrandIdAsync(id);
 
-            int pageCount = await GetPageCountAsync(take, null, null, (int)id, null, null);
+            int pageCount = await GetPageCountAsync(take,  null, null,  null, null, (int)id);
 
             Paginate<ProductVM> model = new(products, page, pageCount);
 

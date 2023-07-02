@@ -1,6 +1,6 @@
 ﻿using CallaApp.Models;
 using CallaApp.Services.Interfaces;
-using CallaApp.ViewModels;
+using CallaApp.ViewModels.Layout;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CallaApp.ViewCompanents

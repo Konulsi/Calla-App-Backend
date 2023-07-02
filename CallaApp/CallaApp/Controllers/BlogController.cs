@@ -3,7 +3,7 @@ using CallaApp.Helpers;
 using CallaApp.Models;
 using CallaApp.Services;
 using CallaApp.Services.Interfaces;
-using CallaApp.ViewModels;
+using CallaApp.ViewModels.Blog;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -98,7 +98,8 @@ namespace CallaApp.Controllers
                 Socials = await _webSiteSocialService.GetAllAsync(),
                 Authors = await _authorService.GetAllAsync(),
                 MiniImages = await _miniImageService.GetAllAsync(),
-                LatesBlog = await _blogService.GetLatestBlogs()
+                LatesBlog = await _blogService.GetLatestBlogs(),
+                RelatedBlogs =  _blogService.GetRelatedBlogs(),
             };
             return View(model);
         }
