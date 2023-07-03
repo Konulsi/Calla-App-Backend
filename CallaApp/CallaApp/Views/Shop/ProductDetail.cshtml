@@ -196,7 +196,7 @@
                                     <p>Your email address will not be published. Required fields are marked *</p>
 
                                     <p>Your rating *</p>
-                                    <form>
+                                    <form method="post" asp-action="PostComment" asp-route-id="@Model.Id" asp-route-userId="@userManager.Users.FirstOrDefault(u=>u.UserName==User.Identity.Name).Id">
                                         <div class="product-rate">
                                             <i class="fa-solid fa-star" style="color: #b97a56;"></i>
                                             <i class="fa-solid fa-star" style="color: #b97a56;"></i>
@@ -205,7 +205,7 @@
                                             <i class="fa-regular fa-star" style="color: #b97a56;"></i>
                                         </div>
                                         <p>Your review *</p>
-                                        <textarea name="" id="" cols="30" rows="10" asp-for="ProductCommentVM.Message"></textarea>
+                                        <textarea  id="" cols="30" rows="10" asp-for="ProductCommentVM.Message"></textarea>
 
                                         <div class="label">
                                             <label for="">Name *</label>
@@ -304,8 +304,6 @@
 </main>
 
 @section Scripts{
-    <script src="~/assets/js/shop.js"></script>
+    @*<script src="~/assets/js/shop.js"></script>*@
     <script src="~/assets/js/productDetail.js"></script>
-    <script src="~/assets/js/common.js"></script>
-
 }

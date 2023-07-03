@@ -41,15 +41,15 @@
                         }
                         else
                         {
-                            <div class="account  d-none">
+                            <div class="account">
                                 <form asp-controller="Account" asp-action="Logout" asp-route-userId="@usermanager.Users.Where(u=>u.UserName==User.Identity.Name).FirstOrDefault().Id" method="post">
                                     <div class="logout">
-                                        <button style="border:none; color: black; background: transparent; margin-left: 45px; " type="submit">Logout</button>
+                                        <button style="border:none; color: white; background: transparent; margin-left: 45px; " type="submit">Logout</button>
                                     </div>
                                 </form>
 
                                 <div class="my-account">
-                                    <a href="">My account</a>
+                                    <a href="">@User.Identity.Name</a>
                                 </div>
                             </div>
                         }

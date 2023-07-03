@@ -14,7 +14,7 @@
 
     <section id="register-form">
         <div class="container shadow">
-            <div class="text-danger" style="position:relative;left:340px" asp-validation-summary="All"></div>
+            <div class="text-danger" style=" text-align: left; position: relative; right: 0px; top: 30px;" asp-validation-summary="All"></div>
             <form method="post" asp-action="Register">
                 <div class="register-content">
                     <div class="register">
@@ -31,7 +31,7 @@
                         <label for="">Last Name *</label>
                     </div>
                     <div class="input">
-                        <input  asp-for="LastName" />
+                        <input asp-for="LastName" />
                         <span class="text-danger" asp-validation-for="LastName"></span>
                     </div>
                     <div class="label">
@@ -72,6 +72,6 @@
 
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
-    <script src="~/assets/js/register.js"></script>
-    <script src="~/assets/js/common.js"></script>
+ @*   <script src="~/assets/js/register.js"></script>*@
+  @*  <script src="~/assets/js/common.js"></script>*@
 }

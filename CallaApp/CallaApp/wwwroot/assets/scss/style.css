@@ -1509,17 +1509,17 @@ body {
 }
 
 #login-form {
-  padding: 80px 270px 0px 270px;
+  padding: 40px 450px 0px 450px;
 }
 #login-form .shadow {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 #login-form .shadow .login-content {
-  padding: 70px 20px 50px;  
+  padding: 50px 20px 30px;  
   text-align: left;
 }
 #login-form .shadow .login-content .login h2 {
-  font-size: 34px;
+  font-size: 25px;
   font-weight: 500;
   line-height: 40px;
   letter-spacing: 0.05em;
@@ -1529,7 +1529,7 @@ body {
 }
 #login-form .shadow .login-content .label {
   display: block;
-  margin: 30px 0 5px;
+  margin: 20px 0 5px;
   color: rgba(0, 0, 0, 0.4705882353);
   font-family: "Open Sans", sans-serif;
   font-size: 14px;
@@ -1630,17 +1630,17 @@ body {
 }
 
 #register-form {
-  padding: 80px 270px 0px 270px;
+  padding: 40px 450px 0px 450px;
 }
 #register-form .shadow {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 #register-form .shadow .register-content {
-  padding: 70px 20px 50px;
+  padding: 50px 20px 50px;
   text-align: left;
 }
 #register-form .shadow .register-content .register h2 {
-  font-size: 34px;
+  font-size: 25px;
   font-weight: 500;
   font-family: "Crimson Text";
   letter-spacing: 0.05em;
@@ -1650,7 +1650,7 @@ body {
 }
 #register-form .shadow .register-content .label {
   display: block;
-  margin: 30px 0 5px;
+  margin: 20px 0 5px;
   color: rgba(0, 0, 0, 0.4705882353);
   font-family: "Open Sans", sans-serif;
   font-size: 14px;

@@ -91,7 +91,7 @@
                                                 <h5 class="comment-user-name">
                                                     @item.Name
                                                 </h5>
-                                                <a class="reply" href="">reply</a>
+                                                @*<a class="reply" href="">reply</a>*@
                                             </div>
                                             <span class="comment-date">@item.CreateDate.ToString("dd.MM.yyyy")</span>
                                         </p>
@@ -109,7 +109,7 @@
                         <div class="comment">
                             <h5 class="comment-header">POST A COMMENT</h5>
                             <form class="feedback-form" method="post" asp-action="PostComment" asp-route-id="@Model.SingleBlog.Id" asp-route-userId="@userManager.Users.FirstOrDefault(u=>u.UserName==User.Identity.Name).Id">
-                                <textarea name="" id="" cols="30" rows="10" placeholder="YOUR COMMENT" asp-for="BlogCommentVM.Message"></textarea>
+                                <textarea id="" cols="30" rows="10" placeholder="YOUR COMMENT" asp-for="BlogCommentVM.Message"></textarea>
                                 <div class="input">
                                     <input type="text" placeholder="YOUR NAME"
                                            readonly

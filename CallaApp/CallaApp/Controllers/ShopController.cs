@@ -283,7 +283,7 @@ namespace CallaApp.Controllers
             await _context.ProductComments.AddAsync(productComment);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(ProductDetailVM), new { id });
+            return RedirectToAction(nameof(Index), new { id });
         }
 
         //[HttpPost]

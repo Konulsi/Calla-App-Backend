@@ -1,6 +1,7 @@
 ﻿using CallaApp.Data;
 using CallaApp.Helpers.Enums;
 using CallaApp.Models;
+using CallaApp.Services;
 using CallaApp.Services.Interfaces;
 using CallaApp.ViewModels;
 using CallaApp.ViewModels.Account;
@@ -13,25 +14,32 @@ using Newtonsoft.Json;
 
 namespace CallaApp.Controllers
 {
+    //SuperAdmin - Cavid_Bashirov  email: konulsi@code.edu.az / parol: Cavid123_
+    //Admin - Konul_Ibrahimova  email: konul.osmanli96@gmail.com / parol: Cavid123_
+    //Member - Alisa_Ibrahim  email: ibadovac734@gmail.com / parol: Cavid123_
+    
     public class AccountController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IEmailService _emailService;
-
+        private readonly ICartService _cartService;
+        private readonly AppDbContext _context;
         public AccountController(UserManager<AppUser> userManager,
                                  SignInManager<AppUser> signInManager,
                                  IEmailService emailService,
-                                 RoleManager<IdentityRole> roleManager)
+                                 RoleManager<IdentityRole> roleManager,
+                                 ICartService cartService,
+                                 AppDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailService = emailService;
             _roleManager = roleManager;
+            _cartService = cartService;
+            _context = context;
         }
-
-
 
         [HttpGet]
         public IActionResult Register()
@@ -43,52 +51,63 @@ namespace CallaApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterVM model)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return View(model);
-            }
-
-            AppUser newUser = new()
-            {
-                UserName = string.Join("_", model.FirstName, model.LastName),
-                Email = model.Email,
-                LastName = model.LastName,
-                FirstName = model.FirstName,
-            };
-
-            IdentityResult result = await _userManager.CreateAsync(newUser, model.Password);
-
-            if (!result.Succeeded)
-            {
-                foreach (var item in result.Errors)
+                if (!ModelState.IsValid)
                 {
-                    ModelState.AddModelError(string.Empty, item.Description);
+                    return View(model);
                 }
-                return View(model);
+
+                AppUser newUser = new()
+                {
+                    UserName = string.Join("_", model.FirstName, model.LastName),
+                    Email = model.Email,
+                    LastName = model.LastName,
+                    FirstName = model.FirstName,
+                };
+
+                IdentityResult result = await _userManager.CreateAsync(newUser, model.Password);
+
+                if (!result.Succeeded)
+                {
+                    foreach (var item in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, item.Description);
+                    }
+                    TempData["errors"] = model.ErrorMessages;
+                    return RedirectToAction("Index", model);
+                }
+
+                await _userManager.AddToRoleAsync(newUser, Roles.Member.ToString());
+
+                string token = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
+
+                string link = Url.Action(nameof(ConfirmEmail), "Account", new { userId = newUser.Id, token }, Request.Scheme, Request.Host.ToString());
+
+                string subject = "Register confirmation";
+
+                string html = string.Empty;
+
+                using (StreamReader reader = new StreamReader("wwwroot/templates/verify.html"))
+                {
+                    html = reader.ReadToEnd();
+                }
+
+                html = html.Replace("{{link}}", link);
+                html = html.Replace("{{headerText}}", "Welcome");
+
+                _emailService.Send(newUser.Email, subject, html);
+
+                return RedirectToAction(nameof(VerifyEmail));
             }
-
-            await _userManager.AddToRoleAsync(newUser, Roles.SuperAdmin.ToString());
-
-            string token = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
-
-            string link = Url.Action(nameof(ConfirmEmail), "Account", new { userId = newUser.Id, token }, Request.Scheme, Request.Host.ToString());
-
-            string subject = "Register confirmation";
-
-            string html = string.Empty;
-
-            using (StreamReader reader = new StreamReader("wwwroot/templates/verify.html"))
+            catch (Exception ex)
             {
-                html = reader.ReadToEnd();
+                ViewBag.error = ex.Message;
+                return RedirectToAction("Index", model);
             }
-
-            html = html.Replace("{{link}}", link);
-            html = html.Replace("{{headerText}}", "Welcome");
-
-            _emailService.Send(newUser.Email, subject, html);
-
-            return RedirectToAction(nameof(VerifyEmail));
         }
+
+
 
         public async Task<IActionResult> ConfirmEmail(string userId, string token)
         {
@@ -101,6 +120,26 @@ namespace CallaApp.Controllers
             await _userManager.ConfirmEmailAsync(user, token);
 
             await _signInManager.SignInAsync(user, false);
+
+            List<CartVM> cartVMs = new();
+            Cart dbCart = await _cartService.GetByUserIdAsync(userId);
+
+            if (dbCart is not null)
+            {
+                List<CartProduct> cartProducts = await _cartService.GetAllByCartIdAsync(dbCart.Id);
+                foreach (var cartProduct in cartProducts)
+                {
+                    cartVMs.Add(new CartVM
+                    {
+                        ProductId = cartProduct.ProductId,
+                        Count = cartProduct.Count
+                    });
+                }
+
+                Response.Cookies.Append("basket", JsonConvert.SerializeObject(cartVMs));
+            }
+
+            Response.Cookies.Append("basket", JsonConvert.SerializeObject(cartVMs));
 
             return RedirectToAction("Index", "Home");
         }
@@ -120,42 +159,108 @@ namespace CallaApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginVM model)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return View(model);
+                if (!ModelState.IsValid) return RedirectToAction("Index", model);
+
+                var user = await _userManager.FindByEmailAsync(model.EmailOrUsername);
+
+                if (user == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Email or password is wrong");
+                    RedirectToAction("Index", model);
+                }
+
+                var res = await _signInManager.PasswordSignInAsync(user, model.Password, model.IsRememberMe, false);
+
+                if (!res.Succeeded)
+                {
+                    ModelState.AddModelError(string.Empty, "Email or password is wrong");
+                    RedirectToAction("Index", model);
+                }
+
+                List<CartVM> cartVMs = new();
+
+                Cart dbCart = await _cartService.GetByUserIdAsync(user.Id);
+
+                if (dbCart is not null)
+                {
+                    List<CartProduct> cartProducts = await _cartService.GetAllByCartIdAsync(dbCart.Id);
+                    foreach (var cartProduct in cartProducts)
+                    {
+                        cartVMs.Add(new CartVM
+                        {
+                            ProductId = cartProduct.ProductId,
+                            Count = cartProduct.Count
+                        });
+                    }
+
+                    Response.Cookies.Append("basket", JsonConvert.SerializeObject(cartVMs));
+                }
+
+
+                return RedirectToAction("Index", "Home");
             }
-
-            AppUser user = await _userManager.FindByEmailAsync(model.EmailOrUsername);
-
-            if (user is null)
+            catch (Exception ex)
             {
-                user = await _userManager.FindByNameAsync(model.EmailOrUsername);
+                ViewBag.error = ex.Message;
+                return View();
             }
-
-            if (user is null)
-            {
-                ModelState.AddModelError(string.Empty, "Email or password is wrong");
-                return View(model);
-            }
-
-            var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.IsRememberMe, false);
-
-            if (!result.Succeeded)
-            {
-                ModelState.AddModelError(string.Empty, "Email or password is wrong");
-                return View(model);
-            }
-            ViewBag.UserId = await _userManager.FindByNameAsync(model.EmailOrUsername);
-            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Logout()
+        public async Task<IActionResult> Logout(string userId)
         {
             await _signInManager.SignOutAsync();
+
+            List<CartVM> carts = _cartService.GetDatasFromCookie();
+
+            if (carts.Count != 0)
+            {
+                Cart dbCart = await _cartService.GetByUserIdAsync(userId);
+                if (dbCart == null)
+                {
+                    dbCart = new()
+                    {
+                        AppUserId = userId,
+                        CartProducts = new List<CartProduct>()
+                    };
+                    foreach (var cart in carts)
+                    {
+                        dbCart.CartProducts.Add(new CartProduct()
+                        {
+                            ProductId = cart.ProductId,
+                            CartId = dbCart.Id,
+                            Count = cart.Count
+                        });
+                    }
+                    await _context.Carts.AddAsync(dbCart);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    List<CartProduct> cartProducts = new List<CartProduct>();
+                    foreach (var cart in carts)
+                    {
+                        cartProducts.Add(new CartProduct()
+                        {
+                            ProductId = cart.ProductId,
+                            CartId = dbCart.Id,
+                            Count = cart.Count
+                        });
+                    }
+                    dbCart.CartProducts = cartProducts;
+                    await _context.Carts.AddAsync(dbCart);
+                    _context.SaveChanges();
+
+                }
+                Response.Cookies.Delete("basket");
+            }
+
             return RedirectToAction("Index", "Home");
         }
+
 
         //public async Task CreateRole()
         //{
