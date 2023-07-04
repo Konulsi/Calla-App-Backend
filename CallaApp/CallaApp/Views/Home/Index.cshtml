@@ -46,20 +46,35 @@
     <section id="products-slider">
         <div class="container mt-5">
             <div class="product-cards ">
-                @foreach (var product in Model.Products)
+                @foreach (var product in Model.Products.OrderByDescending(p => p.SaleCount))
                 {
                     <div class="product-card">
                         <div class="product-img">
                             <img src="~/assets/images/@product.Images?.Where(p => p.IsMain).FirstOrDefault()?.Image" alt="">
                         </div>
                         <div class="product-img-hover ">
-                            <i class="fa-regular fa-heart"></i>
-                            <i class="fa-solid fa-heart d-none"></i>
-                            <div class="add-btn-first">
-                                <button>Add to Card</button>
-                            </div>
-                            <div class="add-btn-second">
-                            </div>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <i class="fa-regular fa-heart"></i>
+                                <i class="fa-solid fa-heart d-none"></i>
+                                <div  class="add-btn-first">
+                                    <button type="submit"  class="add-to-cart-btn">Add to Cart</button>
+                                </div>
+                                <div data-id="@product.Id" class="add-btn-second">
+                                </div>
+                            }
+                            else
+                            {
+                                <a asp-controller="Account" asp-action="Login">
+                                    <i class="fa-regular fa-heart"></i>
+                                    <i class="fa-solid fa-heart d-none"></i>
+                                    <div class="add-btn-first">
+                                        <button>Add to Cart</button>
+                                    </div>
+                                    <div class="add-btn-second">
+                                    </div>
+                                </a>
+                            }
                         </div>
                         <div class="product-name">
                             <h6><a asp-controller="Shop" asp-action="ProductDetail" asp-route-id="@product.Id"> @product.Name</a></h6>
@@ -71,426 +86,8 @@
                         </div>
                     </div>
                 }
-
-
-@*                <div class="product-card">
-                    <div class="product-img">
-                        <img src="~/assets/images/product-img-candle.jpg" alt="">
-                    </div>
-                    <div class="product-img-hover">
-                        <i class="fa-regular fa-heart"></i>
-                        <i class="fa-solid fa-heart d-none"></i>
-                        <div class="add-btn-first">
-                            <button>Add to Card</button>
-                        </div>
-                        <div class="add-btn-second">
-                        </div>
-                    </div>
-                    <div class="product-name">
-                        <h6><a href="~/ProductDetail.html">CANDLE</a></h6>
-                    </div>
-                    <div class="product-price">
-                        <span>
-                            <spna>£</spna>35.00
-                        </span>
-                    </div>
-
-                </div>
-
-                <div class="product-card">
-                    <div class="product-img">
-                        <img src="~/assets/images/product-img-chair1.jpg" alt="">
-                    </div>
-                    <div class="product-img-hover">
-                        <i class="fa-regular fa-heart"></i>
-                        <i class="fa-solid fa-heart d-none"></i>
-                        <div class="add-btn-first">
-                            <button>Add to Card</button>
-                        </div>
-                        <div class="add-btn-second">
-                        </div>
-                    </div>
-                    <div class="product-name">
-                        <h6><a href="~/ProductDetail.html"> DEDIGN CHAIR</a></h6>
-                    </div>
-                    <div class="product-price">
-                        <span>
-                            <spna>£</spna>155.00
-                        </span>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-img">
-                        <img src="~/assets/images/product-img-flowerPot.jpg" alt="">
-                    </div>
-                    <div class="product-img-hover">
-                        <i class="fa-regular fa-heart"></i>
-                        <i class="fa-solid fa-heart d-none"></i>
-                        <div class="add-btn-first">
-                            <button>Add to Card</button>
-                        </div>
-                        <div class="add-btn-second">
-                        </div>
-                    </div>
-                    <div class="product-name">
-                        <h6><a href="~/ProductDetail.html"> MODERN VASE</a></h6>
-                    </div>
-                    <div class="product-price">
-                        <span>
-                            <spna>£</spna>35.00
-                        </span>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-img">
-                        <img src="~/assets/images/product-img-pillowGreen1.jpg" alt="">
-                    </div>
-                    <div class="product-img-hover">
-                        <i class="fa-regular fa-heart"></i>
-                        <i class="fa-solid fa-heart d-none"></i>
-                        <div class="add-btn-first">
-                            <button>Add to Card</button>
-                        </div>
-                        <div class="add-btn-second">
-                        </div>
-                    </div>
-                    <div class="product-name">
-                        <h6><a href="~/ProductDetail.html">GREEN PILLOW</a></h6>
-                    </div>
-                    <div class="product-price">
-                        <span>
-                            <spna>£</spna>35.00
-                        </span>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-img">
-                        <img src="~/assets/images/product-img-flowerPot-gold.jpg" alt="">
-                    </div>
-                    <div class="product-img-hover">
-                        <i class="fa-regular fa-heart"></i>
-                        <i class="fa-solid fa-heart d-none"></i>
-                        <div class="add-btn-first">
-                            <button>Add to Card</button>
-                        </div>
-                        <div class="add-btn-second">
-                        </div>
-                    </div>
-                    <div class="product-name">
-                        <h6><a href="~/ProductDetail.html"> MODERN VASE</a></h6>
-                    </div>
-                    <div class="product-price">
-                        <span>
-                            <spna>£</spna>35.00
-                        </span>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-img">
-                        <img src="~/assets/images/product-img-pillow2.jpg" alt="">
-                    </div>
-                    <div class="product-img-hover">
-                        <i class="fa-regular fa-heart"></i>
-                        <i class="fa-solid fa-heart d-none"></i>
-                        <div class="add-btn-first">
-                            <button>Add to Card</button>
-                        </div>
-                        <div class="add-btn-second">
-                        </div>
-                    </div>
-                    <div class="product-name">
-                        <h6><a href="~/ProductDetail.html"> PILLOW</a></h6>
-                    </div>
-                    <div class="product-price">
-                        <span>
-                            <spna>£</spna>35.00
-                        </span>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-img">
-                        <img src="~/assets/images/product-img-table-white.jpg" alt="">
-                    </div>
-                    <div class="product-img-hover">
-                        <i class="fa-regular fa-heart"></i>
-                        <i class="fa-solid fa-heart d-none"></i>
-                        <div class="add-btn-first">
-                            <button>Add to Card</button>
-                        </div>
-                        <div class="add-btn-second">
-                        </div>
-                    </div>
-                    <div class="product-name">
-                        <h6><a href="~/ProductDetail.html"> DESIGN CHAIR</a></h6>
-                    </div>
-                    <div class="product-price">
-                        <span>
-                            <spna>£</spna>35.00
-                        </span>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-img">
-                        <img src="~/assets/images/product-img-PotCircul.jpg" alt="">
-                    </div>
-                    <div class="product-img-hover">
-                        <i class="fa-regular fa-heart"></i>
-                        <i class="fa-solid fa-heart d-none"></i>
-                        <div class="add-btn-first">
-                            <button>Add to Card</button>
-                        </div>
-                        <div class="add-btn-second">
-                        </div>
-                    </div>
-                    <div class="product-name">
-                        <h6><a href="~/ProductDetail.html"> GREEN POT</a></h6>
-                    </div>
-                    <div class="product-price">
-                        <span>
-                            <spna>£</spna>35.00
-                        </span>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-img">
-                        <img src="~/assets/images/product-img-pillow1.jpg" alt="">
-                    </div>
-                    <div class="product-img-hover">
-                        <i class="fa-regular fa-heart"></i>
-                        <i class="fa-solid fa-heart d-none"></i>
-                        <div class="add-btn-first">
-                            <button>Add to Card</button>
-                        </div>
-                        <div class="add-btn-second">
-                        </div>
-                    </div>
-                    <div class="product-name">
-                        <h6><a href="~/ProductDetail.html"> MODERN DECOR</a></h6>
-                    </div>
-                    <div class="product-price">
-                        <span>
-                            <spna>£</spna>35.00
-                        </span>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-img">
-                        <img src="~/assets/images/product-img-star1.jpg" alt="">
-                    </div>
-                    <div class="product-img-hover">
-                        <i class="fa-regular fa-heart"></i>
-                        <i class="fa-solid fa-heart d-none"></i>
-                        <div class="add-btn-first">
-                            <button>Add to Card</button>
-                        </div>
-                        <div class="add-btn-second">
-                        </div>
-                    </div>
-                    <div class="product-name">
-                        <h6><a href="~/ProductDetail.html"> STEEL LAMP</a></h6>
-                    </div>
-                    <div class="product-price">
-                        <span>
-                            <spna>£</spna>35.00
-                        </span>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-img">
-                        <img src="~/assets/images/product-img-spoon1.jpg" alt="">
-                    </div>
-                    <div class="product-img-hover">
-                        <i class="fa-regular fa-heart"></i>
-                        <i class="fa-solid fa-heart d-none"></i>
-                        <div class="add-btn-first">
-                            <button>Add to Card</button>
-                        </div>
-                        <div class="add-btn-second">
-                        </div>
-                    </div>
-                    <div class="product-name">
-                        <h6><a href="~/ProductDetail.html"> SPOON</a></h6>
-                    </div>
-                    <div class="product-price">
-                        <span>
-                            <spna>£</spna>35.00
-                        </span>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-img">
-                        <img src="~/assets/images/product-img-flowerPotGreen.jpg" alt="">
-                    </div>
-                    <div class="product-img-hover">
-                        <i class="fa-regular fa-heart"></i>
-                        <i class="fa-solid fa-heart d-none"></i>
-                        <div class="add-btn-first">
-                            <button>Add to Card</button>
-                        </div>
-                        <div class="add-btn-second">
-                        </div>
-                    </div>
-                    <div class="product-name">
-                        <h6><a href="~/ProductDetail.html"> BLUE VASE</a></h6>
-                    </div>
-                    <div class="product-price">
-                        <span>
-                            <spna>£</spna>35.00
-                        </span>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-img">
-                        <img src="~/assets/images/product-img-potThinThroat.jpg" alt="">
-                    </div>
-                    <div class="product-img-hover">
-                        <i class="fa-regular fa-heart"></i>
-                        <i class="fa-solid fa-heart d-none"></i>
-                        <div class="add-btn-first">
-                            <button>Add to Card</button>
-                        </div>
-                        <div class="add-btn-second">
-                        </div>
-                    </div>
-                    <div class="product-name">
-                        <h6><a href="~/ProductDetail.html"> CONCRETE POT</a></h6>
-                    </div>
-                    <div class="product-price">
-                        <span>
-                            <spna>£</spna>35.00
-                        </span>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-img">
-                        <img src="~/assets/images/product-img-pillow-white.jpg" alt="">
-                    </div>
-                    <div class="product-img-hover">
-                        <i class="fa-regular fa-heart"></i>
-                        <i class="fa-solid fa-heart d-none"></i>
-                        <div class="add-btn-first">
-                            <button>Add to Card</button>
-                        </div>
-                        <div class="add-btn-second">
-                        </div>
-                    </div>
-                    <div class="product-name">
-                        <h6><a href="~/ProductDetail.html"> WHITE PILLOW</a></h6>
-                    </div>
-                    <div class="product-price">
-                        <span>
-                            <spna>£</spna>35.00
-                        </span>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-img">
-                        <img src="~/assets/images/product-img-flowerPotWhite.jpg" alt="">
-                    </div>
-                    <div class="product-img-hover ">
-                        <i class="fa-regular fa-heart"></i>
-                        <i class="fa-solid fa-heart d-none"></i>
-                        <div class="add-btn-first">
-                            <button>Add to Card</button>
-                        </div>
-                        <div class="add-btn-second">
-                        </div>
-                    </div>
-                    <div class="product-name">
-                        <h6><a href="~/ProductDetail.html"> WHITE POT</a></h6>
-                    </div>
-                    <div class="product-price">
-                        <span>
-                            <spna>£</spna>35.00
-                        </span>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-img">
-                        <img src="~/assets/images/product-img-pineapple.jpg" alt="">
-                    </div>
-                    <div class="product-img-hover">
-                        <i class="fa-regular fa-heart"></i>
-                        <i class="fa-solid fa-heart d-none"></i>
-                        <div class="add-btn-first">
-                            <button>Add to Card</button>
-                        </div>
-                        <div class="add-btn-second">
-                        </div>
-                    </div>
-                    <div class="product-name">
-                        <h6><a href="~/ProductDetail.html"> Modern Decor</a></h6>
-                    </div>
-                    <div class="product-price">
-                        <span>
-                            <spna>£</spna>35.00
-                        </span>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-img">
-                        <img src="~/assets/images/product-img-leafGreen.jpg" alt="">
-                    </div>
-                    <div class="product-img-hover">
-                        <i class="fa-regular fa-heart"></i>
-                        <i class="fa-solid fa-heart d-none"></i>
-                        <div class="add-btn-first">
-                            <button>Add to Card</button>
-                        </div>
-                        <div class="add-btn-second">
-                        </div>
-                    </div>
-                    <div class="product-name">
-                        <h6><a href="~/ProductDetail.html"> GREEN PLATE</a></h6>
-                    </div>
-                    <div class="product-price">
-                        <span>
-                            <spna>£</spna>35.00
-                        </span>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-img">
-                        <img src="~/assets/images/product-img-nightLight.jpg" alt="">
-                    </div>
-                    <div class="product-img-hover">
-                        <i class="fa-regular fa-heart"></i>
-                        <i class="fa-solid fa-heart d-none"></i>
-                        <div class="add-btn-first">
-                            <button>Add to Card</button>
-                        </div>
-                        <div class="add-btn-second">
-                        </div>
-                    </div>
-                    <div class="product-name">
-                        <h6><a href="~/ProductDetail.html"> HOME LIGHTING</a></h6>
-                    </div>
-                    <div class="product-price">
-                        <span>
-                            <spna>£</spna>35.00
-                        </span>
-                    </div>
-                </div>*@
             </div>
-
         </div>
-
     </section>
 
     <section id="banner">
@@ -716,3 +313,6 @@
 
 </main>
 <!-- Main end -->
+@*@section Scripts{
+    <script src="~/assets/js/common.js"></script>
+}*@

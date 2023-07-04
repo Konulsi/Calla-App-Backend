@@ -8,11 +8,14 @@ namespace CallaApp.ViewCompanents
     {
         private readonly ILayoutService _layoutService;
         private readonly IWebSiteSocialService _webSiteSocialService;
+        private readonly ICartService _cartService;
         public HeaderViewComponent(ILayoutService layoutService,
-                                    IWebSiteSocialService webSiteSocialService)
+                                    IWebSiteSocialService webSiteSocialService,
+                                    ICartService cartService)
         {
             _layoutService = layoutService;
             _webSiteSocialService = webSiteSocialService;
+            _cartService = cartService;
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
@@ -20,6 +23,7 @@ namespace CallaApp.ViewCompanents
             {
                 Settings = _layoutService.GetSettingsData(),
                 Socials  = await _webSiteSocialService.GetAllAsync(),
+                BasketCount = _cartService.GetDatasFromCookie().Count,
             };
             return await Task.FromResult(View(model));
         }

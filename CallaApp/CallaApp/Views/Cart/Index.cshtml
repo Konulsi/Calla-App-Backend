@@ -1,67 +1,87 @@
-﻿@model CartVM
-
+﻿@model List<CartDetailVM>
+@inject ILayoutService headerBackground
 @{
     ViewData["Title"] = "Cart";
+    decimal grandTotal = 0;
 }
 
 <!-- Main star -->
 <main>
     <section id="cart-header-img">
-        <div class="cart-bg-img" style="background-image: url(../../assets/images/@Model.HeaderBackgrounds["PagesBg"])">
+        <div class="cart-bg-img" style="background-image: url(../../assets/images/@headerBackground.GetHeaderBackgroundData()["PagesBg"])">
             <h1>CART</h1>
             <img src="~/assets/images/banner-on-logo.png" alt="">
         </div>
     </section>
     <section id="cart-products">
         <div class="container">
-            <div class="basket-products">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Image</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Count</th>
-                            <th scope="col">Subtotal</th>
-                            <th scope="col">Setting</th>
-                        </tr>
+            <form>
+                <div class="basket-products">
+                    @if(Model.Count >0)
+                    {
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Count</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Setting</th>
+                                </tr>
 
-                    </thead>
-                    <tbody>
-                        <tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr data-id="@item.Id">
 
-                            <td>
-                                <img src="~/assets/images/product-img-cactusPot.jpg" alt="">
-                            </td>
-                            <td>
-                                <span>Cactus</span>
-                            </td>
-                            <td>
-                                <span>£<span>50</span></span>
-                            </td>
-                            <td>
-                                <button><i class="fa-solid fa-minus"></i></button>
-                                <span><input type="text" value="1"></span>
-                                <button><i class="fa-solid fa-plus"></i></button>
+                                        <td>
+                                            <img src="~/assets/images/@item.Image" alt="">
+                                        </td>
+                                        <td>
+                                            <span>@item.Name</span>
+                                        </td>
+                                        <td>
+                                            <span>£<span>@item.Price</span></span>
+                                        </td>
+                                        <td>
+                                            <button><i class="fa-solid fa-minus"></i></button>
+                                            <span><input type="text" value="@item.Count"></span>
+                                            <button><i class="fa-solid fa-plus"></i></button>
 
-                            </td>
-                            <td>
-                                <span>£<span>50</span></span>
-                            </td>
-                            <td>
-                                <i class="fa-solid fa-trash-can"></i>
-                            </td>
+                                        </td>
+                                        <td>
+                                            <span>£<span>@item.Total</span></span>
+                                        </td>
+                                        <td>
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </td>
 
-                        </tr>
+                                    </tr>
+                                }
 
-                    </tbody>
 
-                </table>
-                <div class="buttons d-flex justify-content-between ">
-                    <button class="btn btn-primary shop"><a href="Shop.html">Continue shopping</a></button>
-                    <button class="btn btn-primary grandTotal"><span>Grand total:</span> <span>0</span></button>
+                            </tbody>
+
+                        </table>
+                    }
+
+                    <div class="buttons d-flex justify-content-between ">
+                        <a asp-controller="Shop" asp-action="Index" style="padding: 12px;" class="btn btn-primary shop">Continue shopping</a>
+                        <div class="btn btn-primary grandTotal" style="text-align: left; padding-top: 12px;">
+                            <span>Grand total: £</span>
+                            @foreach (var item in Model)
+                            {
+                                grandTotal += item.Total;
+                            }
+                            <span>@grandTotal.ToString("0.00")</span>
+
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </form>
+
 
             <div class="show-alert d-none">
                 <div class="alert">

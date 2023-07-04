@@ -135,7 +135,7 @@
                             <ul class="tabs">
                                 <li class="tab-link current" data-tab="tab-1">DESCRIPTION</li>
                                 <li class="tab-link" data-tab="tab-2">ADDITIONAL INFORMATION</li>
-                                <li class="tab-link" data-tab="tab-3" style="width: 40%;">REVIEW(1)</li>
+                                <li class="tab-link" data-tab="tab-3" style="width: 40%;">REVIEW(@Model.ProductComments.Count)</li>
                             </ul>
 
                             <div id="tab-1" class="tab-content current">
@@ -165,7 +165,7 @@
                                     <li class="review">
                                         <div class="comment_container d-flex">
                                             <div class="comment-text">
-                                                <div class="star-rating">
+@*                                                <div class="star-rating">
                                                     <div class="product-rate">
                                                         <i class="fa-solid fa-star" style="color: #b97a56;"></i>
                                                         <i class="fa-solid fa-star" style="color: #b97a56;"></i>
@@ -173,18 +173,20 @@
                                                         <i class="fa-regular fa-star" style="color: #b97a56;"></i>
                                                         <i class="fa-regular fa-star" style="color: #b97a56;"></i>
                                                     </div>
-                                                </div>
+                                                </div>*@
                                                 <p class="meta">
                                                     @foreach (var item in Model.ProductComments)
                                                     {
                                                         <strong class="comment-user-name">@item.Name</strong>
                                                         <span class="comment-date">–</span> <time class="comment-published-date">@item.CreateDate.ToString("dd.MM.yyyy")</time>
+                                                        <div class="c-mment-description">
+                                                            <p>@item.Message</p>
+                                                        </div>
                                                     }
 
                                                 </p>
-                                                <div class="c-mment-description">
-                                                    <p>@Model.ProductCommentVM.Message</p>
-                                                </div>
+
+
                                             </div>
                                         </div>
                                     </li>
@@ -197,13 +199,13 @@
 
                                     <p>Your rating *</p>
                                     <form method="post" asp-action="PostComment" asp-route-id="@Model.Id" asp-route-userId="@userManager.Users.FirstOrDefault(u=>u.UserName==User.Identity.Name).Id">
-                                        <div class="product-rate">
+@*                                        <div class="product-rate">
                                             <i class="fa-solid fa-star" style="color: #b97a56;"></i>
                                             <i class="fa-solid fa-star" style="color: #b97a56;"></i>
                                             <i class="fa-solid fa-star" style="color: #b97a56;"></i>
                                             <i class="fa-regular fa-star" style="color: #b97a56;"></i>
                                             <i class="fa-regular fa-star" style="color: #b97a56;"></i>
-                                        </div>
+                                        </div>*@
                                         <p>Your review *</p>
                                         <textarea  id="" cols="30" rows="10" asp-for="ProductCommentVM.Message"></textarea>
 

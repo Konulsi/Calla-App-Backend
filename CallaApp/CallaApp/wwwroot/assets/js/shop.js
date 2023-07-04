@@ -25,3 +25,45 @@ inputElements.forEach((element) => {
 });
 
 validateRange(inputElements[0].value, inputElements[1].value);
+
+
+
+// Sort
+
+
+
+
+
+$(function () {
+
+    $(".form-select").on("change", function () {
+        let value = $(this).val();
+        let data = { value: value };
+        let url = "/Shop/Sort";
+        let parent = $(".product-grid-view");
+
+
+        $.ajax({
+            type: "Get",
+            url: url,
+            data: data,
+            success: function (res) {
+                $(parent).html(res)
+            }
+        })
+        return false;
+
+        //fetch(url, {
+        //    method: "GET"
+        //}).then(function (response) {
+        //    if (response.ok) {
+        //        return response.text();
+        //    }
+        //}).then(function (data) {
+        //    document.querySelector("#games .items").innerHTML = data;
+        //});
+
+
+    });
+
+})

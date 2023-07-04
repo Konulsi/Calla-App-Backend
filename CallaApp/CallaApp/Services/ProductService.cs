@@ -40,7 +40,9 @@ namespace CallaApp.Services
                                                                             .Include(m => m.ProductCategories)
                                                                             .ThenInclude(m => m.Category)
                                                                             .FirstOrDefaultAsync(m => m.Id == id);
-        public async Task<Product> GetByIdAsync(int id) => await _context.Products.FindAsync(id);
+        public async Task<Product> GetByIdAsync(int? id) => await _context.Products
+                                                                        .Include(p => p.Images)
+                                                                        .FirstOrDefaultAsync(p => p.Id == id);
         public async Task<int> GetCountAsync() => await _context.Products.CountAsync();
         public async Task<List<ProductVM>> GetDatasAsync()
         {
@@ -147,7 +149,7 @@ namespace CallaApp.Services
         {
             return await _context.ProductImages.FindAsync((int)id);
         }
-        public async Task<List<ProductVM>> GetProductsByCategoryIdAsync(int? id, int page = 1, int take = 6)
+        public async Task<List<ProductVM>> GetProductsByCategoryIdAsync(int? id, int page = 1, int take = 2)
         {
             List<ProductVM> model = new();
             var products = await _context.ProductCategory
@@ -172,7 +174,7 @@ namespace CallaApp.Services
             }
             return model;
         }
-        public async Task<List<ProductVM>> GetProductsBySizeIdAsync(int? id, int page = 1, int take = 6)
+        public async Task<List<ProductVM>> GetProductsBySizeIdAsync(int? id, int page = 1, int take = 2)
         {
             List<ProductVM> model = new();
             var products = await _context.ProductSize
@@ -197,15 +199,15 @@ namespace CallaApp.Services
             }
             return model;
         }
-        public async Task<List<ProductVM>> GetProductsByBrandIdAsync(int? id, int page = 1, int take = 6)
+        public async Task<List<ProductVM>> GetProductsByBrandIdAsync(int? id, int page = 1, int take = 2)
         {
             List<ProductVM> model = new();
             var products = await _context.Products
                 .Include(p => p.Images)
                 .Include(c => c.Brand)
                 .Where(p => p.Brand.Id == id)
-                //.Skip((page * take) - take)
-                //.Take(take)
+                .Skip((page * take) - take)
+                .Take(take)
                 .ToListAsync();
 
             foreach (var item in products)
@@ -222,7 +224,7 @@ namespace CallaApp.Services
             return model;
         }
 
-        public async Task<List<ProductVM>> GetProductsByColorIdAsync(int? id, int page = 1, int take = 6)
+        public async Task<List<ProductVM>> GetProductsByColorIdAsync(int? id, int page = 1, int take = 2)
         {
             List<ProductVM> model = new();
             var products = await _context.ProductColor
@@ -247,7 +249,7 @@ namespace CallaApp.Services
             return model;
         }
 
-        public async Task<List<ProductVM>> GetProductsByTagIdAsync(int? id, int page = 1, int take = 6)
+        public async Task<List<ProductVM>> GetProductsByTagIdAsync(int? id, int page = 1, int take = 2)
         {
             List<ProductVM> model = new();
             var products = await _context.ProductTag

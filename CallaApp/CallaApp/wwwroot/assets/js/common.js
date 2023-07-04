@@ -10,17 +10,17 @@ $('#topbtn').click(function () {
 $(window).scroll(function () {
     var header = $('.fixed-nav'),
         scroll = $(window).scrollTop();
-    let searchInput =$(".search-input")
+    let searchInput = $(".search-input")
 
     let logoImg = $(".logo img")
-            if (scroll >= 1) {
+    if (scroll >= 1) {
         header.css({
             'position': 'fixed',
             'top': '0',
             'left': '0',
             'right': '0',
             'z-index': '99999',
-            'background-color' : 'white',
+            'background-color': 'white',
             'box-shadow': 'rgba(149, 157, 165, 0.2) 0px 8px 24px'
             // 'backdrop-filter':'blur(10px)',
             // 'background': 'transparent'
@@ -47,9 +47,8 @@ $(window).scroll(function () {
         })
     }
 
-    
-});
 
+});
 
 
 
@@ -62,21 +61,22 @@ $(document).ready(function () {
     let navMenu = $(".nav-main-menu");
     let social = $(".social-icons");
 
-            
+
     $(".search-icon").on("click", function (e) {
-        $(rightIcons).css({'opacity':'0'});
-        $(navMenu).css({'opacity':'0'});
-        $(social).css({'opacity':'0'});
-        $(searchInput).css({'opacity':'1','z-index':'5'});
+        $(rightIcons).css({ 'opacity': '0' });
+        $(navMenu).css({ 'opacity': '0' });
+        $(social).css({ 'opacity': '0' });
+        $(searchInput).css({ 'opacity': '1', 'z-index': '5' });
     })
 
     $(".close-icon").on("click", function () {
-        $(rightIcons).css({'opacity':'1'});
-        $(navMenu).css({'opacity':'1'});
-        $(social).css({'opacity':'1'});
-        $(searchInput).css({'opacity':'0','z-index':'-5'});
+        $(rightIcons).css({ 'opacity': '1' });
+        $(navMenu).css({ 'opacity': '1' });
+        $(social).css({ 'opacity': '1' });
+        $(searchInput).css({ 'opacity': '0', 'z-index': '-5' });
         $(".search-input input").val("");
     })
+
 
 
 
@@ -123,7 +123,7 @@ $(document).ready(function () {
         $(".right-icons .icons .log-reg").addClass("d-none");
     })
 
-    
+
 
 
 
@@ -174,26 +174,10 @@ $(document).ready(function () {
 
 
 
-    //add cart
-    addToCart(".add-to-cart-btn", "/Shop/AddToCart");
 
-    function addToCart(clickedElem, url) {
-        $(document).on("click", clickedElem, function (e) {
-            let id = $(this).attr("data-id");
-            let data = { id: id };
-            let count = (".rounded-circle");
-            $.ajax({
-                type: "Post",
-                url: url,
-                data: data,
-                success: function (res) {
-                    debugger
-                    $(count).text(res);
-                }
-            })
-            return false;
-        })
-    }
+
+
+
 
     //delete product from basket
     $(document).on("click", ".delete-product", function () {
@@ -284,4 +268,29 @@ $(document).ready(function () {
 
 
 
+})
+
+$(function () {
+
+
+    //add cart
+    addToCart(".add-btn-second", "/Shop/AddToCart");
+
+    function addToCart(clickedElem, url) {
+        $(document).on("click", clickedElem, function (e) {
+            let id = $(this).attr("data-id");
+            console.log(id)
+            let data = { id: id };
+            let count = (".basket-count");
+            $.ajax({
+                type: "Post",
+                url: url,
+                data: data,
+                success: function (res) {
+                    $(count).text(res);
+                }
+            })
+            return false;
+        })
+    }
 })

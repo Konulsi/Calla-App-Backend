@@ -3,10 +3,15 @@ using CallaApp.Helpers;
 using CallaApp.Models;
 using CallaApp.Services;
 using CallaApp.Services.Interfaces;
+using CallaApp.ViewModels.Cart;
 using CallaApp.ViewModels.Product;
 using CallaApp.ViewModels.Shop;
+using CallaApp.ViewModels.Wishlist;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Data;
+using System.Drawing;
 
 namespace CallaApp.Controllers
 {
@@ -20,6 +25,8 @@ namespace CallaApp.Controllers
         private readonly ICategoryService _categoryService;
         private readonly IProductService _productService;
         private readonly ILayoutService _layoutService;
+        private readonly ICartService _cartService;
+        private readonly IWishlistService _wishlistService;
         public ShopController(ITagService tagService,
                               ISizeService sizeService,
                               ICategoryService categoryService,
@@ -27,7 +34,9 @@ namespace CallaApp.Controllers
                               IBrandService brandService,
                               AppDbContext context,
                               IProductService productService,
-                              ILayoutService layoutService)
+                              ILayoutService layoutService,
+                              ICartService cartService,
+                              IWishlistService wishlistService)
         {
             _tagService = tagService;   
             _sizeService = sizeService;
@@ -37,9 +46,11 @@ namespace CallaApp.Controllers
             _context = context;
             _productService = productService;
             _layoutService = layoutService;
+            _cartService = cartService;
+            _wishlistService = wishlistService;
         }
 
-        public async Task<IActionResult> Index(int page = 1, int take = 6, int? categoryId = null, int? colorId = null, int? tagId = null, int? sizeId = null, int? brandId = null)
+        public async Task<IActionResult> Index(int page = 1, int take = 2, int? categoryId = null, int? colorId = null, int? tagId = null, int? sizeId = null, int? brandId = null)
         {
             List<Product> datas = await _productService.GetPaginatedDatasAsync(page, take, categoryId, colorId, tagId,sizeId,brandId);
             List<ProductVM> mappedDatas = GetDatas(datas);
@@ -51,8 +62,8 @@ namespace CallaApp.Controllers
             ViewBag.brandId = brandId;
 
             List<Tag> tags = await _tagService.GetAllAsync();
-            List<Size> sizes = await _sizeService.GetAllAsync();
-            List<Color> colors = await _colorService.GetAllAsync();
+            List<Models.Size> sizes = await _sizeService.GetAllAsync();
+            List<Models.Color> colors = await _colorService.GetAllAsync();
             List<Brand> brands = await _brandService.GetAllAsync();
             List<Category> categories = await _categoryService.GetAllAsync();
             Dictionary<string, string> headerBackgrounds = _context.HeaderBackgrounds.AsEnumerable().ToDictionary(m => m.Key, m => m.Value);
@@ -148,7 +159,7 @@ namespace CallaApp.Controllers
             return mappedDatas;
         }
         [HttpGet]
-        public async Task<IActionResult> GetProductsByCategory(int? id, int page = 1, int take = 6)
+        public async Task<IActionResult> GetProductsByCategory(int? id, int page = 1, int take = 2)
         {
             if (id is null) return BadRequest();
             ViewBag.catId = id;
@@ -163,7 +174,7 @@ namespace CallaApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProductsByColor(int? id, int page = 1, int take = 6)
+        public async Task<IActionResult> GetProductsByColor(int? id, int page = 1, int take = 2)
         {
             if (id is null) return BadRequest();
             ViewBag.colorId = id;
@@ -176,7 +187,7 @@ namespace CallaApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProductsByTag(int? id, int page = 1, int take = 6)
+        public async Task<IActionResult> GetProductsByTag(int? id, int page = 1, int take = 2)
         {
             if (id is null) return BadRequest();
             ViewBag.tagId = id;
@@ -191,7 +202,7 @@ namespace CallaApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProductsBySize(int? id, int page = 1, int take = 6)
+        public async Task<IActionResult> GetProductsBySize(int? id, int page = 1, int take = 2)
         {
             if (id is null) return BadRequest();
             ViewBag.sizeId = id;
@@ -205,7 +216,7 @@ namespace CallaApp.Controllers
             return PartialView("_ProductListPartial", model);
         }
         [HttpGet]
-        public async Task<IActionResult> GetProductsByBrand(int? id, int page = 1, int take = 6)
+        public async Task<IActionResult> GetProductsByBrand(int? id, int page = 1, int take = 2)
         {
             if (id is null) return BadRequest();
             ViewBag.brandId = id;
@@ -283,71 +294,98 @@ namespace CallaApp.Controllers
             await _context.ProductComments.AddAsync(productComment);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index), new { id });
+            return RedirectToAction(nameof(ProductDetail), new { id });
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Filter(string value)
-        //{
-        //    if (value is null) return BadRequest();
-        //    var products = await _productService.GetAllAsync();
-        //    switch (value)
-        //    {
-        //        case "Sort by Default":
-        //            products = products;
-        //            break;
-        //        case "Sort by Popularity":
-        //            products = products.OrderByDescending(p => p.SaleCount);
-        //            break;
-        //        case "Sort by Rated":
-        //            products = products.OrderByDescending(p => p.Rating);
-        //            break;
-        //        case "Sort by Latest":
-        //            products = products.OrderByDescending(p => p.CreatedDate);
-        //            break;
-        //        case "Sort by High Price":
-        //            products = products.OrderByDescending(p => p.Price);
-        //            break;
-        //        case "Sort by Low Price":
-        //            products = products.OrderBy(p => p.Price);
-        //            break;
-        //        default:
-        //            break;
-        //    }
-        //    return PartialView("_ProductListPartial", products);
 
-        //}
+        [HttpGet]
+        public async Task<IActionResult> Sort(string value ,int page = 1,int take = 2)
+        {
+            if (value is null) return BadRequest();
+            
+            IEnumerable<Product> products = await _productService.GetPaginatedDatasAsync(page, take, null, null, null, null, null);
+          
+            switch (value)
+            {
+                case "Sort by Latest":
+                    products = products.OrderBy(p => p.Price);
+                    break;
+                case "Sort by Popularity":
+                    products = products.OrderByDescending(p => p.SaleCount);
+                    break;
+                case "Sort by Rated":
+                    products = products.OrderByDescending(p => p.Rate);
+                    break;
+                case "Sort by High Price":
+                    products = products.OrderByDescending(p => p.Price);
+                    break;
+                case "Sort by Low Price":
+                    products = products.OrderBy(p => p.Price);
+                    break;
+                default:
+                    break;
 
-        //[HttpPost]
-        //public async Task<IActionResult> AddToCart(int? id)
-        //{
-        //    if (id is null) return BadRequest();
+            }
+            List<ProductVM> mappedDatas = GetDatas(products.ToList());
+            //mappedDatas.Skip((page * take) - take).Take(take);
+            //List<Product> datas = 
 
-        //    Product dbProduct = await _productService.GetByIdAsync((int)id);
+            Paginate<ProductVM> paginatedDatas = new(mappedDatas, page, take);
+            return PartialView("_ProductListPartial", paginatedDatas);
 
-        //    if (dbProduct == null) return NotFound();
+        }
 
-        //    List<CartVM> carts = _cartService.GetDatasFromCookie();
+        [HttpPost]
+        public async Task<IActionResult> AddToCart(int? id)
+        {
+            if (id is null) return BadRequest();
 
-        //    CartVM existProduct = carts.FirstOrDefault(p => p.ProductId == id);
+            Product dbProduct = await _productService.GetByIdAsync((int)id);
 
-        //    _cartService.SetDatasToCookie(carts, dbProduct, existProduct);
+            if (dbProduct == null) return NotFound();
 
-        //    int cartCount = carts.Count;
+            List<CartVM> carts = _cartService.GetDatasFromCookie();
 
-        //    return Ok(cartCount);
-        //}
+            CartVM existProduct = carts.FirstOrDefault(p => p.ProductId == id);
 
-        //public async Task<IActionResult> Search(string searchText)
-        //{
-        //    if (string.IsNullOrEmpty(searchText))
-        //    {
-        //        return Ok();
-        //    }
-        //    var products = await _productService.GetAllBySearchText(searchText);
+            _cartService.SetDatasToCookie(carts, dbProduct, existProduct);
 
-        //    return View(products);
-        //}
+            int cartCount = carts.Count;
+
+            return Ok(cartCount);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddToWishlist(int? id)
+        {
+            if (id is null) return BadRequest();
+
+            Product dbProduct = await _productService.GetByIdAsync((int)id);
+
+            if (dbProduct == null) return NotFound();
+
+            List<WishlistVM> wishlists = _wishlistService.GetDatasFromCookie();
+
+            WishlistVM existProduct = wishlists.FirstOrDefault(p => p.ProductId == id);
+
+            _wishlistService.SetDatasToCookie(wishlists, dbProduct, existProduct);
+
+            int cartCount = wishlists.Count;
+
+            return Ok(cartCount);
+        }
+
+        public async Task<IActionResult> Search(string searchText)
+        {
+            if (string.IsNullOrEmpty(searchText))
+            {
+                return Ok();
+            }
+            var products = await _productService.GetAllBySearchText(searchText);
+
+            return View(products);
+        }
+
 
     }
 }

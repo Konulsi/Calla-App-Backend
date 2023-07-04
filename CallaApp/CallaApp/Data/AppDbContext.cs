@@ -38,7 +38,8 @@ namespace CallaApp.Data
         public DbSet<Cart> Carts { get; set; }
         public DbSet<ProductComment> ProductComments { get; set; }
         public DbSet<CartProduct> CartProducts { get; set; }
-
+        public DbSet<Wishlist> Wishlists { get; set; }
+        public DbSet<WishlistProduct> WishlistProducts { get; set; }
 
 
 

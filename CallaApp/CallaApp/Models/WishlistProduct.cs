@@ -1,6 +1,6 @@
 ﻿namespace CallaApp.Models
 {
-    public class WishlistProduct
+    public class WishlistProduct : BaseEntity
     {
         public int Count { get; set; }
         public int ProductId { get; set; }
