@@ -50,23 +50,18 @@ namespace CallaApp.Controllers
             _wishlistService = wishlistService;
         }
 
-        public async Task<IActionResult> Index(int page = 1, int take = 2, int? categoryId = null, int? colorId = null, int? tagId = null, int? sizeId = null, int? brandId = null)
+        public async Task<IActionResult> Index(int page = 1, int take = 3, int? categoryId = null, int? colorId = null, int? tagId = null, int? sizeId = null, int? brandId = null)
         {
             List<Product> datas = await _productService.GetPaginatedDatasAsync(page, take, categoryId, colorId, tagId,sizeId,brandId);
             List<ProductVM> mappedDatas = GetDatas(datas);
-            int pageCount = 0;
             ViewBag.catId = categoryId;
             ViewBag.tagId = tagId;
             ViewBag.sizeId = sizeId;
             ViewBag.colorId = colorId;
             ViewBag.brandId = brandId;
+            int pageCount = 0;
 
-            List<Tag> tags = await _tagService.GetAllAsync();
-            List<Models.Size> sizes = await _sizeService.GetAllAsync();
-            List<Models.Color> colors = await _colorService.GetAllAsync();
-            List<Brand> brands = await _brandService.GetAllAsync();
-            List<Category> categories = await _categoryService.GetAllAsync();
-            Dictionary<string, string> headerBackgrounds = _context.HeaderBackgrounds.AsEnumerable().ToDictionary(m => m.Key, m => m.Value);
+
 
             if (categoryId != null)
             {
@@ -96,6 +91,14 @@ namespace CallaApp.Controllers
 
             Paginate<ProductVM> paginatedDatas = new(mappedDatas, page, pageCount);
 
+            List<Tag> tags = await _tagService.GetAllAsync();
+            List<Models.Size> sizes = await _sizeService.GetAllAsync();
+            List<Models.Color> colors = await _colorService.GetAllAsync();
+            List<Brand> brands = await _brandService.GetAllAsync();
+            List<Category> categories = await _categoryService.GetAllAsync();
+            //Dictionary<string, string> headerBackgrounds = _context.HeaderBackgrounds.AsEnumerable().ToDictionary(m => m.Key, m => m.Value);
+
+
             ShopVM model = new()
             {
                 Products = await _productService.GetAllAsync(),
@@ -104,10 +107,30 @@ namespace CallaApp.Controllers
                 Categories = categories,
                 Colors = colors,
                 Brands = brands,
-                HeaderBackgrounds = headerBackgrounds,
-                PaginateDatas = paginatedDatas
+                HeaderBackgrounds = _layoutService.GetHeaderBackgroundData(),
+                PaginateDatas = paginatedDatas,
+                CountProducts = await _productService.GetCountAsync()
             };
             return View(model);
+        }
+
+
+        private List<ProductVM> GetDatas(List<Product> products)
+        {
+            List<ProductVM> mappedDatas = new();
+            foreach (var product in products)
+            {
+                ProductVM productList = new()
+                {
+                    Id = product.Id,
+                    Name = product.Name,
+                    Price = product.Price,
+                    ProductImages = product.Images,
+                    //Rating = product.Rate
+                };
+                mappedDatas.Add(productList);
+            }
+            return mappedDatas;
         }
 
         private async Task<int> GetPageCountAsync(int take, int? catId, int? colorId, int? tagId, int? sizeId, int? brandId)
@@ -141,25 +164,32 @@ namespace CallaApp.Controllers
             return (int)Math.Ceiling((decimal)prodCount / take);
         }
 
-        private List<ProductVM> GetDatas(List<Product> products)
-        {
-            List<ProductVM> mappedDatas = new();
-            foreach (var product in products)
-            {
-                ProductVM productList = new()
-                {
-                    Id = product.Id,
-                    Name = product.Name,
-                    Price = product.Price,
-                    ProductImages = product.Images,
-                    //Rating = product.Rate
-                };
-                mappedDatas.Add(productList);
-            }
-            return mappedDatas;
-        }
         [HttpGet]
-        public async Task<IActionResult> GetProductsByCategory(int? id, int page = 1, int take = 2)
+        public async Task<IActionResult> GetAllProducts(int page = 1, int take = 3)
+        {
+            int pageCount = await GetPageCountAsync(take, null, null, null, null, null);
+            var products = await _productService.GetPaginatedDatasAsync(page, take, null, null, null, null, null);
+            List<ProductVM> mappedDatas = GetDatas(products);
+            Paginate<ProductVM> paginatedDatas = new(mappedDatas, page, pageCount);
+            return PartialView("_ProductListPartial", paginatedDatas);
+        }
+
+
+        //[HttpGet]
+        //public async Task<IActionResult> GetRangeProducts(decimal value1, decimal value2, int page = 1, int take = 6)
+        //{
+        //    int pageCount = await GetPageCountAsync(take, null, null, null, null, null);
+        //    var products = await _productService.GetMappedAllProducts();
+        //    if (value1 != 0 && value2 != 0)
+        //    {
+        //        products = products.Where(x => x.Price >= value1 && x.Price <= value2).ToList();
+        //    }
+        //    Paginate<ProductVM> paginatedDatas = new(products, page, pageCount);
+        //    return PartialView("_ProductsPartial", paginatedDatas);
+        //}
+
+        [HttpGet]
+        public async Task<IActionResult> GetProductsByCategory(int? id, int page = 1, int take = 3)
         {
             if (id is null) return BadRequest();
             ViewBag.catId = id;
@@ -174,7 +204,7 @@ namespace CallaApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProductsByColor(int? id, int page = 1, int take = 2)
+        public async Task<IActionResult> GetProductsByColor(int? id, int page = 1, int take = 3)
         {
             if (id is null) return BadRequest();
             ViewBag.colorId = id;
@@ -187,7 +217,7 @@ namespace CallaApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProductsByTag(int? id, int page = 1, int take = 2)
+        public async Task<IActionResult> GetProductsByTag(int? id, int page = 1, int take = 3)
         {
             if (id is null) return BadRequest();
             ViewBag.tagId = id;
@@ -202,7 +232,7 @@ namespace CallaApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProductsBySize(int? id, int page = 1, int take = 2)
+        public async Task<IActionResult> GetProductsBySize(int? id, int page = 1, int take = 3)
         {
             if (id is null) return BadRequest();
             ViewBag.sizeId = id;
@@ -216,7 +246,7 @@ namespace CallaApp.Controllers
             return PartialView("_ProductListPartial", model);
         }
         [HttpGet]
-        public async Task<IActionResult> GetProductsByBrand(int? id, int page = 1, int take = 2)
+        public async Task<IActionResult> GetProductsByBrand(int? id, int page = 1, int take = 3)
         {
             if (id is null) return BadRequest();
             ViewBag.brandId = id;
@@ -263,7 +293,7 @@ namespace CallaApp.Controllers
                     HeaderBackgrounds = _layoutService.GetHeaderBackgroundData(),
                     RelatedProducts = await _productService.GetRelatedProducts(),
                     ProductCommentVM = new(),
-                    ProductComments = dbProduct.ProductComments
+                    ProductComments = dbProduct.ProductComments.ToList()
                 };
 
                 return View(model);
@@ -308,7 +338,7 @@ namespace CallaApp.Controllers
             switch (value)
             {
                 case "Sort by Latest":
-                    products = products.OrderBy(p => p.Price);
+                    products = products.OrderBy(p => p.CreateDate);
                     break;
                 case "Sort by Popularity":
                     products = products.OrderByDescending(p => p.SaleCount);

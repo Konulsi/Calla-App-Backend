@@ -9,6 +9,7 @@ namespace CallaApp.Services.Interfaces
         Task<List<Product>> GetAllAsync();
         Task<Product> GetFullDataByIdAsync(int? id);
         Task<List<ProductVM>> GetDatasAsync();
+        Task<List<ProductVM>> GetMappedAllProducts();
         Task<List<Product>> GetFeaturedProducts();
         Task<List<Product>> GetBestsellerProducts();
         Task<List<Product>> GetLatestProducts();
@@ -18,11 +19,11 @@ namespace CallaApp.Services.Interfaces
         Task<Product> GetProductByImageId(int? id);
         Task<ProductImage> GetImageById(int? id);
         Task<List<Product>> GetPaginatedDatasAsync(int page, int take, int? categoryId, int? colorId, int? tagId, int? brandId, int? sizeId);
-        Task<List<ProductVM>> GetProductsByCategoryIdAsync(int? id, int page = 1, int take = 2);
-        Task<List<ProductVM>> GetProductsByColorIdAsync(int? id, int page = 1, int take = 2);
-        Task<List<ProductVM>> GetProductsByBrandIdAsync(int? id, int page = 1, int take = 2);
-        Task<List<ProductVM>> GetProductsBySizeIdAsync(int? id, int page = 1, int take = 2);
-        Task<List<ProductVM>> GetProductsByTagIdAsync(int? id, int page = 1, int take = 2);
+        Task<List<ProductVM>> GetProductsByCategoryIdAsync(int? id, int page = 1, int take = 3);
+        Task<List<ProductVM>> GetProductsByColorIdAsync(int? id, int page = 1, int take = 3);
+        Task<List<ProductVM>> GetProductsByBrandIdAsync(int? id, int page = 1, int take = 3);
+        Task<List<ProductVM>> GetProductsBySizeIdAsync(int? id, int page = 1, int take = 3);
+        Task<List<ProductVM>> GetProductsByTagIdAsync(int? id, int page = 1, int take = 3);
         Task<int> GetProductsCountByCategoryAsync(int? catId);
         Task<int> GetProductsCountByBrandAsync(int? brandId);
         Task<int> GetProductsCountByColorAsync(int? colorId);

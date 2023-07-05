@@ -43,7 +43,7 @@
                                             <span>@item.Name</span>
                                         </td>
                                         <td>
-                                            <span>£<span>@item.Price</span></span>
+                                            <span>£<span>@item.Price.ToString("0.00")</span></span>
                                         </td>
                                         <td>
                                             <button><i class="fa-solid fa-minus"></i></button>
@@ -52,7 +52,7 @@
 
                                         </td>
                                         <td>
-                                            <span>£<span>@item.Total</span></span>
+                                            <span>£<span>@item.Total.ToString("0.00")</span></span>
                                         </td>
                                         <td>
                                             <i class="fa-solid fa-trash-can"></i>
@@ -69,14 +69,15 @@
 
                     <div class="buttons d-flex justify-content-between ">
                         <a asp-controller="Shop" asp-action="Index" style="padding: 12px;" class="btn btn-primary shop">Continue shopping</a>
-                        <div class="btn btn-primary grandTotal" style="text-align: left; padding-top: 12px;">
-                            <span>Grand total: £</span>
-                            @foreach (var item in Model)
-                            {
-                                grandTotal += item.Total;
-                            }
-                            <span>@grandTotal.ToString("0.00")</span>
-
+                        <div class="btn btn-primary grandTotal" style=" padding-top: 12px;">
+                            <div class="total-price" style="display: flex; justify-content: space-between;">
+                                <span>Grand total: £</span>
+                                @foreach (var item in Model)
+                                {
+                                    grandTotal += item.Total;
+                                }
+                                <span>@grandTotal.ToString("0.00")</span>
+                           </div>
                         </div>
                     </div>
                 </div>

@@ -42,7 +42,29 @@ namespace CallaApp.Services
                                                                             .FirstOrDefaultAsync(m => m.Id == id);
         public async Task<Product> GetByIdAsync(int? id) => await _context.Products
                                                                         .Include(p => p.Images)
+                                                                        .Include(m => m.ProductSizes)
+                                                                        .Include(m => m.ProductCategories)
+                                                                        .Include(m => m.ProductColors)
+                                                                        .Include(m => m.ProductTags)
+                                                                        .Include(m => m.Brand)
                                                                         .FirstOrDefaultAsync(p => p.Id == id);
+        public async Task<List<ProductVM>> GetMappedAllProducts()
+        {
+            List<ProductVM> model = new();
+            var products = await _context.Products.Include(p => p.Images).ToListAsync();
+            foreach (var item in products)
+            {
+                model.Add(new ProductVM
+                {
+                    Id = item.Id,
+                    Price = item.Price,
+                    Name = item.Name,
+                    ProductImages = item.Images,
+                    //Rating = item.Rate,
+                });
+            }
+            return model;
+        }
         public async Task<int> GetCountAsync() => await _context.Products.CountAsync();
         public async Task<List<ProductVM>> GetDatasAsync()
         {
@@ -61,12 +83,24 @@ namespace CallaApp.Services
             }
             return model;
         }
-        public async Task<List<Product>> GetFeaturedProducts() => await _context.Products.OrderByDescending(m => m.Rate).ToListAsync();
-        public async Task<List<Product>> GetBestsellerProducts() => await _context.Products.OrderByDescending(m => m.SaleCount).ToListAsync();
-        public async Task<List<Product>> GetLatestProducts() => await _context.Products.OrderByDescending(m => m.CreateDate).ToListAsync();
-        public async Task<List<Product>> GetNewProducts() => await _context.Products.Include(m => m.Images).OrderByDescending(m => m.CreateDate).Take(4).ToListAsync();
+
         public async Task<List<Product>> GetPaginatedDatasAsync(int page, int take, int? cateId, int? tagId, int? colorId, int? brandId, int? sizeId)
         {
+            List<Product> products = products = await _context.Products
+                                                            .Include(p => p.Images)
+                                                            .Include(p => p.ProductCategories)
+                                                            .ThenInclude(pc => pc.Category)
+                                                            .Include(p => p.ProductSizes)
+                                                            .ThenInclude(ps => ps.Size)
+                                                            .Include(p => p.ProductColors)
+                                                            .ThenInclude(ps => ps.Color)
+                                                            .Include(p => p.ProductTags)
+                                                            .ThenInclude(ps => ps.Tag)
+                                                            .Include(p => p.Brand)
+                                                            .Skip((page * take) - take)
+                                                            .Take(take)
+                                                            .ToListAsync(); 
+
             if (cateId != null)
             {
                 return await _context.ProductCategory
@@ -138,7 +172,15 @@ namespace CallaApp.Services
                .Take(take)
                .ToListAsync();
             }
+
+            //return products;
         }
+
+
+        public async Task<List<Product>> GetFeaturedProducts() => await _context.Products.OrderByDescending(m => m.Rate).ToListAsync();
+        public async Task<List<Product>> GetBestsellerProducts() => await _context.Products.OrderByDescending(m => m.SaleCount).ToListAsync();
+        public async Task<List<Product>> GetLatestProducts() => await _context.Products.OrderByDescending(m => m.CreateDate).ToListAsync();
+        public async Task<List<Product>> GetNewProducts() => await _context.Products.Include(m => m.Images).OrderByDescending(m => m.CreateDate).Take(4).ToListAsync();
         public async Task<Product> GetProductByImageId(int? id)
         {
             return await _context.Products
@@ -149,7 +191,7 @@ namespace CallaApp.Services
         {
             return await _context.ProductImages.FindAsync((int)id);
         }
-        public async Task<List<ProductVM>> GetProductsByCategoryIdAsync(int? id, int page = 1, int take = 2)
+        public async Task<List<ProductVM>> GetProductsByCategoryIdAsync(int? id, int page = 1, int take = 3)
         {
             List<ProductVM> model = new();
             var products = await _context.ProductCategory
@@ -174,7 +216,7 @@ namespace CallaApp.Services
             }
             return model;
         }
-        public async Task<List<ProductVM>> GetProductsBySizeIdAsync(int? id, int page = 1, int take = 2)
+        public async Task<List<ProductVM>> GetProductsBySizeIdAsync(int? id, int page = 1, int take = 3)
         {
             List<ProductVM> model = new();
             var products = await _context.ProductSize
@@ -199,7 +241,7 @@ namespace CallaApp.Services
             }
             return model;
         }
-        public async Task<List<ProductVM>> GetProductsByBrandIdAsync(int? id, int page = 1, int take = 2)
+        public async Task<List<ProductVM>> GetProductsByBrandIdAsync(int? id, int page = 1, int take = 3)
         {
             List<ProductVM> model = new();
             var products = await _context.Products
@@ -224,7 +266,7 @@ namespace CallaApp.Services
             return model;
         }
 
-        public async Task<List<ProductVM>> GetProductsByColorIdAsync(int? id, int page = 1, int take = 2)
+        public async Task<List<ProductVM>> GetProductsByColorIdAsync(int? id, int page = 1, int take = 3)
         {
             List<ProductVM> model = new();
             var products = await _context.ProductColor
@@ -249,7 +291,7 @@ namespace CallaApp.Services
             return model;
         }
 
-        public async Task<List<ProductVM>> GetProductsByTagIdAsync(int? id, int page = 1, int take = 2)
+        public async Task<List<ProductVM>> GetProductsByTagIdAsync(int? id, int page = 1, int take = 3)
         {
             List<ProductVM> model = new();
             var products = await _context.ProductTag

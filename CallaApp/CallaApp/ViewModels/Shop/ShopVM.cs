@@ -14,5 +14,6 @@ namespace CallaApp.ViewModels.Shop
         public List<Brand> Brands { get; set; }
         public Dictionary<string, string> HeaderBackgrounds { get; set; }
         public Paginate<ProductVM> PaginateDatas { get; set; }
+        public int CountProducts { get; set; }
     }
 }
