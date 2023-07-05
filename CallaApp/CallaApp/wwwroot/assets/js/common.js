@@ -216,15 +216,16 @@ $(document).ready(function () {
     })
 
 
-    function grandTotal() {
-        let tbody = $(".tbody").children()
-        let sum = 0;
-        for (var prod of tbody) {
-            let price = parseFloat($(prod).children().eq(5).children().eq(1).text())
-            sum += price
-        }
-        $(".grand-total").text(sum);
-    }
+    //function grandTotal() {
+    //    let tbody = $(".tbody").children()
+    //    let sum = 0;
+    //    for (var prod of tbody) {
+    //        let price = parseFloat($(prod).children().eq(2).children().eq(1).text())
+    //        console.log(price)
+    //        sum += price
+    //    }
+    //    $(".grand-total").text(sum);
+    //}
 
     function subTotal(res, nativePrice, total, count) {
         $(count).val(res);
@@ -269,8 +270,6 @@ $(function () {
     $(document).on("click", ".fa-trash-can", function () {
 
         let id = $(this).parent().parent().attr("data-id");
-        console.log(id)
-
         let prod = $(this).parent().parent();
         let tbody = $(".tbody").children();
         let data = { id: id };
@@ -279,18 +278,33 @@ $(function () {
             type: "Post",
             url: `Cart/DeleteDataFromBasket`,
             data: data,
-            success: function () {
+            success: function (res) {
                 if ($(tbody).length == 1) {
                     $(".product-table").addClass("d-none");
-                    //$(".footer-alert").removeClass("d-none")
+                    $(".show-alert").removeClass("d-none")
                 }
                 $(prod).remove();
-                //$(".rounded-circle").text(res)
+                $(".basket-count").text(res)
                 grandTotal();
             }
         })
         return false;
     })
+
+    function grandTotal() {
+        let tbody = $(".table-body").children()
+        
+        let sum = 0;
+        for (var prod of tbody) {
+            let price = parseFloat($(prod).children().eq(4).text())
+            console.log(price)
+            sum += price
+        }
+        $(".grand-total").text(sum);
+    }
+
+
+
 })
 
 
@@ -301,10 +315,8 @@ $(function () {
 
     function addToCart(clickedElem, url) {
         $(document).on("click", clickedElem, function (e) {
-            console.log("afsdgsd")
 
             let id = $(this).attr("data-id");
-            console.log(id)
             let data = { id: id };
             let count = (".wishlist-count");
             $.ajax({
@@ -323,24 +335,22 @@ $(function () {
     $(document).on("click", ".fa-trash-can", function () {
 
         let id = $(this).parent().parent().attr("data-id");
-        console.log(id)
 
-        let prod = $(this).parent().parent();
-        let tbody = $(".tbody").children();
+        let product = $(this).parent().parent();
+        let tablebody = $(".tbody").children();
         let data = { id: id };
-
+        let productTable = $(".product-table");
         $.ajax({
             type: "Post",
             url: `wishlist/DeleteDataFromWishlist`,
             data: data,
             success: function () {
-                if ($(tbody).length == 1) {
-                    $(".product-table").addClass("d-none");
-                    //$(".footer-alert").removeClass("d-none")
+                if ($(tablebody).length == 1) {
+                    $(productTable).addClass("d-none");
+                    $(".show-alert").removeClass("d-none")
                 }
-                $(prod).remove();
-                //$(".rounded-circle").text(res)
-                grandTotal();
+                $(product).remove();
+                $(".wishlist-count").text(res)
             }
         })
         return false;

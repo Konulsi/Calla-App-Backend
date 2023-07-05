@@ -51,7 +51,7 @@ namespace CallaApp.Controllers
             _wishlistService = wishlistService;
         }
 
-        public async Task<IActionResult> Index(int page = 1, int take = 3, int? categoryId = null, int? colorId = null, int? tagId = null, int? sizeId = null, int? brandId = null)
+        public async Task<IActionResult> Index(int page = 1, int take = 3, string value = null, int? categoryId = null, int? colorId = null, int? tagId = null, int? sizeId = null, int? brandId = null)
         {
             List<Product> datas = await _productService.GetPaginatedDatasAsync(page, take, categoryId, colorId, tagId,sizeId,brandId);
             List<ProductVM> mappedDatas = GetDatas(datas);
@@ -261,6 +261,23 @@ namespace CallaApp.Controllers
             return PartialView("_ProductListPartial", model);
         }
 
+
+        //[HttpGet]
+        //public async Task<IActionResult> GetProductsBySort(int? id, int page = 1, string value = null, int take = 3)
+        //{
+        //    if (id is null) return BadRequest();
+        //    ViewBag.value = value;
+
+        //    var products = await _productService.GetProductsByBrandIdAsync(id);
+
+        //    int pageCount = await GetPageCountAsync(take, null, null, null, null, null);
+
+        //    Paginate<ProductVM> model = new(products, page, pageCount);
+
+        //    return PartialView("_ProductListPartial", model);
+        //}
+
+
         [HttpGet]
         public async Task<IActionResult> GetProducts()
         {
@@ -330,7 +347,7 @@ namespace CallaApp.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Sort(string value ,int page = 1,int take = 2)
+        public async Task<IActionResult> Sort(string value ,int page = 1,int take = 3)
         {
             if (value is null) return BadRequest();
             

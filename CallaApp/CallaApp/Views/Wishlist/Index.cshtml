@@ -39,7 +39,7 @@
                                         <span> <a asp-controller="Shop" asp-action="ProductDetail" asp-route-id="@item.Id" style="color: currentColor;">@item.Name</a></span>
                                     </td>
                                     <td>
-                                        <span>£<span>@item.Price.ToString("0.00")</span></span>
+                                        <span>£</span><span>@item.Price.ToString("0.00")</span>
                                     </td>
                                     <td class="product_remove">
                                         <i class="fa-solid fa-trash-can"></i>
@@ -57,8 +57,7 @@
 
             <div class="show-alert d-none">
                 <div class="alert">
-                    <button class="btn btn-danger btn-red">YOU HAVE NO ITEMS IN YOUR SHOPPING CART.</button>
-
+                    <button class="btn btn-danger btn-red">YOU HAVE NO ITEMS IN YOUR WISHLIST.</button>
                 </div>
                 <div class="button-shop">
                     <button class="btn btn-primary btn-orange">Continue shopping</button>

@@ -161,7 +161,7 @@ namespace CallaApp.Controllers
         {
             try
             {
-                if (!ModelState.IsValid) return RedirectToAction("Index", model);
+                if (!ModelState.IsValid) return RedirectToAction("Login", model);
 
                 var user = await _userManager.FindByEmailAsync(model.EmailOrUsername);
 
@@ -176,7 +176,7 @@ namespace CallaApp.Controllers
                 if (!res.Succeeded)
                 {
                     ModelState.AddModelError(string.Empty, "Email or password is wrong");
-                    RedirectToAction("Index", model);
+                    return View(model);
                 }
 
                 List<CartVM> cartVMs = new();
@@ -186,6 +186,7 @@ namespace CallaApp.Controllers
                 if (dbCart is not null)
                 {
                     List<CartProduct> cartProducts = await _cartService.GetAllByCartIdAsync(dbCart.Id);
+
                     foreach (var cartProduct in cartProducts)
                     {
                         cartVMs.Add(new CartVM
@@ -243,16 +244,21 @@ namespace CallaApp.Controllers
                     List<CartProduct> cartProducts = new List<CartProduct>();
                     foreach (var cart in carts)
                     {
+                       // var product =  _context.Products.FirstOrDefaultAsync(p => p.Id == cart.ProductId);
+                       //var basket = _context.Carts.FirstOrDefaultAsync(p => p.Id ==  dbCart.Id);
+                        
                         cartProducts.Add(new CartProduct()
                         {
-                            ProductId = cart.ProductId,
+                            //Product = product.Result,
+                            //Cart = basket.Result,
+                            ProductId= cart.ProductId,
                             CartId = dbCart.Id,
                             Count = cart.Count
                         });
                     }
                     dbCart.CartProducts = cartProducts;
-                    await _context.Carts.AddAsync(dbCart);
-                    _context.SaveChanges();
+                    //await _context.Carts.AddAsync(dbCart);
+                    await _context.SaveChangesAsync();
 
                 }
                 Response.Cookies.Delete("basket");

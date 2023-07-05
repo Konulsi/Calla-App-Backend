@@ -27,11 +27,11 @@
                                     <th scope="col">Price</th>
                                     <th scope="col">Count</th>
                                     <th scope="col">Total</th>
-                                    <th scope="col">Setting</th>
+                                    <th class="product_remove" scope="col">Setting</th>
                                 </tr>
 
                             </thead>
-                            <tbody>
+                            <tbody class="table-body">
                                 @foreach (var item in Model)
                                 {
                                     <tr data-id="@item.Id">
@@ -43,16 +43,15 @@
                                             <span> <a asp-controller="Shop" asp-action="ProductDetail" asp-route-id="@item.Id" style="color: currentColor;">@item.Name</a></span>
                                         </td>
                                         <td>
-                                            <span>£<span>@item.Price.ToString("0.00")</span></span>
+                                            <span>£ </span><span>@item.Price.ToString("0.00")</span>
                                         </td>
                                         <td>
-                                            <button><i class="fa-solid fa-minus"></i></button>
+                                            <button><i class="fa-solid fa-minus dec"></i></button>
                                             <span><input type="text" value="@item.Count"></span>
-                                            <button><i class="fa-solid fa-plus"></i></button>
-
+                                            <button><i class="fa-solid fa-plus inc"></i></button>
                                         </td>
                                         <td>
-                                            <span>£<span>@item.Total.ToString("0.00")</span></span>
+                                             @item.Total.ToString("0.00")
                                         </td>
                                         <td class="product_remove">
                                             <i class="fa-solid fa-trash-can"></i>
@@ -67,6 +66,7 @@
                         </table>
                     }
 
+
                     <div class="buttons d-flex justify-content-between ">
                         <a asp-controller="Shop" asp-action="Index" style="padding: 12px;" class="btn btn-primary shop">Continue shopping</a>
                         <div class="btn btn-primary grandTotal" style=" padding-top: 12px;">
@@ -76,7 +76,7 @@
                                 {
                                     grandTotal += item.Total;
                                 }
-                                <span>@grandTotal.ToString("0.00")</span>
+                                <span class="grand-total">@grandTotal.ToString("0.00")</span>
                            </div>
                         </div>
                     </div>
@@ -90,7 +90,7 @@
 
                 </div>
                 <div class="button-shop">
-                    <button class="btn btn-primary btn-orange">Continue shopping</button>
+                    <a asp-controller="Shop" asp-action="Index" class="btn btn-primary btn-orange">Continue shopping</a>
                 </div>
 
             </div>

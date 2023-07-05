@@ -84,7 +84,7 @@ namespace CallaApp.Services
             return model;
         }
 
-        public async Task<List<Product>> GetPaginatedDatasAsync(int page, int take, int? cateId, int? tagId, int? colorId, int? brandId, int? sizeId)
+        public async Task<List<Product>> GetPaginatedDatasAsync(int page, int take,  int? cateId, int? tagId, int? colorId,int? sizeId, int? brandId)
         {
             List<Product> products = products = await _context.Products
                                                             .Include(p => p.Images)
@@ -155,25 +155,9 @@ namespace CallaApp.Services
                 .Take(take)
                 .ToListAsync();
             }
-            else
-            {
-                return await _context.Products
-               .Include(p => p.Images)
-               .Include(p => p.ProductCategories)
-               .ThenInclude(pc => pc.Category)
-               .Include(p => p.ProductTags)
-               .ThenInclude(pt => pt.Tag)
-               .Include(p => p.ProductSizes)
-               .ThenInclude(ps => ps.Size)
-               .Include(p => p.ProductColors)
-               .ThenInclude(ps => ps.Color)
-               .Include(p => p.Brand)
-               .Skip((page * take) - take)
-               .Take(take)
-               .ToListAsync();
-            }
 
-            //return products;
+
+            return products;
         }
 
 
@@ -266,6 +250,7 @@ namespace CallaApp.Services
             return model;
         }
 
+
         public async Task<List<ProductVM>> GetProductsByColorIdAsync(int? id, int page = 1, int take = 3)
         {
             List<ProductVM> model = new();
@@ -316,6 +301,44 @@ namespace CallaApp.Services
             }
             return model;
         }
+
+
+        //public async Task<List<ProductVM>> GetProductsBySortAsync(string value, int? id, int page = 1, int take = 3)
+        //{
+        //    List<ProductVM> model = new();
+        //    var products = await _context.Products
+        //                                 .Include(m => m.Images)
+        //                                 .Include(m => m.ProductSizes)
+        //                                 .ThenInclude(m => m.Size)
+        //                                 .Include(m => m.Brand)
+        //                                 .Include(m => m.ProductTags)
+        //                                 .ThenInclude(m => m.Tag)
+        //                                 .Include(m => m.ProductColors)
+        //                                 .ThenInclude(m => m.Color)
+        //                                 .Include(m => m.ProductComments)
+        //                                 .Include(m => m.ProductCategories)
+        //                                 .ThenInclude(m => m.Category)
+        //                                .Select(p => p.Product)
+        //                                .Skip((page * take) - take)
+        //                                .Take(take)
+        //                                .ToListAsync();
+
+        //    foreach (var item in products)
+        //    {
+        //        model.Add(new ProductVM
+        //        {
+        //            Id = item.Id,
+        //            Price = item.Price,
+        //            Name = item.Name,
+        //            ProductImages = item.Images,
+        //            Rating = item.Rate
+        //        });
+        //    }
+        //    return model;
+        //}
+
+
+
         public void RemoveImage(ProductImage image)
         {
             _context.Remove(image);

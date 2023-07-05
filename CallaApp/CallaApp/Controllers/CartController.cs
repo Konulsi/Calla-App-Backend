@@ -48,12 +48,10 @@ namespace CallaApp.Controllers
         public IActionResult DeleteDataFromBasket(int? id)
         {
             if (id is null) return BadRequest();
-
             _cartService.DeleteData((int)id);
             List<CartVM> baskets = _cartService.GetDatasFromCookie();
 
             return Ok(baskets.Count);
-
         }
 
         public IActionResult IncrementProductCount(int? id)
