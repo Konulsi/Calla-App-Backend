@@ -30,30 +30,26 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                                <tr>
+                                <tr data-id="@item.Id">
 
                                     <td>
                                         <img src="~/assets/images/@item.Image" alt="">
                                     </td>
                                     <td>
-                                        <span> <a asp-controller="Shop" asp-action="ProductDetail" asp-route-id="@item.Id">@item.Name</a></span>
+                                        <span> <a asp-controller="Shop" asp-action="ProductDetail" asp-route-id="@item.Id" style="color: currentColor;">@item.Name</a></span>
                                     </td>
                                     <td>
                                         <span>£<span>@item.Price.ToString("0.00")</span></span>
                                     </td>
-                                    <td>
+                                    <td class="product_remove">
                                         <i class="fa-solid fa-trash-can"></i>
                                     </td>
 
                                 </tr>
                             }
-
-
                         </tbody>
-
                     </table>
                 }
-
                 <div class="cantinue-btn d-flex justify-content-between ">
                     <a class="btn btn-primary shop" style="padding: 12px;" asp-controller="Shop" asp-action="Index">Continue shopping</a>
                 </div>

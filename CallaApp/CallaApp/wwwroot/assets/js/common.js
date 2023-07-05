@@ -127,7 +127,7 @@ $(document).ready(function () {
 
 
 
-
+    //sechimlere gore datalarin gosterilmesi
     function getProductsById(clickedElem, url) {
         $(document).on("click", clickedElem, function (e) {
             e.preventDefault();
@@ -148,6 +148,7 @@ $(document).ready(function () {
 
     }
 
+    //butun datalarin gosterilmesi
     getProducts(".all", "/Shop/GetProducts")
 
     function getProducts(clickedElem, url) {
@@ -175,34 +176,6 @@ $(document).ready(function () {
 
 
 
-
-
-
-
-    //delete product from basket
-    $(document).on("click", ".delete-product", function () {
-
-        let id = $(this).parent().parent().attr("data-id");
-        let prod = $(this).parent().parent();
-        let tbody = $(".tbody").children();
-        let data = { id: id };
-
-        $.ajax({
-            type: "Post",
-            url: `Cart/DeleteDataFromBasket`,
-            data: data,
-            success: function () {
-                if ($(tbody).length == 1) {
-                    $(".product-table").addClass("d-none");
-                    //$(".footer-alert").removeClass("d-none")
-                }
-                $(prod).remove();
-                //$(".rounded-circle").text(res)
-                grandTotal();
-            }
-        })
-        return false;
-    })
 
     //change product count
     $(document).on("click", ".inc", function () {
@@ -259,6 +232,8 @@ $(document).ready(function () {
         $(total).text(subtotal);
     }
 
+
+    //search
     $(document).on("submit", ".hm-searchbox", function () {
         let value = $(".input-search").val();
         let url = `/Shop/Search?searchText=${value}`;
@@ -266,12 +241,9 @@ $(document).ready(function () {
         return false;
     })
 
-
-
 })
 
 $(function () {
-
 
     //add cart
     addToCart(".add-btn-second", "/Shop/AddToCart");
@@ -279,7 +251,6 @@ $(function () {
     function addToCart(clickedElem, url) {
         $(document).on("click", clickedElem, function (e) {
             let id = $(this).attr("data-id");
-            console.log(id)
             let data = { id: id };
             let count = (".basket-count");
             $.ajax({
@@ -293,4 +264,86 @@ $(function () {
             return false;
         })
     }
+
+    //delete product from basket
+    $(document).on("click", ".fa-trash-can", function () {
+
+        let id = $(this).parent().parent().attr("data-id");
+        console.log(id)
+
+        let prod = $(this).parent().parent();
+        let tbody = $(".tbody").children();
+        let data = { id: id };
+
+        $.ajax({
+            type: "Post",
+            url: `Cart/DeleteDataFromBasket`,
+            data: data,
+            success: function () {
+                if ($(tbody).length == 1) {
+                    $(".product-table").addClass("d-none");
+                    //$(".footer-alert").removeClass("d-none")
+                }
+                $(prod).remove();
+                //$(".rounded-circle").text(res)
+                grandTotal();
+            }
+        })
+        return false;
+    })
+})
+
+
+$(function () {
+
+    //add wishlist
+    addToCart(".add-to-wishlist", "/Shop/AddToWishlist");
+
+    function addToCart(clickedElem, url) {
+        $(document).on("click", clickedElem, function (e) {
+            console.log("afsdgsd")
+
+            let id = $(this).attr("data-id");
+            console.log(id)
+            let data = { id: id };
+            let count = (".wishlist-count");
+            $.ajax({
+                type: "Post",
+                url: url,
+                data: data,
+                success: function (res) {
+                    $(count).text(res);
+                }
+            })
+            return false;
+        })
+    }
+
+    //delete product from wishlist
+    $(document).on("click", ".fa-trash-can", function () {
+
+        let id = $(this).parent().parent().attr("data-id");
+        console.log(id)
+
+        let prod = $(this).parent().parent();
+        let tbody = $(".tbody").children();
+        let data = { id: id };
+
+        $.ajax({
+            type: "Post",
+            url: `wishlist/DeleteDataFromWishlist`,
+            data: data,
+            success: function () {
+                if ($(tbody).length == 1) {
+                    $(".product-table").addClass("d-none");
+                    //$(".footer-alert").removeClass("d-none")
+                }
+                $(prod).remove();
+                //$(".rounded-circle").text(res)
+                grandTotal();
+            }
+        })
+        return false;
+    })
+
 })

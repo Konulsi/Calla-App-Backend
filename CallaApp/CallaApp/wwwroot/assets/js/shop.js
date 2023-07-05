@@ -30,10 +30,6 @@ validateRange(inputElements[0].value, inputElements[1].value);
 
 // Sort
 
-
-
-
-
 $(function () {
 
     $(".form-select").on("change", function () {
@@ -41,7 +37,6 @@ $(function () {
         let data = { value: value };
         let url = "/Shop/Sort";
         let parent = $(".product-grid-view");
-
 
         $.ajax({
             type: "Get",
@@ -52,18 +47,6 @@ $(function () {
             }
         })
         return false;
-
-        //fetch(url, {
-        //    method: "GET"
-        //}).then(function (response) {
-        //    if (response.ok) {
-        //        return response.text();
-        //    }
-        //}).then(function (data) {
-        //    document.querySelector("#games .items").innerHTML = data;
-        //});
-
-
     });
 
 })

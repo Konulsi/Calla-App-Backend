@@ -55,8 +55,8 @@
                         <div class="product-img-hover ">
                             @if (User.Identity.IsAuthenticated)
                             {
-                                <i class="fa-regular fa-heart"></i>
-                                <i class="fa-solid fa-heart d-none"></i>
+                                <i class="fa-regular fa-heart add-to-wishlist" data-id="@product.Id"></i>
+                                <i class="fa-solid fa-heart delete-from-wishlist d-none" data-id="@product.Id"></i>
                                 <div  class="add-btn-first">
                                     <button type="submit"  class="add-to-cart-btn">Add to Cart</button>
                                 </div>
