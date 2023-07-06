@@ -50,7 +50,8 @@
                                         <button><i class="fa-solid fa-plus inc"></i></button>
                                     </td>
                                     <td>
-                                        @item.Total.ToString("0.00")
+                                        <span>£ </span><span> @item.Total.ToString("0.00")</span>
+                                        @*@item.Total.ToString("0.00")*@
                                     </td>
                                     <td class="product_remove">
                                         <i class="fa-solid fa-trash-can delete-cart" style="cursor: pointer;"></i>
@@ -67,8 +68,8 @@
                         <a asp-controller="Shop" asp-action="Index" style="padding: 12px; background-color: #b97a56; border: none;" class="btn btn-primary shop">Continue shopping</a>
                         <div class="btn btn-primary grandTotal" style=" padding-top: 12px;  background-color: #b97a56; border: none;">
 
-                            <div class="total-price" style="display: flex; justify-content: space-between;">
-                                <span>Grand total: £</span>
+                            <div class="total-price" style="display: flex; /*justify-content: space-between;*/">
+                                <span>Grand total: £ </span>
                                 @foreach (var item in Model)
                                 {
                                     grandTotal += item.Total;
@@ -88,6 +89,7 @@
                     <button class="btn btn-danger btn-red">YOU HAVE NO ITEMS IN YOUR SHOPPING CART.</button>
 
                 </div>
+
                 <div class="button-shop">
                     <a asp-controller="Shop" asp-action="Index" style="background-color: #b97a56; border: none; padding: 12px;" class="btn btn-primary btn-orange">Continue shopping</a>
                 </div>

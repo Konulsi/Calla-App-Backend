@@ -418,9 +418,9 @@ namespace CallaApp.Controllers
 
             _wishlistService.SetDatasToCookie(wishlists, dbProduct, existProduct);
 
-            int cartCount = wishlists.Count;
+            int wishlistCount = wishlists.Count;
 
-            return Ok(cartCount);
+            return Ok(wishlistCount);
         }
 
         public async Task<IActionResult> Search(string searchText)

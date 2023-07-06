@@ -1,11 +1,8 @@
-﻿using CallaApp.Data;
-using CallaApp.Models;
+﻿using CallaApp.Models;
 using CallaApp.Services;
 using CallaApp.Services.Interfaces;
 using CallaApp.ViewModels.Wishlist;
 using Microsoft.AspNetCore.Mvc;
-using static Org.BouncyCastle.Asn1.Cmp.Challenge;
-
 namespace CallaApp.Controllers
 {
     public class WishlistController : Controller
@@ -31,7 +28,6 @@ namespace CallaApp.Controllers
                     Name = dbProduct.Name,
                     Price = dbProduct.Price,
                     Image = dbProduct.Images.FirstOrDefault(m => m.IsMain).Image,
-                    Count = item.Count,
                 });
             }
             return View(wishlistDetailVMs);

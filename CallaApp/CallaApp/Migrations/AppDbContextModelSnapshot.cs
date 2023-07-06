@@ -1062,9 +1062,6 @@ namespace CallaApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
@@ -1279,7 +1276,7 @@ namespace CallaApp.Migrations
                         .IsRequired();
 
                     b.HasOne("CallaApp.Models.Product", "Product")
-                        .WithMany()
+                        .WithMany("CartProducts")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1533,6 +1530,8 @@ namespace CallaApp.Migrations
 
             modelBuilder.Entity("CallaApp.Models.Product", b =>
                 {
+                    b.Navigation("CartProducts");
+
                     b.Navigation("Images");
 
                     b.Navigation("ProductCategories");

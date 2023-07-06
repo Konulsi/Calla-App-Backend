@@ -182,7 +182,7 @@ $(document).ready(function () {
         let id = $(this).parent().parent().parent().attr("data-id");
         let nativePrice = parseFloat($(this).parent().parent().prev().children().eq(1).text());
         let total = $(this).parent().parent().next().children().eq(1);
-        let count = $(this).prev().prev();
+        let count = $(this).parent().prev().children().eq(0);
 
         $.ajax({
             type: "Post",
@@ -199,7 +199,7 @@ $(document).ready(function () {
         let id = $(this).parent().parent().parent().attr("data-id");
         let nativePrice = parseFloat($(this).parent().parent().prev().children().eq(1).text());
         let total = $(this).parent().parent().next().children().eq(1);
-        let count = $(this).next();
+        let count = $(this).parent().next().children().eq(0);
 
         $.ajax({
             type: "Post",
@@ -216,16 +216,17 @@ $(document).ready(function () {
     })
 
 
-    //function grandTotal() {
-    //    let tbody = $(".tbody").children()
-    //    let sum = 0;
-    //    for (var prod of tbody) {
-    //        let price = parseFloat($(prod).children().eq(2).children().eq(1).text())
-    //        console.log(price)
-    //        sum += price
-    //    }
-    //    $(".grand-total").text(sum);
-    //}
+    function grandTotal() {
+        let tbody = $(".table-body").children()
+
+        let sum = 0;
+        for (var prod of tbody) {
+            let price = parseFloat($(prod).children().eq(4).children().eq(1).text())
+            console.log(price)
+            sum += price
+        }
+        $(".grand-total").text(sum);
+    }
 
     function subTotal(res, nativePrice, total, count) {
         $(count).val(res);
@@ -247,16 +248,14 @@ $(document).ready(function () {
 $(function () {
 
     //add cart
-    addToCart(".add-btn-second", "/Shop/AddToCart");
 
-    function addToCart(clickedElem, url) {
-        $(document).on("click", clickedElem, function (e) {
+        $(document).on("click", ".add-btn-second", function (e) {
             let id = $(this).attr("data-id");
             let data = { id: id };
             let count = (".basket-count");
             $.ajax({
                 type: "Post",
-                url: url,
+                url: "/Shop/AddToCart",
                 data: data,
                 success: function (res) {
                     $(count).text(res);
@@ -264,7 +263,6 @@ $(function () {
             })
             return false;
         })
-    }
 
     //delete product from basket
     $(document).on("click", ".delete-cart", function () {
@@ -299,7 +297,7 @@ $(function () {
 
         let sum = 0;
         for (var prod of tbody) {
-            let price = parseFloat($(prod).children().eq(4).text())
+            let price = parseFloat($(prod).children().eq(4).children().eq(1).text())
             console.log(price)
             sum += price
         }
@@ -314,17 +312,15 @@ $(function () {
 $(function () {
 
     //add wishlist
-    addToCart(".add-to-wishlist", "/Shop/AddToWishlist");
 
-    function addToCart(clickedElem, url) {
-        $(document).on("click", clickedElem, function (e) {
+        $(document).on("click", ".add-to-wishlist", function (e) {
 
             let id = $(this).attr("data-id");
             let data = { id: id };
             let count = (".wishlist-count");
             $.ajax({
                 type: "Post",
-                url: url,
+                url: "/Shop/AddToWishlist",
                 data: data,
                 success: function (res) {
                     $(count).text(res);
@@ -332,7 +328,6 @@ $(function () {
             })
             return false;
         })
-    }
 
     //delete product from wishlist
     $(document).on("click", ".delete-wishlist", function () {
@@ -349,7 +344,7 @@ $(function () {
             success: function (res) {
                 if ($(tablebody).length == 1) {
                     $(".wishlist-products").addClass("d-none");
-                    $(".show-wishlist-alert").removeClass("d-none")
+                    $(".show-alert").removeClass("d-none")
                 }
                 $(product).remove();
                 res--;
