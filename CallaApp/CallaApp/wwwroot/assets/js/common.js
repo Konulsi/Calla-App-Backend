@@ -267,11 +267,10 @@ $(function () {
     }
 
     //delete product from basket
-    $(document).on("click", ".fa-trash-can", function () {
-
+    $(document).on("click", ".delete-cart", function () {
         let id = $(this).parent().parent().attr("data-id");
         let prod = $(this).parent().parent();
-        let tbody = $(".tbody").children();
+        let tbody = $(".table-body").children();
         let data = { id: id };
 
         $.ajax({
@@ -280,20 +279,24 @@ $(function () {
             data: data,
             success: function (res) {
                 if ($(tbody).length == 1) {
-                    $(".product-table").addClass("d-none");
+                    $(".basket-products").addClass("d-none");
                     $(".show-alert").removeClass("d-none")
                 }
                 $(prod).remove();
+                res--;
                 $(".basket-count").text(res)
                 grandTotal();
+                //$(".show-alert").removeClass("d-none")
+
             }
+
         })
         return false;
     })
 
     function grandTotal() {
         let tbody = $(".table-body").children()
-        
+
         let sum = 0;
         for (var prod of tbody) {
             let price = parseFloat($(prod).children().eq(4).text())
@@ -332,24 +335,24 @@ $(function () {
     }
 
     //delete product from wishlist
-    $(document).on("click", ".fa-trash-can", function () {
+    $(document).on("click", ".delete-wishlist", function () {
 
         let id = $(this).parent().parent().attr("data-id");
 
         let product = $(this).parent().parent();
-        let tablebody = $(".tbody").children();
+        let tablebody = $(".wishlist-table-body").children();
         let data = { id: id };
-        let productTable = $(".product-table");
         $.ajax({
             type: "Post",
             url: `wishlist/DeleteDataFromWishlist`,
             data: data,
-            success: function () {
+            success: function (res) {
                 if ($(tablebody).length == 1) {
-                    $(productTable).addClass("d-none");
-                    $(".show-alert").removeClass("d-none")
+                    $(".wishlist-products").addClass("d-none");
+                    $(".show-wishlist-alert").removeClass("d-none")
                 }
                 $(product).remove();
+                res--;
                 $(".wishlist-count").text(res)
             }
         })

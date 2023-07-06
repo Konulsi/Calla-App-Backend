@@ -12,26 +12,25 @@
             <div class="product-img-hover ">
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <i class="fa-regular fa-heart"></i>
-                    <i class="fa-solid fa-heart d-none"></i>
-                    <div data-id="@product.Id" class="add-btn-first  add-to-cart-btn">
-                        <button>Add to Card</button>
+                    <i class="fa-regular fa-heart add-to-wishlist" data-id="@product.Id"></i>
+                    <i class="fa-solid fa-heart delete-from-wishlist d-none" data-id="@product.Id"></i>
+                    <div class="add-btn-first">
+                        <button type="submit" class="add-to-cart-btn">Add to Cart</button>
                     </div>
-                    <div class="add-btn-second">
+                    <div data-id="@product.Id" class="add-btn-second">
                     </div>
                 }
                 else
                 {
-                    <a asp-controller="Account" asp-action="Index">
+                    <a asp-controller="Account" asp-action="Login">
                         <i class="fa-regular fa-heart"></i>
                         <i class="fa-solid fa-heart d-none"></i>
                         <div class="add-btn-first">
-                            <button>Add to Card</button>
+                            <button>Add to Cart</button>
                         </div>
                         <div class="add-btn-second">
                         </div>
                     </a>
-
                 }
 
             </div>

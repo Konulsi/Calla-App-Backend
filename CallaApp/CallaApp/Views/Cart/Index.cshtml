@@ -13,63 +13,60 @@
             <img src="~/assets/images/banner-on-logo.png" alt="">
         </div>
     </section>
-    <section id="cart-products">
+    <section id="cart-products" @*style="position: relative"*@>
         <div class="container">
-            <form>
+            @if (Model.Count > 0)
+            {
                 <div class="basket-products">
-                    @if(Model.Count >0)
-                    {
-                        <table class="table product-table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Image</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Count</th>
-                                    <th scope="col">Total</th>
-                                    <th class="product_remove" scope="col">Setting</th>
+                    <table class="table product-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Image</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Count</th>
+                                <th scope="col">Total</th>
+                                <th class="product_remove" scope="col">Setting</th>
+                            </tr>
+
+                        </thead>
+                        <tbody class="table-body">
+                            @foreach (var item in Model)
+                            {
+                                <tr data-id="@item.Id">
+
+                                    <td>
+                                        <img src="~/assets/images/@item.Image" alt="">
+                                    </td>
+                                    <td>
+                                        <span> <a asp-controller="Shop" asp-action="ProductDetail" asp-route-id="@item.Id" style="color: currentColor;">@item.Name</a></span>
+                                    </td>
+                                    <td>
+                                        <span>£ </span><span>@item.Price.ToString("0.00")</span>
+                                    </td>
+                                    <td>
+                                        <button><i class="fa-solid fa-minus dec"></i></button>
+                                        <span><input type="text" value="@item.Count"></span>
+                                        <button><i class="fa-solid fa-plus inc"></i></button>
+                                    </td>
+                                    <td>
+                                        @item.Total.ToString("0.00")
+                                    </td>
+                                    <td class="product_remove">
+                                        <i class="fa-solid fa-trash-can delete-cart" style="cursor: pointer;"></i>
+                                    </td>
+
                                 </tr>
-
-                            </thead>
-                            <tbody class="table-body">
-                                @foreach (var item in Model)
-                                {
-                                    <tr data-id="@item.Id">
-
-                                        <td>
-                                            <img src="~/assets/images/@item.Image" alt="">
-                                        </td>
-                                        <td>
-                                            <span> <a asp-controller="Shop" asp-action="ProductDetail" asp-route-id="@item.Id" style="color: currentColor;">@item.Name</a></span>
-                                        </td>
-                                        <td>
-                                            <span>£ </span><span>@item.Price.ToString("0.00")</span>
-                                        </td>
-                                        <td>
-                                            <button><i class="fa-solid fa-minus dec"></i></button>
-                                            <span><input type="text" value="@item.Count"></span>
-                                            <button><i class="fa-solid fa-plus inc"></i></button>
-                                        </td>
-                                        <td>
-                                             @item.Total.ToString("0.00")
-                                        </td>
-                                        <td class="product_remove">
-                                            <i class="fa-solid fa-trash-can"></i>
-                                        </td>
-
-                                    </tr>
-                                }
+                            }
 
 
-                            </tbody>
+                        </tbody>
 
-                        </table>
-                    }
+                    </table>
+                    <div class="buttons d-flex justify-content-between" style=" margin-top: 30px;">
+                        <a asp-controller="Shop" asp-action="Index" style="padding: 12px; background-color: #b97a56; border: none;" class="btn btn-primary shop">Continue shopping</a>
+                        <div class="btn btn-primary grandTotal" style=" padding-top: 12px;  background-color: #b97a56; border: none;">
 
-
-                    <div class="buttons d-flex justify-content-between ">
-                        <a asp-controller="Shop" asp-action="Index" style="padding: 12px;" class="btn btn-primary shop">Continue shopping</a>
-                        <div class="btn btn-primary grandTotal" style=" padding-top: 12px;">
                             <div class="total-price" style="display: flex; justify-content: space-between;">
                                 <span>Grand total: £</span>
                                 @foreach (var item in Model)
@@ -77,12 +74,14 @@
                                     grandTotal += item.Total;
                                 }
                                 <span class="grand-total">@grandTotal.ToString("0.00")</span>
-                           </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </form>
 
+
+                @*<a asp-controller="Shop" asp-action="Index" style="padding: 12px; background-color: #b97a56; border: none; position: absolute; right: 92px; top: 515px;" class="btn btn-primary shop">Prosses to checkout</a>*@
+            }
 
             <div class="show-alert d-none">
                 <div class="alert">
@@ -90,7 +89,7 @@
 
                 </div>
                 <div class="button-shop">
-                    <a asp-controller="Shop" asp-action="Index" class="btn btn-primary btn-orange">Continue shopping</a>
+                    <a asp-controller="Shop" asp-action="Index" style="background-color: #b97a56; border: none; padding: 12px;" class="btn btn-primary btn-orange">Continue shopping</a>
                 </div>
 
             </div>
