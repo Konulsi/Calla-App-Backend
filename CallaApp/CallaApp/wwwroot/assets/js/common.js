@@ -235,6 +235,8 @@ $(document).ready(function () {
     }
 
 
+
+
     //search
     $(document).on("submit", ".hm-searchbox", function () {
         let value = $(".input-search").val();

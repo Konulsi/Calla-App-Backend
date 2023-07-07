@@ -7,7 +7,7 @@
 
 <main>
     <section id="detail-header-img">
-        <div class="detail-bg-img" style="background-image: url(../.~/assets/images/@Model.HeaderBackgrounds["PagesBg"])">
+        <div class="detail-bg-img" style="background-image: url('../../assets/images/@Model.HeaderBackgrounds["PagesBg"]')">
             <h1>Product's Detail</h1>
             <img src="~/assets/images/banner-on-logo.png" alt="">
         </div>
@@ -41,20 +41,20 @@
                             <div class="price"><span> £</span><span>@Model.Price</span></div>
                         </div>
                         <div class="product-rate">
-@*                            @for (int i = 1; i < Model.Rating; i++)
+                            @for (int i = 0; i < Model.Rating; i++)
                             {
-                                <i class="a-solid fa-star"></i>
+                                <i class="fa-solid fa-star" style="color: #b97a56;" ></i>
                             }
                             @for (int j = 0; j < 5 - Model.Rating; j++)
                             {
-                                <i class="fa-solid fa-star" style="color: #b97a56;"></i>
+                                <i class="fa-solid fa-star" style="color: #edd9cd;"></i>
 
-                            }*@
-                            <i class="fa-solid fa-star" style="color: #b97a56;"></i>
+                            }
+@*                            <i class="fa-solid fa-star" style="color: #b97a56;"></i>
                             <i class="fa-solid fa-star" style="color: #b97a56;"></i>
                             <i class="fa-solid fa-star" style="color: #b97a56;"></i>
                             <i class="fa-regular fa-star" style="color: #b97a56;"></i>
-                            <i class="fa-regular fa-star" style="color: #b97a56;"></i>
+                            <i class="fa-regular fa-star" style="color: #b97a56;"></i>*@
 
                             @if (Model.ProductComments.Count == 0)
                             {
@@ -100,7 +100,6 @@
                         }
                         else
                         {
-                            <a asp-controller="Account" asp-action="Login">
                                 <div class="product-count">
                                     <input type="text" class="count-input" data-step="1" data-min="1" data-max=""
                                            name="quantity" value="1" title="Qty" placeholder="" inputmode="numeric">
@@ -111,20 +110,19 @@
                                     </div>
                                     <div class="add-card">
                                         <div class="add-btn-first">
-                                            <a>Add to Card</a>
+                                        <a asp-controller="Account" asp-action="Login" style="color: #d48b68;">Add to Card</a>
                                         </div>
                                         <div class="add-btn-second">
                                         </div>
                                     </div>
                                     <div class="add-wishlist">
                                         <div class="add-btn-first">
-                                            <a>Add to Wishlist</a>
+                                        <a asp-controller="Account" asp-action="Login" style="color: #d48b68;">Add to Wishlist</a>
                                         </div>
                                         <div class="add-btn-second detail-add">
                                         </div>
                                     </div>
                                 </div>
-                            </a>
                         }
 
                         <div class="product-meta">

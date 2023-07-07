@@ -938,6 +938,31 @@ namespace CallaApp.Migrations
                     b.ToTable("Sliders");
                 });
 
+            modelBuilder.Entity("CallaApp.Models.Subscribe", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("SoftDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Subscribes");
+                });
+
             modelBuilder.Entity("CallaApp.Models.Tag", b =>
                 {
                     b.Property<int>("Id")
@@ -1424,7 +1449,7 @@ namespace CallaApp.Migrations
             modelBuilder.Entity("CallaApp.Models.WishlistProduct", b =>
                 {
                     b.HasOne("CallaApp.Models.Product", "Product")
-                        .WithMany()
+                        .WithMany("WishlistProducts")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1543,6 +1568,8 @@ namespace CallaApp.Migrations
                     b.Navigation("ProductSizes");
 
                     b.Navigation("ProductTags");
+
+                    b.Navigation("WishlistProducts");
                 });
 
             modelBuilder.Entity("CallaApp.Models.Size", b =>

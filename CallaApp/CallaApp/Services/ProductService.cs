@@ -398,6 +398,9 @@ namespace CallaApp.Services
         {
             var products = await _context.Products
                 .Include(p => p.Images)
+                .Include(p=>p.ProductCategories)
+                .ThenInclude(p=>p.Category)
+                .Include(p => p.Brand)
                 .OrderByDescending(p => p.Id)
                 .Where(p => p.Name.ToLower().Contains(searchText.ToLower()))
                 .ToListAsync();

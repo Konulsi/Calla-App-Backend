@@ -40,9 +40,7 @@ namespace CallaApp.Data
         public DbSet<CartProduct> CartProducts { get; set; }
         public DbSet<Wishlist> Wishlists { get; set; }
         public DbSet<WishlistProduct> WishlistProducts { get; set; }
-
-
-
+        public DbSet<Subscribe> Subscribes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -69,7 +67,7 @@ namespace CallaApp.Data
             modelBuilder.Entity<BlogComment>().HasQueryFilter(p => !p.SoftDelete);
             modelBuilder.Entity<BlogImage>().HasQueryFilter(p => !p.SoftDelete);
             modelBuilder.Entity<Author>().HasQueryFilter(p => !p.SoftDelete);
-
+            modelBuilder.Entity<Subscribe>().HasQueryFilter(p => !p.SoftDelete);
         }
     }
 }

@@ -2588,8 +2588,8 @@ body {
   border: 2px solid #e1a385;
   position: absolute;
   top: 0%;
-  height: 84%;
-  width: 94%;
+  height: 392px;
+  width: 318px;
   opacity: 0;
   transition: 0.5s;
 }

@@ -1,6 +1,5 @@
 ﻿@model ContactVM
 @inject UserManager<AppUser> userManager;
-@inject ILayoutService layout;
 @{
     ViewData["Title"] = "Contact";
 }
@@ -152,12 +151,12 @@
                       class="contact-form"
                       method="post" asp-action="PostComment">
                     <div class="inputs">
-                        <input type="text" placeholder="NAME" value="@userManager.Users.FirstOrDefault(u=>u.UserName==User.Identity.Name).FirstName">
-                        <input type="text" placeholder="E-MAIL" value="@userManager.Users.FirstOrDefault(u=>u.UserName==User.Identity.Name).Email">
-                        <input type="text" placeholder="TELEPHONE">
+                        <input name="Name" asp-for="Name" required="" type="text" placeholder="NAME" value="@userManager.Users.FirstOrDefault(u=>u.UserName==User.Identity.Name).FirstName">
+                        <input name="Email" asp-for="Email" required="" type="text" placeholder="E-MAIL" value="@userManager.Users.FirstOrDefault(u=>u.UserName==User.Identity.Name).Email">
+                        <input name="Phone" asp-for="Phone" required="" type="text" placeholder="TELEPHONE">
                     </div>
                     <div class="text-area">
-                        <textarea name="" id="" cols="30" rows="10" placeholder="WRITE YOUR MESSAGE HERE..."></textarea>
+                        <textarea name="Message" asp-for="Message" required="" type="text" id="" cols="30" rows="10" placeholder="WRITE YOUR MESSAGE HERE..."></textarea>
                     </div>
 
                     <div class="subscribe-button">
