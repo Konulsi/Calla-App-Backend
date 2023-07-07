@@ -238,7 +238,7 @@ $(document).ready(function () {
 
 
     //search
-    $(document).on("submit", ".hm-searchbox", function () {
+    $(document).on("submit", ".searchbox", function () {
         let value = $(".input-search").val();
         let url = `/Shop/Search?searchText=${value}`;
         window.location.assign(url);

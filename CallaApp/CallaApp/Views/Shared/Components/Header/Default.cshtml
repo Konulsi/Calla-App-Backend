@@ -120,10 +120,22 @@
                             </div>
                         </div>
                     </div>
-                    <div class="search-input">
-                        <input type="text" placeholder="Search here...">
-                        <i class="fa-solid fa-xmark close-icon" style=" color: #8a8a8abd;"></i>
-                    </div>
+                    <form class="searchbox">
+                        <div class="search-input">
+                          @*  <input type="text" placeholder="Search here...">*@
+                            <input class="input-search"
+                                   type="text"
+                                   name="Search..."
+                                   value="Search..."
+                                   onblur="if(this.value==''){this.value='Search...'}"
+                                   onfocus="if(this.value=='Search...'){this.value=''}"
+                                   autocomplete="off"
+                                   placeholder="Search product here..."/>
+
+                            <i class="fa-solid fa-xmark close-icon" style=" color: #8a8a8abd;"></i>
+                        </div>
+                    </form>
+
                 </div>
             </div>
         </div>

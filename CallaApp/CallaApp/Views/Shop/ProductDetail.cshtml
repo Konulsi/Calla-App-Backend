@@ -227,7 +227,7 @@
                                     <p style="color: #b97a56;">Add a review</p>
                                     <p>Your email address will not be published. Required fields are marked *</p>
 
-                                    <p>Your rating *</p>
+                                    @*<p>Your rating *</p>*@
                                     <form method="post" asp-action="PostComment" asp-route-id="@Model.Id" asp-route-userId="@userManager.Users.FirstOrDefault(u=>u.UserName==User.Identity.Name).Id">
 @*                                        <div class="product-rate">
                                             <i class="fa-solid fa-star" style="color: #b97a56;"></i>
