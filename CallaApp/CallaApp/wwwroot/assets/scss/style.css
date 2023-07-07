@@ -349,7 +349,7 @@ body {
   position: absolute;
   top: 0%;
   height: 81.9%;
-  width: 10.5%;
+  width: 255px;
   opacity: 0;
   transition: 0.5s;
   transition: 1s;
@@ -4051,6 +4051,7 @@ h1, a {
   }
   #products-slider .product-cards .product-card .product-img-hover {
     height: 80%;
+    width: 207px;
   }
   #products-slider .product-cards .product-card .product-img-hover .add-btn-first {
     padding: 6px;

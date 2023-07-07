@@ -11,3 +11,20 @@ $(document).ready(function(){
 	})
 
 })
+
+$(function () {
+    $(document).on("click", ".detail-add", function (e) {
+        let id = $(this).attr("data-id");
+        let data = { id: id };
+        let count = (".basket-count");
+        $.ajax({
+            type: "Post",
+            url: "/Shop/AddToCart",
+            data: data,
+            success: function (res) {
+                $(count).text(res);
+            }
+        })
+        return false;
+    });
+})

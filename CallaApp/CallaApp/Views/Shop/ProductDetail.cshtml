@@ -72,29 +72,61 @@
                                 @Model.Description.Substring(0,200)
                             </p>
                         </div>
-                        <div class="product-count">
-                            <input type="text" class="count-input" data-step="1" data-min="1" data-max=""
-                                   name="quantity" value="1" title="Qty" placeholder="" inputmode="numeric">
-                            <div class="icons">
-                                <span class="minus">-</span>
-                                <span class="plus">+</span>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="product-count">
+                                <input type="text" class="count-input" data-step="1" data-min="1" data-max=""
+                                       name="quantity" value="1" title="Qty" placeholder="" inputmode="numeric">
+                                <div class="icons">
+                                    <span class="minus">-</span>
+                                    <span class="plus">+</span>
 
+                                </div>
+                                <div class="add-card">
+                                    <div class="add-btn-first">
+                                        <button>Add to Card</button>
+                                    </div>
+                                    <div class="add-btn-second">
+                                    </div>
+                                </div>
+                                <div class="add-wishlist">
+                                    <div class="add-btn-first">
+                                        <button>Add to Wishlist</button>
+                                    </div>
+                                    <div class="add-btn-second detail-add">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="add-card">
-                                <div class="add-btn-first">
-                                    <button>Add to Card</button>
+                        }
+                        else
+                        {
+                            <a asp-controller="Account" asp-action="Login">
+                                <div class="product-count">
+                                    <input type="text" class="count-input" data-step="1" data-min="1" data-max=""
+                                           name="quantity" value="1" title="Qty" placeholder="" inputmode="numeric">
+                                    <div class="icons">
+                                        <span class="minus">-</span>
+                                        <span class="plus">+</span>
+
+                                    </div>
+                                    <div class="add-card">
+                                        <div class="add-btn-first">
+                                            <a>Add to Card</a>
+                                        </div>
+                                        <div class="add-btn-second">
+                                        </div>
+                                    </div>
+                                    <div class="add-wishlist">
+                                        <div class="add-btn-first">
+                                            <a>Add to Wishlist</a>
+                                        </div>
+                                        <div class="add-btn-second detail-add">
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="add-btn-second">
-                                </div>
-                            </div>
-                            <div class="add-wishlist">
-                                <div class="add-btn-first">
-                                    <button>Add to Wishlist</button>
-                                </div>
-                                <div class="add-btn-second">
-                                </div>
-                            </div>
-                        </div>
+                            </a>
+                        }
+
                         <div class="product-meta">
                             <div class="sku d-flex">
                                 <h5>SKU: </h5> <span>@Model.SKU</span>
