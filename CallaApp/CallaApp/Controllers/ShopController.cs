@@ -50,47 +50,56 @@ namespace CallaApp.Controllers
             _wishlistService = wishlistService;
         }
 
-        public async Task<IActionResult> Index(int page = 1, int take = 9, string sortValue = null, int? categoryId = null, int? colorId = null, int? tagId = null, int? sizeId = null, int? brandId = null)
+        public async Task<IActionResult> Index(int page = 1, int take = 9, string sortValue = null, int? categoryId = null, int? colorId = null, int? tagId = null, int? sizeId = null, int? brandId = null, int? value1 = null, int? value2 = null)
         {
-            List<Product> datas = await _productService.GetPaginatedDatasAsync(page, take, sortValue, categoryId, colorId, tagId,sizeId,brandId);
+            List<Product> datas = await _productService.GetPaginatedDatasAsync(page, take, sortValue, categoryId, colorId, tagId,sizeId,brandId, value1, value2);
             List<ProductVM> mappedDatas = GetDatas(datas);
             ViewBag.catId = categoryId;
             ViewBag.tagId = tagId;
             ViewBag.sizeId = sizeId;
             ViewBag.colorId = colorId;
             ViewBag.brandId = brandId;
+            ViewBag.sortValue = sortValue;
+            ViewBag.value1 = value1;
+            ViewBag.value2 = value2;
+
+
             int pageCount = 0;
 
 
             if (sortValue != null)
             {
-                pageCount = await GetPageCountAsync(take, sortValue, null, null, null, null, null);
+                pageCount = await GetPageCountAsync(take, sortValue, null, null, null, null, null, null, null);
             }
 
             if (categoryId != null)
             {
-                pageCount = await GetPageCountAsync(take,null, categoryId, null, null,null,null);
+                pageCount = await GetPageCountAsync(take,null, categoryId, null, null,null,null, null, null);
             }
             if (colorId != null)
             {
-                pageCount = await GetPageCountAsync(take,null, null, colorId, null, null, null);
+                pageCount = await GetPageCountAsync(take,null, null, colorId, null, null, null, null, null);
             }
             if (tagId != null)
             {
-                pageCount = await GetPageCountAsync(take,null, null, null, tagId, null, null);
+                pageCount = await GetPageCountAsync(take,null, null, null, tagId, null, null, null, null);
             }
             if (sizeId != null)
             {
-                pageCount = await GetPageCountAsync(take,null, null, null,  null, sizeId, null);
+                pageCount = await GetPageCountAsync(take,null, null, null,  null, sizeId, null, null, null);
             }
             if (brandId != null)
             {
-                pageCount = await GetPageCountAsync(take,null, null, null, null, null, brandId);
+                pageCount = await GetPageCountAsync(take,null, null, null, null, null, brandId, null, null);
+            }
+            if (value1 != null && value2 != null)
+            {
+                pageCount = await GetPageCountAsync(take, null, null, null, null, null, null, value1, value2);
             }
 
-            if (sortValue == null && categoryId == null &&  colorId == null && tagId == null && sizeId == null &&  brandId == null)
+            if (sortValue == null && categoryId == null &&  colorId == null && tagId == null && sizeId == null &&  brandId == null && value1 == null && value2 == null)
             {
-                pageCount = await GetPageCountAsync(take,null, null, null, null, null, null);
+                pageCount = await GetPageCountAsync(take,null, null, null, null, null, null, null, null);
             }
 
             Paginate<ProductVM> paginatedDatas = new(mappedDatas, page, pageCount);
@@ -135,12 +144,12 @@ namespace CallaApp.Controllers
             return mappedDatas;
         }
 
-        private async Task<int> GetPageCountAsync(int take,string sortValue, int? catId, int? colorId, int? tagId, int? sizeId, int? brandId)
+        private async Task<int> GetPageCountAsync(int take,string sortValue, int? catId, int? colorId, int? tagId, int? sizeId, int? brandId, int? value1, int? value2)
         {
             int prodCount = 0;
             if (sortValue is not null)
             {
-                prodCount = await _productService.GetProductsBySortText(sortValue);
+                prodCount = await _productService.GetProductsCountBySortText(sortValue);
             }
             if (catId is not null)
             {
@@ -162,38 +171,44 @@ namespace CallaApp.Controllers
             {
                 prodCount = await _productService.GetProductsCountByBrandAsync(brandId);
             }
-            if (sortValue == null && catId == null && tagId == null && colorId == null && sizeId == null && brandId == null)
+            if (value1 != null && value2 != null)
+            {
+                prodCount = await _productService.GetProductsCountByRangeAsync(value1, value2); ;
+            }
+            if (sortValue == null && catId == null && tagId == null && colorId == null && sizeId == null && brandId == null && value1 == null && value2 == null)
             {
                 prodCount = await _productService.GetCountAsync();
             }
+
 
             return (int)Math.Ceiling((decimal)prodCount / take);
         }
 
 
+        //[HttpGet]
+        //public async Task<IActionResult> GetAllProducts(string value,int page = 1, int take = 9)
+        //{
+        //    int pageCount = await GetPageCountAsync(take,value, null, null, null, null, null);
+        //    var products = await _productService.GetPaginatedDatasAsync(page, take,null, null, null, null, null, null);
+        //    List<ProductVM> mappedDatas = GetDatas(products);
+        //    Paginate<ProductVM> paginatedDatas = new(mappedDatas, page, pageCount);
+        //    return PartialView("_ProductListPartial", paginatedDatas);
+        //}
+
         [HttpGet]
-        public async Task<IActionResult> GetAllProducts(string value,int page = 1, int take = 9)
+        public async Task<IActionResult> GetProductsBySort(string sortValue, int page = 1, int take = 9)
         {
-            int pageCount = await GetPageCountAsync(take,value, null, null, null, null, null);
-            var products = await _productService.GetPaginatedDatasAsync(page, take,null, null, null, null, null, null);
-            List<ProductVM> mappedDatas = GetDatas(products);
-            Paginate<ProductVM> paginatedDatas = new(mappedDatas, page, pageCount);
+            if (sortValue is null) return BadRequest();
+            ViewBag.sortValue = sortValue;
+
+            var products = await _productService.GetProductsBySortAsync(sortValue,page,take);
+
+            int pageCount = await GetPageCountAsync(take, sortValue, null, null, null, null, null, null,null);
+
+            Paginate<ProductVM> paginatedDatas = new(products, page, pageCount);
             return PartialView("_ProductListPartial", paginatedDatas);
         }
 
-
-        //[HttpGet]
-        //public async Task<IActionResult> GetRangeProducts(decimal value1, decimal value2, int page = 1, int take = 6)
-        //{
-        //    int pageCount = await GetPageCountAsync(take, null, null, null, null, null);
-        //    var products = await _productService.GetMappedAllProducts();
-        //    if (value1 != 0 && value2 != 0)
-        //    {
-        //        products = products.Where(x => x.Price >= value1 && x.Price <= value2).ToList();
-        //    }
-        //    Paginate<ProductVM> paginatedDatas = new(products, page, pageCount);
-        //    return PartialView("_ProductsPartial", paginatedDatas);
-        //}
 
         [HttpGet]
         public async Task<IActionResult> GetProductsByCategory(int? id, int page = 1, int take = 9)
@@ -203,7 +218,7 @@ namespace CallaApp.Controllers
 
             var products = await _productService.GetProductsByCategoryIdAsync(id, page, take);
 
-            int pageCount = await GetPageCountAsync(take,null, (int)id, null, null,null,null);
+            int pageCount = await GetPageCountAsync(take,null, (int)id, null, null,null,null,null,null);
 
             Paginate<ProductVM> model = new(products, page, pageCount);
 
@@ -216,7 +231,7 @@ namespace CallaApp.Controllers
             if (id is null) return BadRequest();
             ViewBag.colorId = id;
             var products = await _productService.GetProductsByColorIdAsync(id);
-            int pageCount = await GetPageCountAsync(take,null, null, (int)id, null,null,null);
+            int pageCount = await GetPageCountAsync(take,null, null, (int)id, null,null,null,null,null);
 
             Paginate<ProductVM> model = new(products, page, pageCount);
 
@@ -231,7 +246,7 @@ namespace CallaApp.Controllers
 
             var products = await _productService.GetProductsByTagIdAsync(id);
 
-            int pageCount = await GetPageCountAsync(take,null,  null, null, (int)id, null,null);
+            int pageCount = await GetPageCountAsync(take,null,  null, null, (int)id, null,null,null,null);
 
             Paginate<ProductVM> model = new(products, page, pageCount);
 
@@ -246,7 +261,7 @@ namespace CallaApp.Controllers
 
             var products = await _productService.GetProductsBySizeIdAsync(id);
 
-            int pageCount = await GetPageCountAsync(take,null, null, null, null, (int)id, null);
+            int pageCount = await GetPageCountAsync(take,null, null, null, null, (int)id, null,null,null);
 
             Paginate<ProductVM> model = new(products, page, pageCount);
 
@@ -260,7 +275,7 @@ namespace CallaApp.Controllers
 
             var products = await _productService.GetProductsByBrandIdAsync(id);
 
-            int pageCount = await GetPageCountAsync(take,null, null, null,  null, null, (int)id);
+            int pageCount = await GetPageCountAsync(take,null, null, null,  null, null, (int)id,null,null);
 
             Paginate<ProductVM> model = new(products, page, pageCount);
 
@@ -276,7 +291,7 @@ namespace CallaApp.Controllers
 
             var products = await _productService.GetProductsByBrandIdAsync(id);
 
-            int pageCount = await GetPageCountAsync(take,value, null, null, null, null, null);
+            int pageCount = await GetPageCountAsync(take,value, null, null, null, null, null,null,null);
 
             Paginate<ProductVM> model = new(products, page, pageCount);
 

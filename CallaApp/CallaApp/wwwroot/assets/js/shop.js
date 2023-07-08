@@ -33,20 +33,45 @@ validateRange(inputElements[0].value, inputElements[1].value);
 $(function () {
 
     $(".form-select").on("change", function () {
-        let value = $(this).val();
-        let data = { value: value };
-        let url = "/Shop/Sort";
-        let parent = $(".product-grid-view");
+        var value = $(this).val();
+        var data = { value: value };
+        var url = "/Shop/Sort";
+        var parent = $(".product-grid-view");
 
         $.ajax({
-            type: "Get",
+            type: "GET",
             url: url,
             data: data,
             success: function (res) {
-                $(parent).html(res)
+                parent.html(res);
             }
-        })
+        });
         return false;
     });
+
+
+
+    ////FILTER
+    $(document).on("submit", "#filterForm", function (e) {
+        e.preventDefault();
+        let value1 = $(".min-price")
+        let value2 = $(".max-price")
+        console.log(value1)
+        console.log(value2)
+
+        let data = { value1: value1, value2: value2 }
+        let parent = $(".product-grid-view");
+
+        $.ajax({
+            url: "/Shop/Index",
+            type: "Get",
+            data: data,
+            success: function (res) {
+                $(".product-grid-view").html(res);
+            }
+        })
+    })
+
+
 
 })

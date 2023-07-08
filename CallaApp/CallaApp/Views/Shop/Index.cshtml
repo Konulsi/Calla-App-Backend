@@ -8,7 +8,7 @@
 
 <!-- Main star -->
 <main>
-    <section id="shop-header-img">       
+    <section id="shop-header-img">
         <div class="shop-bg-img" style="background-image: url(../../assets/images/@Model.HeaderBackgrounds["PagesBg"])">
             <h1>SHOP</h1>
             <img src="~/assets/images/banner-on-logo.png" alt="">
@@ -22,21 +22,25 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="show-result">
-                                <p>SHOWING 1–6 OF 19 RESULTS</p>
+                                <p>SHOWING 1–9 OF (@Model.CountProducts) RESULTS</p>
                             </div>
                         </div>
 
 
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="sort">
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected disabled>Choose option</option>
-                                    <option value="Sort by Latest">Sort By Latest</option>
-                                    <option value="Sort by Popularity">Sort By Popularity</option>
-                                    <option value="Sort by Rated">Sort By Avarage Rating</option>
-                                    <option value="Sort by Latest">Sort By Price:Low To High</option>
-                                    <option value="Sort by High Price">Sort By Price:High to Low</option>
-                                </select>
+                                <form name="sortProducts" id="sortProducts">
+                                    <input type="hidden" name="url" value="{{route('men')}}"/>
+                                    <select id="sort" name="sort" class="form-select" aria-label="Default select example">
+                                        <option  selected disabled>Choose option</option>
+                                        <option  value="Sort by Latest">Sort By Latest</option>
+                                        <option  value="Sort by Popularity">Sort By Popularity</option>
+                                        <option  value="Sort by Rated">Sort By Avarage Rating</option>
+                                        <option  value="Sort by Latest">Sort By Price:Low To High</option>
+                                        <option  value="Sort by High Price">Sort By Price:High to Low</option>
+                                    </select>
+                                </form>
+
                             </div>
                         </div>
                     </div>
@@ -55,28 +59,31 @@
                                 <h3>FILTER BY PRICE</h3>
                             </div>
                             <div class="price-filter">
-                                <div class="card">
-                                    <div class="range-slider">
-                                        <input type="range" class="min-price" value="100" min="10" max="500"
-                                               step="10" style="accent-color: #d8d8d8;">
-                                        <input type="range" class="max-price" value="250" min="10" max="500"
-                                               step="10" style="accent-color: #d8d8d8;">
+                                <form id="filterForm" method="post" asp-controller="shop" asp-action="index">
+                                    <div class="card">
+                                        <div class="range-slider">
+                                            <input name="value1" type="range" class="min-price" value="100" min="10" max="500"
+                                                   step="10" style="accent-color: #d8d8d8;">
+                                            <input name="value2" type="range" class="max-price" value="250" min="10" max="500"
+                                                   step="10" style="accent-color: #d8d8d8;">
+                                        </div>
+                                        <div class="price-content">
+                                            <div style="color: gray;">
+                                                <p>Price:</p>
+                                            </div>
+                                            <div>
+                                                <p id="min-value">50</p>
+                                            </div>
+                                            <div>
+                                                <p id="max-value">500</p>
+                                            </div>
+                                            <div class="filter-button">
+                                                <button type="submit">FILTER</button>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="price-content">
-                                        <div style="color: gray;">
-                                            <p>Price:</p>
-                                        </div>
-                                        <div>
-                                            <p id="min-value">50</p>
-                                        </div>
-                                        <div>
-                                            <p id="max-value">500</p>
-                                        </div>
-                                        <div class="filter-button">
-                                            <button>FILTER</button>
-                                        </div>
-                                    </div>
-                                </div>
+                                </form>
+
                             </div>
                         </div>
 

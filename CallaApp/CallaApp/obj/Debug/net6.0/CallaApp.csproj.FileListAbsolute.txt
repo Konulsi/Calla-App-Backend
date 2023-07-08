@@ -1,11 +1,3 @@
-C:\Users\Lenovo\OneDrive\Desktop\CallaApp-Backend\CallaApp\CallaApp\obj\Debug\net6.0\CallaApp.csproj.AssemblyReference.cache
-C:\Users\Lenovo\OneDrive\Desktop\CallaApp-Backend\CallaApp\CallaApp\obj\Debug\net6.0\CallaApp.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Lenovo\OneDrive\Desktop\CallaApp-Backend\CallaApp\CallaApp\obj\Debug\net6.0\CallaApp.AssemblyInfoInputs.cache
-C:\Users\Lenovo\OneDrive\Desktop\CallaApp-Backend\CallaApp\CallaApp\obj\Debug\net6.0\CallaApp.AssemblyInfo.cs
-C:\Users\Lenovo\OneDrive\Desktop\CallaApp-Backend\CallaApp\CallaApp\obj\Debug\net6.0\CallaApp.csproj.CoreCompileInputs.cache
-C:\Users\Lenovo\OneDrive\Desktop\CallaApp-Backend\CallaApp\CallaApp\obj\Debug\net6.0\CallaApp.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\Lenovo\OneDrive\Desktop\CallaApp-Backend\CallaApp\CallaApp\obj\Debug\net6.0\CallaApp.RazorAssemblyInfo.cache
-C:\Users\Lenovo\OneDrive\Desktop\CallaApp-Backend\CallaApp\CallaApp\obj\Debug\net6.0\CallaApp.RazorAssemblyInfo.cs
 C:\Users\Lenovo\OneDrive\Desktop\CallaApp-Backend\CallaApp\CallaApp\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\Lenovo\OneDrive\Desktop\CallaApp-Backend\CallaApp\CallaApp\bin\Debug\net6.0\appsettings.json
 C:\Users\Lenovo\OneDrive\Desktop\CallaApp-Backend\CallaApp\CallaApp\bin\Debug\net6.0\CallaApp.staticwebassets.runtime.json
@@ -240,6 +232,14 @@ C:\Users\Lenovo\OneDrive\Desktop\CallaApp-Backend\CallaApp\CallaApp\bin\Debug\ne
 C:\Users\Lenovo\OneDrive\Desktop\CallaApp-Backend\CallaApp\CallaApp\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\Lenovo\OneDrive\Desktop\CallaApp-Backend\CallaApp\CallaApp\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\Lenovo\OneDrive\Desktop\CallaApp-Backend\CallaApp\CallaApp\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Users\Lenovo\OneDrive\Desktop\CallaApp-Backend\CallaApp\CallaApp\obj\Debug\net6.0\CallaApp.csproj.AssemblyReference.cache
+C:\Users\Lenovo\OneDrive\Desktop\CallaApp-Backend\CallaApp\CallaApp\obj\Debug\net6.0\CallaApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Lenovo\OneDrive\Desktop\CallaApp-Backend\CallaApp\CallaApp\obj\Debug\net6.0\CallaApp.AssemblyInfoInputs.cache
+C:\Users\Lenovo\OneDrive\Desktop\CallaApp-Backend\CallaApp\CallaApp\obj\Debug\net6.0\CallaApp.AssemblyInfo.cs
+C:\Users\Lenovo\OneDrive\Desktop\CallaApp-Backend\CallaApp\CallaApp\obj\Debug\net6.0\CallaApp.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\OneDrive\Desktop\CallaApp-Backend\CallaApp\CallaApp\obj\Debug\net6.0\CallaApp.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Lenovo\OneDrive\Desktop\CallaApp-Backend\CallaApp\CallaApp\obj\Debug\net6.0\CallaApp.RazorAssemblyInfo.cache
+C:\Users\Lenovo\OneDrive\Desktop\CallaApp-Backend\CallaApp\CallaApp\obj\Debug\net6.0\CallaApp.RazorAssemblyInfo.cs
 C:\Users\Lenovo\OneDrive\Desktop\CallaApp-Backend\CallaApp\CallaApp\obj\Debug\net6.0\staticwebassets\msbuild.CallaApp.Microsoft.AspNetCore.StaticWebAssets.props
 C:\Users\Lenovo\OneDrive\Desktop\CallaApp-Backend\CallaApp\CallaApp\obj\Debug\net6.0\staticwebassets\msbuild.build.CallaApp.props
 C:\Users\Lenovo\OneDrive\Desktop\CallaApp-Backend\CallaApp\CallaApp\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.CallaApp.props

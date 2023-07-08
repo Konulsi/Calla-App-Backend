@@ -42,7 +42,6 @@ namespace CallaApp.Controllers
             _wishlistService.DeleteData((int)id);
             List<WishlistVM> wishlists = _wishlistService.GetDatasFromCookie();
 
-
             return Ok(wishlists.Count);
 
         }

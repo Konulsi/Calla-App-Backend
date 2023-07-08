@@ -173,6 +173,13 @@ $(document).ready(function () {
     getProductsById(".prod-brand", "/Shop/GetProductsByBrand")
 
 
+    //product detailde shekillerin gorsenmesi
+    $(document).on("click", "#product-info .product-images .prod-img", function () {
+        let photo = $(this).children().eq(0).attr("src")
+        $(".basic-img").attr("src", photo)
+
+    })
+
 
 
 

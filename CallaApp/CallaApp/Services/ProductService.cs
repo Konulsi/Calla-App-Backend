@@ -85,7 +85,7 @@ namespace CallaApp.Services
             return model;
         }
 
-        public async Task<List<Product>> GetPaginatedDatasAsync(int page, int take,string sortValue,  int? cateId, int? tagId, int? colorId,int? sizeId, int? brandId)
+        public async Task<List<Product>> GetPaginatedDatasAsync(int page, int take,string sortValue,  int? cateId, int? tagId, int? colorId,int? sizeId, int? brandId, int? value1, int? value2)
         {
             List<Product> products = products = await _context.Products
                                                             .Include(p => p.Images)
@@ -196,6 +196,16 @@ namespace CallaApp.Services
                 .Skip((page * take) - take)
                 .Take(take)
                 .ToListAsync();
+            }
+            if (value1 != null && value2 != null)
+            {
+                products = await _context.Products
+               .Include(p => p.Images)
+               .Where(p => p.Price >= value1 && p.Price <= value2)
+               .Skip((page * take) - take)
+               .Take(take)
+               .ToListAsync();
+
             }
 
 
@@ -342,32 +352,78 @@ namespace CallaApp.Services
             return model;
         }
 
+        public async Task<List<ProductVM>> GetProductsBySortAsync(string sortValue, int page = 1, int take = 9)
+        {
+            List<ProductVM> model = new();
+            List<Product> products = new();
+            if (sortValue == "Sort by Latest")
+            {
+                products= await _context.Products
+                                        .OrderBy(p => p.CreateDate)
+                                          .Skip((page * take) - take)
+                .Take(take)
+                .ToListAsync();
 
-        //public async Task<List<ProductVM>> GetProductsAllSortAsync(string value,int page = 1, int take = 9)
-        //{
-        //    List<ProductVM> model = new();
-        //    var products = await _context.ProductImages
-        //        .Include(p => p.Product)
-        //        .ThenInclude(p => p.Images)
-        //        .Where(pc => pc.Product.Name == value)
-        //        .Select(p => p.Product)
-        //        .Skip((page * take) - take)
-        //        .Take(take)
-        //        .ToListAsync();
+            }
 
-        //    foreach (var item in products)
-        //    {
-        //        model.Add(new ProductVM
-        //        {
-        //            Id = item.Id,
-        //            Price = item.Price,
-        //            Name = item.Name,
-        //            ProductImages = item.Images,
-        //        });
-        //    }
-        //    return model;
-        //}
+            if (sortValue == "Sort by Popularity")
+            {
+                products = await _context.Products
+                                         .Skip((page * take) - take)
+                                            .Take(take)
+                                            .ToListAsync();
+            }
 
+            if (sortValue == "Sort by Rated")
+            {
+                products = await _context.Products
+                                        .OrderByDescending(p => p.Rate).Skip((page * take) - take)
+                                            .Take(take)
+                                            .ToListAsync();
+
+
+            }
+            if (sortValue == "Sort by High Price")
+            {
+                products = await _context.Products
+                                        .OrderByDescending(p => p.Price)
+                                                                                 .Skip((page * take) - take)
+                                            .Take(take)
+                                            .ToListAsync();
+                ;
+            }
+            if (sortValue == "Sort by Low Price")
+            {
+                products = await _context.Products
+                                        .OrderBy(p => p.Price)
+                                            .Skip((page * take) - take)
+                                            .Take(take)
+                                            .ToListAsync();
+
+            }
+
+
+
+            foreach (var item in products)
+            {
+                model.Add(new ProductVM
+                {
+                    Id = item.Id,
+                    Price = item.Price,
+                    Name = item.Name,
+                    ProductImages = item.Images,
+                    Rating = item.Rate
+                });
+            }
+            return model;
+        }
+
+        public async Task<int> GetProductsCountByRangeAsync(int? value1, int? value2)
+        {
+            return await _context.Products.Where(p => p.Price >= value1 && p.Price <= value2)
+                                 .Include(p => p.Images)
+                                 .CountAsync();
+        }
 
 
         public void RemoveImage(ProductImage image)
@@ -455,456 +511,6 @@ namespace CallaApp.Services
                                             .OrderBy(p => p.Price)
                                             .CountAsync();
                 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
             return await  _context.Products.CountAsync();   

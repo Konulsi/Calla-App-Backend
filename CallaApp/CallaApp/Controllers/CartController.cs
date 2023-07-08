@@ -50,7 +50,6 @@ namespace CallaApp.Controllers
             if (id is null) return BadRequest();
             _cartService.DeleteData((int)id);
             List<CartVM> baskets = _cartService.GetDatasFromCookie();
-
             return Ok(baskets.Count);
         }
 
