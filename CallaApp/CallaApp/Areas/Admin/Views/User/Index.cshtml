@@ -1,0 +1,79 @@
+﻿﻿
+@model Paginate<UserVM>
+
+@{
+    ViewData["Title"] = "Index";
+}
+@section Css{
+    <link href="~/Admin/build/css/custom.min.css" rel="stylesheet">
+}
+<section class="pcoded-main-container">
+    <div class="pcoded-content">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body table-border-style">
+                        <div class="table-responsive">
+                            @if (Model.Datas.Count() > 0)
+                            {
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>UserName</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Email Name</th>
+                                            <th>Options</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var user in Model.Datas)
+                                        {
+                                            <tr data-id="@user.Id">
+                                                <td style="font-weight:800">@user.UserName</td>
+                                                <td style="font-style:italic;">@user.FirstName.ToUpper()</td>
+                                                <td style="font-style:italic;">@user.LastName</td>
+                                                <td style="font-weight:800; font-style:italic;">@user.Email</td>
+                                                <td style="display:flex;gap:7px;">
+                                                    <a class="delete-user" data-toggle="tooltip" data-original-title="Remove">
+                                                        <i class="fa-solid fa-trash" style="color: #da3e45;"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+
+                                <nav class="paginate-area" aria-label="...">
+                                    <ul class="pagination">
+                                        <li class="page-item @(Model.HasPrevious ? " " : "disabled")">
+                                            <a asp-action="Index" asp-route-page="@(Model.CurrentPage - 1)">
+                                                <span class="page-link @(Model.HasNext ? " " : "disabled")">Previous</span>
+                                            </a>
+                                        </li>
+                                        @for (int i = 1; i <= Model.TotalPage; i++)
+                                        {
+                                            <li class="page-item  @(Model.CurrentPage == i ? "disabled" : "") ">
+                                                <a asp-action="Index" asp-route-page="@i"><span class="page-link">@i</span></a>
+                                            </li>
+                                        }
+                                        <li class="page-item @(Model.HasNext ? " " : "disabled")">
+                                            <a asp-action="Index" asp-route-page="@(Model.CurrentPage + 1)" class="page-link ">Next</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section Scripts{
+    <script src="~/Admin/src/js/index.js"></script>
+}

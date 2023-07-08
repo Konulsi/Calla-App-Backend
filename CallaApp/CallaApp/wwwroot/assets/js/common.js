@@ -245,9 +245,11 @@ $(document).ready(function () {
 
 
     //search
-    $(document).on("submit", ".searchbox", function () {
+    $(document).on("submit", ".searchbox", function (e) {
+        e.preventDefault();
+
         let value = $(".input-search").val();
-        let url = `/Shop/Search?value=${value}`;
+        let url = `/shop/search?searchText=${value}`;
         window.location.assign(url);
         return false;
     })

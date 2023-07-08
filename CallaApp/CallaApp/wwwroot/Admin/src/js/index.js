@@ -25,6 +25,29 @@
     })
 
 
+    $(document).on("click", ".delete-blogComment", function (e) {
+        e.preventDefault();
+        let Id = $(this).parent().parent().attr("data-id");
+        let deletedElem = $(this).parent().parent();
+        let data = { id: Id };
+
+        $.ajax({
+            url: "blogComment/Delete",
+            type: "post",
+            data: data,
+            success: function (res) {
+
+                $(deletedElem).remove();
+                $(".tooltip-inner").remove();
+                $(".arrow").remove();
+                if ($(tbody).length == 1) {
+                    $(".table").remove();
+                }
+            }
+        })
+    })
+
+
     $(document).on("click", ".delete-team", function (e) {
         e.preventDefault();
         let Id = $(this).parent().parent().attr("data-id");
@@ -338,7 +361,49 @@
         })
     })
 
+    $(document).on("click", ".delete-productComment", function (e) {
+        e.preventDefault();
+        let Id = $(this).parent().parent().attr("data-id");
+        let deletedElem = $(this).parent().parent();
+        let data = { id: Id };
 
+        $.ajax({
+            url: "productComment/Delete",
+            type: "post",
+            data: data,
+            success: function (res) {
+
+                $(deletedElem).remove();
+                $(".tooltip-inner").remove();
+                $(".arrow").remove();
+                if ($(tbody).length == 1) {
+                    $(".table").remove();
+                }
+            }
+        })
+    })
+
+    $(document).on("click", ".delete-user", function (e) {
+        e.preventDefault();
+        let Id = $(this).parent().parent().attr("data-id");
+        let deletedElem = $(this).parent().parent();
+        let data = { id: Id };
+
+        $.ajax({
+            url: "user/Delete",
+            type: "post",
+            data: data,
+            success: function (res) {
+
+                $(deletedElem).remove();
+                $(".tooltip-inner").remove();
+                $(".arrow").remove();
+                if ($(tbody).length == 1) {
+                    $(".table").remove();
+                }
+            }
+        })
+    })
 
     SetStatus("/Admin/Blog/SetStatus");
     SetStatus("/Admin/Product/SetStatus");

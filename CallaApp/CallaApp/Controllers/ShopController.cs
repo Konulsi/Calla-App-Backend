@@ -10,6 +10,7 @@ using CallaApp.ViewModels.Wishlist;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System.Drawing;
 
@@ -283,20 +284,20 @@ namespace CallaApp.Controllers
         }
 
 
-        [HttpGet]
-        public async Task<IActionResult> GetProductsBySearch(int? id, int page = 1, string value = null, int take = 9)
-        {
-            if (id is null) return BadRequest();
-            ViewBag.value = value;
+        //[HttpGet]
+        //public async Task<IActionResult> GetProductsBySearch(int? id, int page = 1, string value = null, int take = 9)
+        //{
+        //    if (id is null) return BadRequest();
+        //    ViewBag.value = value;
 
-            var products = await _productService.GetProductsByBrandIdAsync(id);
+        //    var products = await _productService.GetProductsByBrandIdAsync(id);
 
-            int pageCount = await GetPageCountAsync(take,value, null, null, null, null, null,null,null);
+        //    int pageCount = await GetPageCountAsync(take,value, null, null, null, null, null,null,null);
 
-            Paginate<ProductVM> model = new(products, page, pageCount);
+        //    Paginate<ProductVM> model = new(products, page, pageCount);
 
-            return PartialView("_ProductListPartial", model);
-        }
+        //    return PartialView("_ProductListPartial", model);
+        //}
 
 
         [HttpGet]
@@ -441,16 +442,21 @@ namespace CallaApp.Controllers
             return Ok(wishlistCount);
         }
 
-        //public async Task<IActionResult> Search(string value)
-        //{
-        //    if (string.IsNullOrEmpty(value))
-        //    {
-        //        return Ok();
-        //    }
-        //    var products = await _productService.GetAllBySearchText(value);
 
-        //    return View(products);
-        //}
+        public async Task<IActionResult> Search(string searchText)
+        {
+            var products = await _context.Products
+                                .Include(m => m.Images)
+                                .Include(m => m.ProductCategories)?
+                                 .Include(m => m.ProductSizes)
+                                 .Include(m => m.ProductTags)
+                                 .Include(m => m.ProductComments)
+                                .Where(m => !m.SoftDelete && m.Name.ToLower().Trim().Contains(searchText.ToLower().Trim()))
+                                .Take(6)
+                                .ToListAsync();
+
+            return View(products);
+        }
 
 
     }

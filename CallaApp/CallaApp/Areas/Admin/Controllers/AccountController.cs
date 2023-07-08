@@ -1,6 +1,7 @@
 ﻿using CallaApp.Areas.Admin.ViewModels.Account;
 using CallaApp.Helpers.Enums;
 using CallaApp.Models;
+using CallaApp.ViewModels.Account;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,11 +14,54 @@ namespace CallaApp.Areas.Admin.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        public AccountController(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
+        private readonly SignInManager<AppUser> _signInManager;
+
+        public AccountController(UserManager<AppUser> userManager, 
+                                            RoleManager<IdentityRole> roleManager,
+                                            SignInManager<AppUser> signInManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _signInManager = signInManager;
         }
+        public IActionResult AdminLogin()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AdminLogin(LoginVM model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            AppUser user = await _userManager.FindByEmailAsync(model.EmailOrUsername);
+
+            if (user is null)
+            {
+                user = await _userManager.FindByNameAsync(model.EmailOrUsername);
+            }
+
+            if (user is null)
+            {
+                ModelState.AddModelError(string.Empty, "Email or password is wrong");
+                return View(model);
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.IsRememberMe, false);
+
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError(string.Empty, "Email or password is wrong");
+                return View(model);
+            }
+            ViewBag.UserId = await _userManager.FindByNameAsync(model.EmailOrUsername);
+            return RedirectToAction("Index", "Home");
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> AddRoleToUser()
@@ -25,6 +69,14 @@ namespace CallaApp.Areas.Admin.Controllers
             ViewBag.users = await GetUsersAsync();
             ViewBag.roles = await GetRolesAsync();
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AdminLogout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
