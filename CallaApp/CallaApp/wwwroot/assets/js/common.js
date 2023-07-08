@@ -225,13 +225,13 @@ $(document).ready(function () {
             console.log(price)
             sum += price
         }
-        $(".grand-total").text(sum);
+        $(".grand-total").text(sum + ".00");
     }
 
     function subTotal(res, nativePrice, total, count) {
         $(count).val(res);
         let subtotal = parseFloat(nativePrice * $(count).val());
-        $(total).text(subtotal);
+        $(total).text(subtotal + ".00");
     }
 
 
@@ -240,7 +240,7 @@ $(document).ready(function () {
     //search
     $(document).on("submit", ".searchbox", function () {
         let value = $(".input-search").val();
-        let url = `/Shop/Search?searchText=${value}`;
+        let url = `/Shop/Search?value=${value}`;
         window.location.assign(url);
         return false;
     })
@@ -303,7 +303,7 @@ $(function () {
             console.log(price)
             sum += price
         }
-        $(".grand-total").text(sum);
+        $(".grand-total").text(sum + ".00");
     }
 
 

@@ -2,10 +2,7 @@
 
 @{
     ViewData["Title"] = "Shop";
-    int sumCategoryProducts = 0;
-    int sumColorProducts = 0;
-    int sumSizeProducts = 0;
-    int sumBrandProducts = 0;
+
 }
 
 
@@ -91,11 +88,8 @@
                                 <ul>
                                     <li>
                                         <a href="" class="all-products">
-                                            @foreach (var category in Model.Categories)
-                                            {
-                                                sumCategoryProducts += (int)category.ProductCategories?.Count();
-                                            }
-                                            All (@sumCategoryProducts)
+
+                                            All (@Model.CountProducts)
                                         </a>
                                     </li>
                                     @foreach (var category in Model.Categories)
@@ -116,11 +110,7 @@
                                 <ul>
                                     <li>
                                         <a href="" class="all-products">
-                                            @foreach (var brand in Model.Brands)
-                                            {
-                                                sumBrandProducts += (int)brand.Products?.Count();
-                                            }
-                                            All (@sumBrandProducts)
+                                            All (@Model.CountProducts)
                                         </a>
                                     </li>
                                     @foreach (var brand in Model.Brands)
@@ -141,11 +131,7 @@
                                 <ul>
                                     <li>
                                         <a href="" class="all-products">
-                                            @foreach (var color in Model.Colors)
-                                            {
-                                                sumColorProducts += (int)color.ProductColors?.Count();
-                                            }
-                                            All (@sumColorProducts)
+                                            All (@Model.CountProducts)
                                         </a>
                                     </li>
                                     @foreach (var color in Model.Colors)
@@ -166,11 +152,7 @@
                                 <ul>
                                     <li>
                                         <a href="" class="all-products">
-                                            @foreach (var size in Model.Sizes)
-                                            {
-                                                sumSizeProducts += (int)size.ProductSizes?.Count();
-                                            }
-                                            All (@sumCategoryProducts)
+                                            All (@Model.CountProducts)
                                         </a>
                                     </li>
                                     @foreach (var size in Model.Sizes)

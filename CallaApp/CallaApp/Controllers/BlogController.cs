@@ -65,6 +65,7 @@ namespace CallaApp.Controllers
                 Authors = authors,
                 PaginateDatas = paginatedDatas,
                 LatesBlog = latesBlog,
+                CountProducts = await _productService.GetCountAsync()
             };
 
             return View(model);
@@ -100,6 +101,7 @@ namespace CallaApp.Controllers
                 MiniImages = await _miniImageService.GetAllAsync(),
                 LatesBlog = await _blogService.GetLatestBlogs(),
                 RelatedBlogs =  _blogService.GetRelatedBlogs(),
+                CountProducts = await _productService.GetCountAsync()
             };
             return View(model);
         }

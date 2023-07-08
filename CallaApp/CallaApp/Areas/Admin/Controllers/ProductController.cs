@@ -37,9 +37,9 @@ namespace CallaApp.Areas.Admin.Controllers
             _colorService = colorService;
             _brandService = brandService;
         }
-        public async Task<IActionResult> Index(int page = 1, int take = 5, int? cateId = null, int? tagId = null, int? brandId = null, int? sizeId = null, int? colorId = null)
+        public async Task<IActionResult> Index(int page = 1, int take = 5,string value = null, int? cateId = null, int? tagId = null, int? brandId = null, int? sizeId = null, int? colorId = null)
         {
-            List<Product> products = await _productService.GetPaginatedDatasAsync(page, take, cateId, tagId, brandId, sizeId, colorId);
+            List<Product> products = await _productService.GetPaginatedDatasAsync(page, take,value, cateId, tagId, brandId, sizeId, colorId);
 
             List<ProductListVM> mappedDatas = GetMappedDatas(products);
             int pageCount = await GetPageCountAsync(take);

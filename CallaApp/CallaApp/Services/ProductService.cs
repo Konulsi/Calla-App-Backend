@@ -4,6 +4,7 @@ using CallaApp.Services.Interfaces;
 using CallaApp.ViewModels.Product;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 
 namespace CallaApp.Services
 {
@@ -84,7 +85,7 @@ namespace CallaApp.Services
             return model;
         }
 
-        public async Task<List<Product>> GetPaginatedDatasAsync(int page, int take,  int? cateId, int? tagId, int? colorId,int? sizeId, int? brandId)
+        public async Task<List<Product>> GetPaginatedDatasAsync(int page, int take,string sortValue,  int? cateId, int? tagId, int? colorId,int? sizeId, int? brandId)
         {
             List<Product> products = products = await _context.Products
                                                             .Include(p => p.Images)
@@ -99,8 +100,49 @@ namespace CallaApp.Services
                                                             .Include(p => p.Brand)
                                                             .Skip((page * take) - take)
                                                             .Take(take)
-                                                            .ToListAsync(); 
+                                                            .ToListAsync();
 
+            if (sortValue != null)
+            {
+
+                if(sortValue == "Sort by Latest")
+                {
+                    return  await _context.Products
+                                            .OrderBy(p => p.CreateDate).
+                                             Skip((page * take) - take)
+                                            .Take(take).ToListAsync();
+                }
+
+                if (sortValue == "Sort by Popularity")
+                {
+                    return await _context.Products
+                                            .OrderByDescending(p => p.SaleCount).
+                                             Skip((page * take) - take)
+                                            .Take(take).ToListAsync();
+                }
+
+                if (sortValue == "Sort by Rated")
+                {
+                    return await _context.Products
+                                            .OrderByDescending(p => p.Rate).
+                                             Skip((page * take) - take)
+                                            .Take(take).ToListAsync();
+                }
+                if (sortValue == "Sort by High Price")
+                {
+                    return await _context.Products
+                                            .OrderByDescending(p => p.Price).
+                                             Skip((page * take) - take)
+                                            .Take(take).ToListAsync();
+                }
+                if (sortValue == "Sort by Low Price")
+                {
+                    return await _context.Products
+                                            .OrderBy(p => p.Price).
+                                             Skip((page * take) - take)
+                                            .Take(take).ToListAsync();
+                }
+            }
             if (cateId != null)
             {
                 return await _context.ProductCategory
@@ -175,7 +217,7 @@ namespace CallaApp.Services
         {
             return await _context.ProductImages.FindAsync((int)id);
         }
-        public async Task<List<ProductVM>> GetProductsByCategoryIdAsync(int? id, int page = 1, int take = 3)
+        public async Task<List<ProductVM>> GetProductsByCategoryIdAsync(int? id, int page = 1, int take = 9)
         {
             List<ProductVM> model = new();
             var products = await _context.ProductCategory
@@ -200,7 +242,7 @@ namespace CallaApp.Services
             }
             return model;
         }
-        public async Task<List<ProductVM>> GetProductsBySizeIdAsync(int? id, int page = 1, int take = 3)
+        public async Task<List<ProductVM>> GetProductsBySizeIdAsync(int? id, int page = 1, int take = 9)
         {
             List<ProductVM> model = new();
             var products = await _context.ProductSize
@@ -225,7 +267,7 @@ namespace CallaApp.Services
             }
             return model;
         }
-        public async Task<List<ProductVM>> GetProductsByBrandIdAsync(int? id, int page = 1, int take = 3)
+        public async Task<List<ProductVM>> GetProductsByBrandIdAsync(int? id, int page = 1, int take = 9)
         {
             List<ProductVM> model = new();
             var products = await _context.Products
@@ -249,9 +291,7 @@ namespace CallaApp.Services
             }
             return model;
         }
-
-
-        public async Task<List<ProductVM>> GetProductsByColorIdAsync(int? id, int page = 1, int take = 3)
+        public async Task<List<ProductVM>> GetProductsByColorIdAsync(int? id, int page = 1, int take = 9)
         {
             List<ProductVM> model = new();
             var products = await _context.ProductColor
@@ -276,7 +316,7 @@ namespace CallaApp.Services
             return model;
         }
 
-        public async Task<List<ProductVM>> GetProductsByTagIdAsync(int? id, int page = 1, int take = 3)
+        public async Task<List<ProductVM>> GetProductsByTagIdAsync(int? id, int page = 1, int take = 9)
         {
             List<ProductVM> model = new();
             var products = await _context.ProductTag
@@ -303,25 +343,17 @@ namespace CallaApp.Services
         }
 
 
-        //public async Task<List<ProductVM>> GetProductsBySortAsync(string value, int? id, int page = 1, int take = 3)
+        //public async Task<List<ProductVM>> GetProductsAllSortAsync(string value,int page = 1, int take = 9)
         //{
         //    List<ProductVM> model = new();
-        //    var products = await _context.Products
-        //                                 .Include(m => m.Images)
-        //                                 .Include(m => m.ProductSizes)
-        //                                 .ThenInclude(m => m.Size)
-        //                                 .Include(m => m.Brand)
-        //                                 .Include(m => m.ProductTags)
-        //                                 .ThenInclude(m => m.Tag)
-        //                                 .Include(m => m.ProductColors)
-        //                                 .ThenInclude(m => m.Color)
-        //                                 .Include(m => m.ProductComments)
-        //                                 .Include(m => m.ProductCategories)
-        //                                 .ThenInclude(m => m.Category)
-        //                                .Select(p => p.Product)
-        //                                .Skip((page * take) - take)
-        //                                .Take(take)
-        //                                .ToListAsync();
+        //    var products = await _context.ProductImages
+        //        .Include(p => p.Product)
+        //        .ThenInclude(p => p.Images)
+        //        .Where(pc => pc.Product.Name == value)
+        //        .Select(p => p.Product)
+        //        .Skip((page * take) - take)
+        //        .Take(take)
+        //        .ToListAsync();
 
         //    foreach (var item in products)
         //    {
@@ -331,7 +363,6 @@ namespace CallaApp.Services
         //            Price = item.Price,
         //            Name = item.Name,
         //            ProductImages = item.Images,
-        //            Rating = item.Rate
         //        });
         //    }
         //    return model;
@@ -387,6 +418,497 @@ namespace CallaApp.Services
                    .Where(p => p.Brand.Id == (int)brandId)
                    .CountAsync();
         }
+        public async Task<int> GetProductsCountBySortText(string sortValue)
+        {
+           
+
+                if(sortValue == "Sort by Latest")
+                {
+                    return  await _context.Products
+                                            .OrderBy(p => p.CreateDate)
+                                            .CountAsync();
+                                            
+                }
+
+                if (sortValue == "Sort by Popularity")
+                {
+                    return await _context.Products
+                                            .OrderByDescending(p => p.SaleCount)
+                                             .CountAsync();
+                }
+
+                if (sortValue == "Sort by Rated")
+                {
+                    return await _context.Products
+                                            .OrderByDescending(p => p.Rate)
+                                            .CountAsync();
+                }
+                if (sortValue == "Sort by High Price")
+                {
+                    return await _context.Products
+                                            .OrderByDescending(p => p.Price)
+                                            .CountAsync();
+                }
+                if (sortValue == "Sort by Low Price")
+                {
+                    return await _context.Products
+                                            .OrderBy(p => p.Price)
+                                            .CountAsync();
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            return await  _context.Products.CountAsync();   
+        }
         public async Task<List<Product>> GetRelatedProducts()
         {
             return await _context.Products
@@ -394,18 +916,7 @@ namespace CallaApp.Services
                  .OrderByDescending(p => p.Brand.Name)
                  .ToListAsync();
         }
-        public async Task<List<Product>> GetAllBySearchText(string searchText)
-        {
-            var products = await _context.Products
-                .Include(p => p.Images)
-                .Include(p=>p.ProductCategories)
-                .ThenInclude(p=>p.Category)
-                .Include(p => p.Brand)
-                .OrderByDescending(p => p.Id)
-                .Where(p => p.Name.ToLower().Contains(searchText.ToLower()))
-                .ToListAsync();
-            return products;
-        }
+
         public async Task<List<ProductComment>> GetComments()
         {
             return await _context.ProductComments.Include(p => p.Product).ToListAsync();

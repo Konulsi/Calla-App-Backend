@@ -15,5 +15,6 @@ namespace CallaApp.ViewModels.Blog
         public List<Models.Product> Products { get; set; }
         public Paginate<Models.Blog> PaginateDatas { get; set; }
         public BlogCommentVM BlogCommentVM { get; set; }
+        public int CountProducts { get; set; }
     }
 }

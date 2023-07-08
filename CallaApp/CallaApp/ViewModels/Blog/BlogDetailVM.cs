@@ -17,5 +17,6 @@ namespace CallaApp.ViewModels.Blog
         public List<Author> Authors { get; set; }
         public List<MiniImage> MiniImages { get; set; }
         public List<Models.Blog> LatesBlog { get; set; }
+        public int CountProducts { get; set; }
     }
 }

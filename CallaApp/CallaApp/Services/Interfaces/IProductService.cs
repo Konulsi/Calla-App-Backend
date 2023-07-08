@@ -18,19 +18,22 @@ namespace CallaApp.Services.Interfaces
         void RemoveImage(ProductImage image);
         Task<Product> GetProductByImageId(int? id);
         Task<ProductImage> GetImageById(int? id);
-        Task<List<Product>> GetPaginatedDatasAsync(int page, int take, int? categoryId, int? colorId, int? tagId, int? brandId, int? sizeId);
-        Task<List<ProductVM>> GetProductsByCategoryIdAsync(int? id, int page = 1, int take = 3);
-        Task<List<ProductVM>> GetProductsByColorIdAsync(int? id, int page = 1, int take = 3);
-        Task<List<ProductVM>> GetProductsByBrandIdAsync(int? id, int page = 1, int take = 3);
-        Task<List<ProductVM>> GetProductsBySizeIdAsync(int? id, int page = 1, int take = 3);
-        Task<List<ProductVM>> GetProductsByTagIdAsync(int? id, int page = 1, int take = 3);
+        Task<List<Product>> GetPaginatedDatasAsync(int page, int take, string sortValue, int? categoryId, int? colorId, int? tagId, int? brandId, int? sizeId);
+        Task<List<ProductVM>> GetProductsByCategoryIdAsync(int? id, int page = 1, int take = 9);
+        Task<List<ProductVM>> GetProductsByColorIdAsync(int? id, int page = 1, int take = 9);
+        Task<List<ProductVM>> GetProductsByBrandIdAsync(int? id, int page = 1, int take = 9);
+        Task<List<ProductVM>> GetProductsBySizeIdAsync(int? id, int page = 1, int take = 9);
+        Task<List<ProductVM>> GetProductsByTagIdAsync(int? id, int page = 1, int take = 9);
+        //Task<List<ProductVM>> GetProductsAllSortAsync(string value, int page = 1, int take = 9);
+
         Task<int> GetProductsCountByCategoryAsync(int? catId);
         Task<int> GetProductsCountByBrandAsync(int? brandId);
         Task<int> GetProductsCountByColorAsync(int? colorId);
         Task<int> GetProductsCountByTagAsync(int? tagId);
         Task<int> GetProductsCountBySizeAsync(int? sizeId);
+        Task<int> GetProductsCountBySortText(string sortValue);
+
         Task<List<Product>> GetRelatedProducts();
-        Task<List<Product>> GetAllBySearchText(string searchText);
         Task<List<ProductComment>> GetComments();
         Task<ProductComment> GetCommentByIdWithProduct(int? id);
         Task<ProductComment> GetCommentById(int? id);

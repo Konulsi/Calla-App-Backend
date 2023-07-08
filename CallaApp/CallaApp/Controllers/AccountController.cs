@@ -259,9 +259,10 @@ namespace CallaApp.Controllers
             List<CartVM> carts = _cartService.GetDatasFromCookie();
             List<WishlistVM> wishlists = _wishlistService.GetDatasFromCookie();
 
+            Cart dbCart = await _cartService.GetByUserIdAsync(userId);
+
             if (carts.Count != 0)
             {
-                Cart dbCart = await _cartService.GetByUserIdAsync(userId);
                 if (dbCart == null)
                 {
                     dbCart = new()
@@ -299,9 +300,15 @@ namespace CallaApp.Controllers
                 }
                 Response.Cookies.Delete("basket");
             }
+            else
+            {
+                _context.Carts.Remove(dbCart);
+            }
+
+            Wishlist dbWishlist = await _wishlistService.GetByUserIdAsync(userId);
+
             if (wishlists.Count != 0)
             {
-                Wishlist dbWishlist = await _wishlistService.GetByUserIdAsync(userId);
                 if (dbWishlist == null)
                 {
                     dbWishlist = new()
@@ -336,6 +343,10 @@ namespace CallaApp.Controllers
 
                 }
                 Response.Cookies.Delete("wishlist");
+            }
+            else
+            {
+                _context.Wishlists.Remove(dbWishlist);
             }
 
 
