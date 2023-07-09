@@ -83,6 +83,20 @@
 
                 @*<a asp-controller="Shop" asp-action="Index" style="padding: 12px; background-color: #b97a56; border: none; position: absolute; right: 92px; top: 515px;" class="btn btn-primary shop">Prosses to checkout</a>*@
             }
+            else
+            {
+                <div class="show-alert">
+                    <div class="alert">
+                        <button class="btn btn-danger btn-red">YOU HAVE NO ITEMS IN YOUR SHOPPING CART.</button>
+
+                    </div>
+
+                    <div class="button-shop">
+                        <a asp-controller="Shop" asp-action="Index" style="background-color: #b97a56; border: none; padding: 12px;" class="btn btn-primary btn-orange">Continue shopping</a>
+                    </div>
+
+                </div>
+            }
 
             <div class="show-alert d-none">
                 <div class="alert">

@@ -131,7 +131,7 @@
                                 <div class="search-input">
                                     <input class="input-field" type="text" placeholder="Search product here..." />
                                     <i class="fa-solid fa-xmark close-icon" style=" color: #8a8a8abd;"></i>
-                                    <button class="widgets-searchbox-btn" type="submit">
+                                    <button class="widgets-searchbox-btn" style="display: none;" type="submit">
                                     </button>
                                 </div>
 
@@ -167,7 +167,10 @@
                         <a href="#"><i class="fa-solid fa-magnifying-glass fa-flip-horizontal searchIcon"></i></a>
                     </li>
                     <li><a asp-controller="Wishlist" asp-action="Index"><i class="fa-regular fa-heart"></i></a></li>
+                    <span class="wishlist-count">@Model.WishlistCount</span>
                     <li><a asp-controller="Cart" asp-action="Index"><i class="fa-solid fa-cart-shopping"></i></a></li>
+                    <span class="basket-count">@Model.BasketCount</span>
+
                 </ul>
             </div>
             <div class="hamburger-menu-list">

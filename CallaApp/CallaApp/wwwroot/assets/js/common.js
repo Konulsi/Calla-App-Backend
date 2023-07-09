@@ -75,6 +75,8 @@ $(document).ready(function () {
         $(social).css({ 'opacity': '1' });
         $(searchInput).css({ 'opacity': '0', 'z-index': '-5' });
         $(".search-input input").val("");
+        $(".not-found").css({ 'display': 'd-none'});
+
     })
 
 

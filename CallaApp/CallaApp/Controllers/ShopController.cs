@@ -110,6 +110,7 @@ namespace CallaApp.Controllers
             List<Models.Color> colors = await _colorService.GetAllAsync();
             List<Brand> brands = await _brandService.GetAllAsync();
             List<Category> categories = await _categoryService.GetAllAsync();
+            List<Product> topProducts = await _productService.GetNewProducts();
 
             ShopVM model = new()
             {
@@ -121,7 +122,8 @@ namespace CallaApp.Controllers
                 Brands = brands,
                 HeaderBackgrounds = _layoutService.GetHeaderBackgroundData(),
                 PaginateDatas = paginatedDatas,
-                CountProducts = await _productService.GetCountAsync()
+                CountProducts = await _productService.GetCountAsync(),
+                TopProducts = topProducts,
             };
             return View(model);
         }
@@ -195,6 +197,18 @@ namespace CallaApp.Controllers
         //    Paginate<ProductVM> paginatedDatas = new(mappedDatas, page, pageCount);
         //    return PartialView("_ProductListPartial", paginatedDatas);
         //}
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetRangeProducts(int value1, int value2, int page = 1, int take = 9)
+        {
+            List<Product> products = await _context.Products.Where(x => x.Price >= value1 && x.Price <= value2).Include(p => p.Images).ToListAsync();
+            var productCount = products.Count();
+            int pageCount = (int)Math.Ceiling((decimal)productCount / take);
+            List<ProductVM> mappedDatas = GetDatas(products);
+            Paginate<ProductVM> paginatedDatas = new(mappedDatas, page, pageCount);
+            return PartialView("_ProductListPartial", paginatedDatas);
+        }
 
         [HttpGet]
         public async Task<IActionResult> GetProductsBySort(string sortValue, int page = 1, int take = 9)

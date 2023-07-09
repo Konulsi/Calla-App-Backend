@@ -1,55 +1,52 @@
 ﻿@model Paginate<ProductVM>
 
-    <div class="container">
-        <div class="row">
-        @foreach (var product in Model.Datas)
-        {
-            <div class="col-lg-4 col-md-6 col-sm-12">
-                <div class="product-card">
-                    <div class="product-img">
-                        <a asp-controller="Shop" asp-action="ProductDetail" asp-route-id="@product.Id">
-                            <img src="~/assets/images/@product.ProductImages?.Where(p=>p.IsMain).FirstOrDefault()?.Image" alt="">
-                        </a>
-                    </div>
-                    <div class="product-img-hover ">
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <i class="fa-regular fa-heart add-to-wishlist" data-id="@product.Id"></i>
-                            <i class="fa-solid fa-heart delete-from-wishlist d-none" data-id="@product.Id"></i>
-                            <div class="add-btn-first">
-                                <button type="submit" class="add-to-cart-btn">Add to Cart</button>
-                            </div>
-                            <div data-id="@product.Id" class="add-btn-second">
-                            </div>
-                        }
-                        else
-                        {
-                            <i class="fa-regular fa-heart"></i>
-                            <i class="fa-solid fa-heart d-none"></i>
-                            <div class="add-btn-first">
-                                <a asp-controller="Account" asp-action="Login" style="color: #e1a385;">Add to Cart</a>
-                            </div>
-                            <div class="add-btn-second">
-                            </div>
-                        }
-                    </div>
-                    <div class="product-name">
-                        <h6><a asp-controller="Shop" asp-action="ProductDetail" asp-route-id="@product.Id"> @product.Name</a></h6>
-                    </div>
-                    <div class="product-price">
-                        <span>
-                            <spna>£</spna>@product.Price
-                        </span>
-                    </div>
-                </div>
-            </div>
-        }
 
+@foreach (var product in Model.Datas)
+{
+    <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="product-card">
+            <div class="product-img">
+                <a asp-controller="Shop" asp-action="ProductDetail" asp-route-id="@product.Id">
+                    <img src="~/assets/images/@product.ProductImages?.Where(p=>p.IsMain).FirstOrDefault()?.Image" alt="">
+                </a>
+            </div>
+            <div class="product-img-hover ">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <i class="fa-regular fa-heart add-to-wishlist" data-id="@product.Id"></i>
+                    <i class="fa-solid fa-heart delete-from-wishlist d-none" data-id="@product.Id"></i>
+                    <div class="add-btn-first">
+                        <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                    <div data-id="@product.Id" class="add-btn-second">
+                    </div>
+                }
+                else
+                {
+                    <i class="fa-regular fa-heart"></i>
+                    <i class="fa-solid fa-heart d-none"></i>
+                    <div class="add-btn-first">
+                        <a asp-controller="Account" asp-action="Login" style="color: #e1a385;">Add to Cart</a>
+                    </div>
+                    <div class="add-btn-second">
+                    </div>
+                }
+            </div>
+            <div class="product-name">
+                <h6><a asp-controller="Shop" asp-action="ProductDetail" asp-route-id="@product.Id"> @product.Name</a></h6>
+            </div>
+            <div class="product-price">
+                <span>
+                    <spna>£</spna>@product.Price
+                </span>
+            </div>
         </div>
     </div>
+}
 
 
-<div class="page-number">
+
+<div class="page-number shop-paginate">
     <ul class="pagination justify-content-center">
         <li class="page-item  @(Model.HasPrevious ? " " : "d-none")">
             <a class="page-link" asp-action="Index" asp-route-categoryId="@ViewBag.catId" asp-route-colorId="@ViewBag.colorId" asp-route-tagId="@ViewBag.tagId" asp-route-sizeId="@ViewBag.sizeId" asp-route-brandId="@ViewBag.brandId" asp-route-colorId="@ViewBag.colorId" asp-route-value1="@ViewBag.value1" asp-route-value2="@ViewBag.value2" asp-route-page="@(Model.CurrentPage - 1)" aria-label="Previous">&laquo;</a>
