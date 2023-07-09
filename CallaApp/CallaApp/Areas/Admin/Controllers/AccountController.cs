@@ -1,6 +1,7 @@
 ﻿using CallaApp.Areas.Admin.ViewModels.Account;
 using CallaApp.Helpers.Enums;
 using CallaApp.Models;
+using CallaApp.Services.Interfaces;
 using CallaApp.ViewModels.Account;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,14 +16,16 @@ namespace CallaApp.Areas.Admin.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<AppUser> _signInManager;
-
+        private readonly IEmailService _emailService;
         public AccountController(UserManager<AppUser> userManager, 
                                             RoleManager<IdentityRole> roleManager,
-                                            SignInManager<AppUser> signInManager)
+                                            SignInManager<AppUser> signInManager,
+                                            IEmailService emailService)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
+            _emailService = emailService;
         }
         public IActionResult AdminLogin()
         {
@@ -31,7 +34,7 @@ namespace CallaApp.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AdminLogin(LoginVM model)
+        public async Task<IActionResult> AdminLogin(AdminLoginVM model,string viewName = null,string controllerName=null)
         {
             if (!ModelState.IsValid)
             {
@@ -59,8 +62,20 @@ namespace CallaApp.Areas.Admin.Controllers
                 return View(model);
             }
             ViewBag.UserId = await _userManager.FindByNameAsync(model.EmailOrUsername);
-            return RedirectToAction("Index", "Home");
+            viewName = "Index";
+            controllerName = "Dashboard";
+            return RedirectToAction("Index", "Dashboard",new {viewName = "Index",controllerName="Dashboard"});
         }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("AdminLogin", "Account");
+        }
+
 
 
         [HttpGet]

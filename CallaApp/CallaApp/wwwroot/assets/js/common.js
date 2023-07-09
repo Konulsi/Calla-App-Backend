@@ -245,13 +245,23 @@ $(document).ready(function () {
 
 
     //search
-    $(document).on("submit", ".searchbox", function (e) {
-        e.preventDefault();
+    $(document).on("keyup", ".input-field", function () {
+        debugger
+        $("#search-list li").slice(1).remove();
+        let value = $(".input-field").val();
 
-        let value = $(".input-search").val();
-        let url = `/shop/search?searchText=${value}`;
-        window.location.assign(url);
-        return false;
+        $.ajax({
+
+            url: `shop/search?searchText=${value}`,
+
+            type: "Get",
+
+            success: function (res) {
+                $("#search-list").append(res);
+            }
+
+        })
+
     })
 
 })
