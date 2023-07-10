@@ -85,7 +85,7 @@ namespace CallaApp.Services
             return model;
         }
 
-        public async Task<List<Product>> GetPaginatedDatasAsync(int page, int take,string sortValue,  int? cateId, int? tagId, int? colorId,int? sizeId, int? brandId, int? value1, int? value2)
+        public async Task<List<Product>> GetPaginatedDatasAsync(int page, int take,string searchText,  int? cateId, int? tagId, int? colorId,int? sizeId, int? brandId, int? value1, int? value2)
         {
             List<Product> products = products = await _context.Products
                                                             .Include(p => p.Images)
@@ -102,46 +102,56 @@ namespace CallaApp.Services
                                                             .Take(take)
                                                             .ToListAsync();
 
-            if (sortValue != null)
+            //if (sortValue != null)
+            //{
+
+            //    if(sortValue == "Sort by Latest")
+            //    {
+            //        return  await _context.Products
+            //                                .OrderBy(p => p.CreateDate).
+            //                                 Skip((page * take) - take)
+            //                                .Take(take).ToListAsync();
+            //    }
+
+            //    if (sortValue == "Sort by Popularity")
+            //    {
+            //        return await _context.Products
+            //                                .OrderByDescending(p => p.SaleCount).
+            //                                 Skip((page * take) - take)
+            //                                .Take(take).ToListAsync();
+            //    }
+
+            //    if (sortValue == "Sort by Rated")
+            //    {
+            //        return await _context.Products
+            //                                .OrderByDescending(p => p.Rate).
+            //                                 Skip((page * take) - take)
+            //                                .Take(take).ToListAsync();
+            //    }
+            //    if (sortValue == "Sort by High Price")
+            //    {
+            //        return await _context.Products
+            //                                .OrderByDescending(p => p.Price).
+            //                                 Skip((page * take) - take)
+            //                                .Take(take).ToListAsync();
+            //    }
+            //    if (sortValue == "Sort by Low Price")
+            //    {
+            //        return await _context.Products
+            //                                .OrderBy(p => p.Price).
+            //                                 Skip((page * take) - take)
+            //                                .Take(take).ToListAsync();
+            //    }
+            //}
+            if (searchText != null)
             {
-
-                if(sortValue == "Sort by Latest")
-                {
-                    return  await _context.Products
-                                            .OrderBy(p => p.CreateDate).
-                                             Skip((page * take) - take)
-                                            .Take(take).ToListAsync();
-                }
-
-                if (sortValue == "Sort by Popularity")
-                {
-                    return await _context.Products
-                                            .OrderByDescending(p => p.SaleCount).
-                                             Skip((page * take) - take)
-                                            .Take(take).ToListAsync();
-                }
-
-                if (sortValue == "Sort by Rated")
-                {
-                    return await _context.Products
-                                            .OrderByDescending(p => p.Rate).
-                                             Skip((page * take) - take)
-                                            .Take(take).ToListAsync();
-                }
-                if (sortValue == "Sort by High Price")
-                {
-                    return await _context.Products
-                                            .OrderByDescending(p => p.Price).
-                                             Skip((page * take) - take)
-                                            .Take(take).ToListAsync();
-                }
-                if (sortValue == "Sort by Low Price")
-                {
-                    return await _context.Products
-                                            .OrderBy(p => p.Price).
-                                             Skip((page * take) - take)
-                                            .Take(take).ToListAsync();
-                }
+                products = await _context.Products
+                .Include(p => p.Images)
+                .OrderByDescending(p => p.Id)
+                .Where(p => p.Name.ToLower().Contains(searchText.ToLower()))
+                .Skip((page * take) - take)
+                .Take(take)
+                .ToListAsync();
             }
             if (cateId != null)
             {
@@ -213,9 +223,6 @@ namespace CallaApp.Services
         }
 
 
-        public async Task<List<Product>> GetFeaturedProducts() => await _context.Products.OrderByDescending(m => m.Rate).ToListAsync();
-        public async Task<List<Product>> GetBestsellerProducts() => await _context.Products.OrderByDescending(m => m.SaleCount).ToListAsync();
-        public async Task<List<Product>> GetLatestProducts() => await _context.Products.OrderByDescending(m => m.CreateDate).ToListAsync();
         public async Task<List<Product>> GetNewProducts() => await _context.Products.Include(m => m.Images).OrderByDescending(m => m.CreateDate).Take(4).ToListAsync();
         public async Task<Product> GetProductByImageId(int? id)
         {
@@ -226,6 +233,15 @@ namespace CallaApp.Services
         public async Task<ProductImage> GetImageById(int? id)
         {
             return await _context.ProductImages.FindAsync((int)id);
+        }
+        public async Task<List<Product>> GetAllBySearchText(string searchText)
+        {
+            var products = await _context.Products
+                .Include(p => p.Images)
+                .OrderByDescending(p => p.Id)
+                .Where(p => p.Name.ToLower().Contains(searchText.ToLower()))
+                .ToListAsync();
+            return products;
         }
         public async Task<List<ProductVM>> GetProductsByCategoryIdAsync(int? id, int page = 1, int take = 9)
         {
@@ -424,7 +440,12 @@ namespace CallaApp.Services
                                  .Include(p => p.Images)
                                  .CountAsync();
         }
-
+        public async Task<int> GetProductsCountBySearchTextAsync(string searchText)
+        {
+            return await _context.Products.Where(p => p.Name.ToLower().Contains(searchText.ToLower()))
+                                 .Include(p => p.Images)
+                                 .CountAsync();
+        }
 
         public void RemoveImage(ProductImage image)
         {
@@ -474,47 +495,47 @@ namespace CallaApp.Services
                    .Where(p => p.Brand.Id == (int)brandId)
                    .CountAsync();
         }
-        public async Task<int> GetProductsCountBySortText(string sortValue)
-        {
+        //public async Task<int> GetProductsCountBySortText(string sortValue)
+        //{
            
 
-                if(sortValue == "Sort by Latest")
-                {
-                    return  await _context.Products
-                                            .OrderBy(p => p.CreateDate)
-                                            .CountAsync();
+        //        if(sortValue == "Sort by Latest")
+        //        {
+        //            return  await _context.Products
+        //                                    .OrderBy(p => p.CreateDate)
+        //                                    .CountAsync();
                                             
-                }
+        //        }
 
-                if (sortValue == "Sort by Popularity")
-                {
-                    return await _context.Products
-                                            .OrderByDescending(p => p.SaleCount)
-                                             .CountAsync();
-                }
+        //        if (sortValue == "Sort by Popularity")
+        //        {
+        //            return await _context.Products
+        //                                    .OrderByDescending(p => p.SaleCount)
+        //                                     .CountAsync();
+        //        }
 
-                if (sortValue == "Sort by Rated")
-                {
-                    return await _context.Products
-                                            .OrderByDescending(p => p.Rate)
-                                            .CountAsync();
-                }
-                if (sortValue == "Sort by High Price")
-                {
-                    return await _context.Products
-                                            .OrderByDescending(p => p.Price)
-                                            .CountAsync();
-                }
-                if (sortValue == "Sort by Low Price")
-                {
-                    return await _context.Products
-                                            .OrderBy(p => p.Price)
-                                            .CountAsync();
-                }
+        //        if (sortValue == "Sort by Rated")
+        //        {
+        //            return await _context.Products
+        //                                    .OrderByDescending(p => p.Rate)
+        //                                    .CountAsync();
+        //        }
+        //        if (sortValue == "Sort by High Price")
+        //        {
+        //            return await _context.Products
+        //                                    .OrderByDescending(p => p.Price)
+        //                                    .CountAsync();
+        //        }
+        //        if (sortValue == "Sort by Low Price")
+        //        {
+        //            return await _context.Products
+        //                                    .OrderBy(p => p.Price)
+        //                                    .CountAsync();
+        //        }
 
 
-            return await  _context.Products.CountAsync();   
-        }
+        //    return await  _context.Products.CountAsync();   
+        //}
         public async Task<List<Product>> GetRelatedProducts()
         {
             return await _context.Products

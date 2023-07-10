@@ -79,7 +79,7 @@ namespace CallaApp.Controllers
                         ModelState.AddModelError(string.Empty, item.Description);
                     }
                     TempData["errors"] = model.ErrorMessages;
-                    return RedirectToAction("Index", model);
+                    return View(model);
                 }
 
                 await _userManager.AddToRoleAsync(newUser, Roles.Member.ToString());
@@ -107,7 +107,7 @@ namespace CallaApp.Controllers
             catch (Exception ex)
             {
                 ViewBag.error = ex.Message;
-                return RedirectToAction("Index", model);
+                return View(model);
             }
         }
 

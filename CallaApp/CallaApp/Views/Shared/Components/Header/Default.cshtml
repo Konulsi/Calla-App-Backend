@@ -120,12 +120,16 @@
                             </div>
                         </div>
                     </div>
-@*                    <div class="search-input">
+                    <form asp-controller ="Shop" asp-action="Index">
+                        <div class="search-input">
+                            <input name="searchText" type="text" placeholder="Search here...">
+                            <i class="fa-solid fa-xmark close-icon" style=" color: #8a8a8abd;"></i>
+                            <button class="widgets-searchbox-btn" style="display: none;" type="submit">
+                            </button>
+                        </div>
+                    </form>
 
-                        <input class="input-field" type="text" placeholder="Search product here..." />
-                        <i class="fa-solid fa-xmark close-icon" style=" color: #8a8a8abd;"></i>
-                    </div>*@
-                    <form id="widgets-searchbox">
+@*                    <form id="widgets-searchbox">
                         <ul id="search-list" style="list-style: none;">
                             <li>
                                 <div class="search-input">
@@ -138,7 +142,7 @@
                             </li>
                         </ul>
 
-                    </form>
+                    </form>*@
 
                 </div>
             </div>

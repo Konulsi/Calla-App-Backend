@@ -246,25 +246,25 @@ $(document).ready(function () {
 
 
 
-    //search
-    $(document).on("keyup", ".input-field", function () {
-        debugger
-        $("#search-list li").slice(1).remove();
-        let value = $(".input-field").val();
+    ////search
+    //$(document).on("keyup", ".input-field", function () {
+    //    debugger
+    //    $("#search-list li").slice(1).remove();
+    //    let value = $(".input-field").val();
 
-        $.ajax({
+    //    $.ajax({
 
-            url: `shop/search?searchText=${value}`,
+    //        url: `shop/search?searchText=${value}`,
 
-            type: "Get",
+    //        type: "Get",
 
-            success: function (res) {
-                $("#search-list").append(res);
-            }
+    //        success: function (res) {
+    //            $("#search-list").append(res);
+    //        }
 
-        })
+    //    })
 
-    })
+    //})
 
 })
 
