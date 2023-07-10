@@ -18,18 +18,21 @@
                     <div class="add-btn-first">
                         <button type="submit" class="add-to-cart-btn">Add to Cart</button>
                     </div>
-                    <div data-id="@product.Id" class="add-btn-second">
+                    <div data-id="@product.Id" class="add-btn-second addCart">
                     </div>
                 }
                 else
                 {
-                    <i class="fa-regular fa-heart"></i>
-                    <i class="fa-solid fa-heart d-none"></i>
-                    <div class="add-btn-first">
-                        <a asp-controller="Account" asp-action="Login" style="color: #e1a385;">Add to Cart</a>
-                    </div>
-                    <div class="add-btn-second">
-                    </div>
+                    <a asp-controller="Account" asp-action="Login">
+
+                        <i class="fa-regular fa-heart"></i>
+                        <i class="fa-solid fa-heart d-none"></i>
+                        <div class="add-btn-first">
+                            <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                        <div class="add-btn-second">
+                        </div>
+                    </a>
                 }
             </div>
             <div class="product-name">

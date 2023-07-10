@@ -28,26 +28,30 @@ validateRange(inputElements[0].value, inputElements[1].value);
 
 
 
-// Sort
 
 $(function () {
 
-    $(".form-select").on("change", function () {
-        var value = $(this).val();
-        var data = { value: value };
-        var url = "/Shop/Sort";
-        var parent = $(".product-grid-view");
+
+    //SORT
+    $(document).on("change", "#sort", function (e) {
+        e.preventDefault();
+        debugger
+        let sortValue = $(this).val();
+        let data = { value: sortValue };
+        let parent = $(".product-grid-view");
 
         $.ajax({
-            type: "GET",
-            url: url,
+            url: "/Shop/Sort",
+            type: "Get",
             data: data,
             success: function (res) {
-                parent.html(res);
+                debugger
+                $(parent).html(res);
+
             }
-        });
-        return false;
-    });
+
+        })
+    })
 
 
 
@@ -64,8 +68,7 @@ $(function () {
             data: data,
             success: function (res) {
                 $(parent).html(res);
-                if (value1 == "10" && value2 == "500")
-                {
+                if (value1 == "10" && value2 == "500") {
                     $(".shop-paginate").addClass("d-none")
                 }
             }

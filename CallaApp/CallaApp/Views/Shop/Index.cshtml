@@ -22,7 +22,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="show-result">
-                                <p>SHOWING 1–9 OF (@Model.CountProducts) RESULTS</p>
+                                <p>SHOWING (@Model.CountProducts) RESULTS</p>
                             </div>
                         </div>
 
@@ -30,17 +30,15 @@
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="sort">
                                 <form name="sortProducts" id="sortProducts">
-                                    <input type="hidden" name="url" value="{{route('men')}}"/>
                                     <select id="sort" name="sort" class="form-select" aria-label="Default select example">
-                                        <option  selected disabled>Choose option</option>
-                                        <option  value="Sort by Latest">Sort By Latest</option>
-                                        <option  value="Sort by Popularity">Sort By Popularity</option>
-                                        <option  value="Sort by Rated">Sort By Avarage Rating</option>
-                                        <option  value="Sort by Latest">Sort By Price:Low To High</option>
-                                        <option  value="Sort by High Price">Sort By Price:High to Low</option>
+                                        <option value="1" selected disabled>Choose option</option>
+                                        <option value="2">Sort By Latest</option>
+                                        <option value="3">Sort By Popularity</option>
+                                        <option value="4">Sort By Avarage Rating</option>
+                                        <option value="5">Sort By Price:Low To High</option>
+                                        <option value="6">Sort By Price:High to Low</option>
                                     </select>
                                 </form>
-
                             </div>
                         </div>
                     </div>

@@ -272,7 +272,7 @@ $(function () {
 
     //add cart
 
-        $(document).on("click", ".add-btn-second", function (e) {
+        $(document).on("click", ".addCart", function (e) {
             let id = $(this).attr("data-id");
             let data = { id: id };
             let count = (".basket-count");

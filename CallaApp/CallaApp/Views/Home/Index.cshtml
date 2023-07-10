@@ -61,7 +61,7 @@
                                 <div class="add-btn-first">
                                     <button type="submit" class="add-to-cart-btn">Add to Cart</button>
                                 </div>
-                                <div data-id="@product.Id" class="add-btn-second">
+                                <div data-id="@product.Id" class="add-btn-second addCart">
                                 </div>
                             }
                             else
@@ -278,17 +278,12 @@
                             </div>
                             <div class="col-lg-6 col-md-12 col-sm-12">
                                 <div class="col-lg-6 col-md-12 col-sm-12">
-@*                                    @if (User.Identity.IsAuthenticated)
+                                    @if (User.Identity.IsAuthenticated)
                                     {
-                                        <form method="post" asp-controller="Home" asp-action="PostSubscribe" asp-route-id="@Model.Subscribe.Id" asp-route-userId="@userManager.Users.FirstOrDefault(u=>u.UserName==User.Identity.Name).Id">
+                                        <form method="post" asp-controller="Home" asp-action="PostSubscribe">
                                             <div class="subscribe" id="">
-
                                                 <span class="email-input">
-                                                    <input type="email" class="input-field"
-                                                           readonly
-                                                           value="@userManager.Users.FirstOrDefault(u=>u.UserName==User.Identity.Name).Email"
-                                                           placeholder="YOUR E-MAIL ADDRESS..."
-                                                           asp-for="Subscribe.Email">
+                                                    <input name="Email" asp-for="Subscribe.Email" required="" type="text" placeholder="E-MAIL" value="@userManager.Users.FirstOrDefault(u=>u.UserName==User.Identity.Name).Email" placeholder="YOUR E-MAIL ADDRESS...">
                                                 </span>
                                                 <div class="subscribe-btn">
                                                     <button type="submit">Subscribe</button>
@@ -297,17 +292,20 @@
                                         </form>
                                     }
                                     else
-                                    {*@
-                                    <div class="subscribe" id="">
+                                    {
+                                        <div class="subscribe" id="">
 
-                                        <span class="email-input">
-                                            <input type="email" placeholder="YOUR E-MAIL ADDRESS...">
-                                        </span>
-                                        <div class="subscribe-btn">
-                                            <button>Subscribe Konul</button>
+                                            <span class="email-input">
+                                                <input type="email" placeholder="YOUR E-MAIL ADDRESS...">
+                                            </span>
+                                            <div class="subscribe-btn">
+                                                <a asp-controller="Account" asp-action="Login">
+                                                    <button>Subscribe</button>
+
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-                                    @*}*@
+                                    }
 
                                 </div>
 
