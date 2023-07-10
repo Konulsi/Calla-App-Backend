@@ -104,7 +104,7 @@ namespace CallaApp.Services
             _context.Remove(image);
         }
 
-        public async Task<List<Product>> GetPaginatedDatasAsync(int page, int take, string searchText, int? cateId, int? tagId, int? colorId, int? sizeId, int? brandId, int? value1, int? value2)
+        public async Task<List<Product>> GetPaginatedDatasAsync(int page, int take, string sortValue, string searchText, int? cateId, int? tagId, int? colorId, int? sizeId, int? brandId, int? value1, int? value2)
         {
             List<Product> products = products = await _context.Products
                                                             .Include(p => p.Images)
@@ -425,126 +425,37 @@ namespace CallaApp.Services
                                  .Include(p => p.Images)
                                  .CountAsync();
         }
+        public async Task<int> GetProductsCountBySortTextAsync(string sortValue)
+        {
+            int count = 0;
+            if (sortValue == "1")
+            {
+                return await _context.Products.Include(m => m.Images).CountAsync();
+            };
+            if (sortValue == "2")
+            {
+                count = await _context.Products.Include(m => m.Images).OrderByDescending(p => p.SaleCount).CountAsync();
+            };
+            if (sortValue == "3")
+            {
+                count = await _context.Products.Include(m => m.Images).OrderByDescending(p => p.Rate).CountAsync();
+            };
+            if (sortValue == "4")
+            {
+                count = await _context.Products.Include(m => m.Images).OrderByDescending(p => p.CreateDate).CountAsync();
+            };
+            if (sortValue == "5")
+            {
+                count = await _context.Products.Include(m => m.Images).OrderByDescending(p => p.Price).CountAsync();
+            };
+            if (sortValue == "6")
+            {
+                count = await _context.Products.Include(m => m.Images).OrderBy(p => p.Price).CountAsync();
+            };
 
-        //public async Task<List<Product>> GetAllBySearchText(string searchText)
-        //{
-        //    var products = await _context.Products
-        //        .Include(p => p.Images)
-        //        .OrderByDescending(p => p.Id)
-        //        .Where(p => p.Name.ToLower().Contains(searchText.ToLower()))
-        //        .ToListAsync();
-        //    return products;
-        //}
+            return count;
+        }
 
-        //public async Task<List<ProductVM>> GetProductsBySortAsync(string sortValue, int page = 1, int take = 9)
-        //{
-        //    List<ProductVM> model = new();
-        //    List<Product> products = new();
-        //    if (sortValue == "Sort by Latest")
-        //    {
-        //        products= await _context.Products
-        //                                .OrderBy(p => p.CreateDate)
-        //                                  .Skip((page * take) - take)
-        //        .Take(take)
-        //        .ToListAsync();
-
-        //    }
-
-        //    if (sortValue == "Sort by Popularity")
-        //    {
-        //        products = await _context.Products
-        //                                 .Skip((page * take) - take)
-        //                                    .Take(take)
-        //                                    .ToListAsync();
-        //    }
-
-        //    if (sortValue == "Sort by Rated")
-        //    {
-        //        products = await _context.Products
-        //                                .OrderByDescending(p => p.Rate).Skip((page * take) - take)
-        //                                    .Take(take)
-        //                                    .ToListAsync();
-
-
-        //    }
-        //    if (sortValue == "Sort by High Price")
-        //    {
-        //        products = await _context.Products
-        //                                .OrderByDescending(p => p.Price)
-        //                                                                         .Skip((page * take) - take)
-        //                                    .Take(take)
-        //                                    .ToListAsync();
-        //        ;
-        //    }
-        //    if (sortValue == "Sort by Low Price")
-        //    {
-        //        products = await _context.Products
-        //                                .OrderBy(p => p.Price)
-        //                                    .Skip((page * take) - take)
-        //                                    .Take(take)
-        //                                    .ToListAsync();
-
-        //    }
-
-
-
-        //    foreach (var item in products)
-        //    {
-        //        model.Add(new ProductVM
-        //        {
-        //            Id = item.Id,
-        //            Price = item.Price,
-        //            Name = item.Name,
-        //            ProductImages = item.Images,
-        //            Rating = item.Rate
-        //        });
-        //    }
-        //    return model;
-        //}
-
-
-
-        //public async Task<int> GetProductsCountBySortText(string sortValue)
-        //{
-
-
-        //        if(sortValue == "Sort by Latest")
-        //        {
-        //            return  await _context.Products
-        //                                    .OrderBy(p => p.CreateDate)
-        //                                    .CountAsync();
-
-        //        }
-
-        //        if (sortValue == "Sort by Popularity")
-        //        {
-        //            return await _context.Products
-        //                                    .OrderByDescending(p => p.SaleCount)
-        //                                     .CountAsync();
-        //        }
-
-        //        if (sortValue == "Sort by Rated")
-        //        {
-        //            return await _context.Products
-        //                                    .OrderByDescending(p => p.Rate)
-        //                                    .CountAsync();
-        //        }
-        //        if (sortValue == "Sort by High Price")
-        //        {
-        //            return await _context.Products
-        //                                    .OrderByDescending(p => p.Price)
-        //                                    .CountAsync();
-        //        }
-        //        if (sortValue == "Sort by Low Price")
-        //        {
-        //            return await _context.Products
-        //                                    .OrderBy(p => p.Price)
-        //                                    .CountAsync();
-        //        }
-
-
-        //    return await  _context.Products.CountAsync();   
-        //}
 
         public async Task<List<Product>> GetRelatedProducts()
         {

@@ -1,6 +1,7 @@
 ﻿@model Paginate<ProductVM>
 
-
+@if (Model.Datas.Count > 0)
+{
 @foreach (var product in Model.Datas)
 {
     <div class="col-lg-4 col-md-6 col-sm-12">
@@ -66,8 +67,14 @@
     </ul>
 
 
-</div>
-
+    </div>
+}
+else
+{
+    <div class="alert alert-success" role="alert" style="background-color: #b97a56;color: #fff;border-color: #e9ac98;margin-top: 42px;width: 94%;margin-left: 47px;">
+        Product Not Found...
+    </div>
+}
 @section Scripts{
     <script src="~/assets/js/common.js"></script>
 }

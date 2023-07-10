@@ -86,14 +86,14 @@
                                     <div class="add-btn-first">
                                         <button>Add to Card</button>
                                     </div>
-                                    <div class="add-btn-second">
+                                    <div data-id="@Model.Id" class="add-btn-second addCart">
                                     </div>
                                 </div>
                                 <div class="add-wishlist">
                                     <div class="add-btn-first">
                                         <button>Add to Wishlist</button>
                                     </div>
-                                    <div class="add-btn-second detail-add">
+                                    <div data-id="@@Model.Id" class="add-btn-second add-to-wishlist">
                                     </div>
                                 </div>
                             </div>
@@ -292,12 +292,12 @@
                                     <div class="product-img-hover ">
                                         @if (User.Identity.IsAuthenticated)
                                         {
-                                            <i class="fa-regular fa-heart"></i>
+                                            <i class="fa-regular fa-heart add-to-wishlist"></i>
                                             <i class="fa-solid fa-heart d-none"></i>
                                             <div class="add-btn-first">
                                                 <button>Add to Card</button>
                                             </div>
-                                            <div class="add-btn-second">
+                                            <div class="add-btn-second addCart">
                                             </div>
                                         }
                                         else
@@ -336,6 +336,7 @@
 </main>
 
 @section Scripts{
-    @*<script src="~/assets/js/shop.js"></script>*@
     <script src="~/assets/js/productDetail.js"></script>
+    <script src="~/assets/js/common.js"></script>
+
 }

@@ -18,7 +18,7 @@ namespace CallaApp.Services.Interfaces
         Task<Product> GetProductByImageId(int? id);
         Task<ProductImage> GetImageById(int? id);
 
-        Task<List<Product>> GetPaginatedDatasAsync(int page, int take, string sortValue, int? categoryId, int? colorId, int? tagId, int? brandId, int? sizeId, int? value1, int? value2);
+        Task<List<Product>> GetPaginatedDatasAsync(int page, int take, string sortValue, string searchText, int? categoryId, int? colorId, int? tagId, int? brandId, int? sizeId, int? value1, int? value2);
         
         Task<List<ProductVM>> GetProductsByCategoryIdAsync(int? id, int page = 1, int take = 9);
         Task<List<ProductVM>> GetProductsByColorIdAsync(int? id, int page = 1, int take = 9);
@@ -36,8 +36,7 @@ namespace CallaApp.Services.Interfaces
 
         Task<int> GetProductsCountByRangeAsync(int? value1, int? value2);
         Task<int> GetProductsCountBySearchTextAsync(string searchText);
-
-        //Task<int> GetProductsCountBySortText(string sortValue);
+        Task<int> GetProductsCountBySortTextAsync(string sortValue);
 
         Task<List<Product>> GetRelatedProducts();
         Task<List<ProductComment>> GetComments();

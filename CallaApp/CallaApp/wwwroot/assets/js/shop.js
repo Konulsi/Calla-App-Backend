@@ -35,9 +35,8 @@ $(function () {
     //SORT
     $(document).on("change", "#sort", function (e) {
         e.preventDefault();
-        debugger
         let sortValue = $(this).val();
-        let data = { value: sortValue };
+        let data = { sortValue: sortValue };
         let parent = $(".product-grid-view");
 
         $.ajax({
@@ -45,7 +44,6 @@ $(function () {
             type: "Get",
             data: data,
             success: function (res) {
-                debugger
                 $(parent).html(res);
 
             }
