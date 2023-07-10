@@ -2,6 +2,7 @@
 using CallaApp.Models;
 using CallaApp.Services.Interfaces;
 using CallaApp.ViewModels.Home;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CallaApp.Controllers
@@ -68,5 +69,26 @@ namespace CallaApp.Controllers
 
             return View(model);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<IActionResult> PostSubscribe(SubscribeVM model, int? id, string userId)
+        {
+            if (id is null || userId == null) return BadRequest();
+            if (!ModelState.IsValid) return RedirectToAction(nameof(SubscribeVM), new { id });
+
+            Subscribe subscribe = new()
+            {
+                Email = model.Email,
+                AppUserId = userId,
+            };
+            await _context.Subscribes.AddAsync(subscribe);
+            await _context.SaveChangesAsync();
+
+            //return RedirectToAction(nameof(Index), new { id });
+            return View();
+        }
+
     }
 }

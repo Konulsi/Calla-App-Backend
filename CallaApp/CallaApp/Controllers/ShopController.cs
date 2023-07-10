@@ -179,9 +179,9 @@ namespace CallaApp.Controllers
                 prodCount = await _productService.GetCountAsync();
             }
 
-
             return (int)Math.Ceiling((decimal)prodCount / take);
         }
+
 
         [HttpGet]
         public async Task<IActionResult> GetAllProducts(int page = 1, int take = 9)
@@ -190,6 +190,7 @@ namespace CallaApp.Controllers
             var products = await _productService.GetPaginatedDatasAsync(page, take,null, null, null, null, null, null, null, null);
             List<ProductVM> mappedDatas = GetMappedDatas(products);
             Paginate<ProductVM> paginatedDatas = new(mappedDatas, page, pageCount);
+
             return PartialView("_ProductsPartial", paginatedDatas);
         }
 

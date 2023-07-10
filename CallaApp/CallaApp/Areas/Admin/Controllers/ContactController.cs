@@ -9,26 +9,26 @@ namespace CallaApp.Areas.Admin.Controllers
     public class ContactController : Controller
     {
         private readonly AppDbContext _context;
-        private readonly IBlogService _blogService;
-        public ContactController(AppDbContext context, IBlogService blogService)
+        private readonly IContactService _contactService;
+        public ContactController(AppDbContext context, IContactService contactService)
         {
-            _blogService = blogService;
+            _contactService = contactService;
             _context = context;
         }
 
         public async Task<IActionResult> Index()
         {
-            var comments = await _blogService.GetComments();
-            return View(comments);
+            var contacts = await _contactService.GetAllAsync();
+            return View(contacts);
         }
 
         [HttpGet]
         public async Task<IActionResult> Detail(int? id)
         {
             if (id == null) return BadRequest();
-            BlogComment dbcomment = await _blogService.GetCommentByIdWithBlog((int)id);
-            if (dbcomment is null) return NotFound();
-            return View(dbcomment);
+            Contact dbcontact = await _contactService.GetByIdAsync((int)id);
+            if (dbcontact is null) return NotFound();
+            return View(dbcontact);
         }
         [HttpPost]
         public async Task<IActionResult> Delete(int? id)
@@ -36,10 +36,10 @@ namespace CallaApp.Areas.Admin.Controllers
             try
             {
                 if (id == null) return BadRequest();
-                BlogComment dbcomment = await _blogService.GetCommentById((int)id);
-                if (dbcomment is null) return NotFound();
+                Contact dbcontact = await _contactService.GetByIdAsync((int)id);
+                if (dbcontact is null) return NotFound();
 
-                _context.BlogComments.Remove(dbcomment);
+                _context.Contact.Remove(dbcontact);
                 await _context.SaveChangesAsync();
 
                 return Ok();
