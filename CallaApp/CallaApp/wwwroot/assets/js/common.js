@@ -188,7 +188,7 @@ $(document).ready(function () {
 
 
 
-    //change product count
+    //change product count 
     $(document).on("click", ".inc", function () {
         let id = $(this).parent().parent().parent().attr("data-id");
         let nativePrice = parseFloat($(this).parent().parent().prev().children().eq(1).text());
@@ -249,6 +249,65 @@ $(document).ready(function () {
 })
 
 $(function () {
+    //add cart (product detail)
+    $(document).on("click", ".addCart-detail", function (e) {
+        let id = $(this).attr("data-id");
+        let data = { id: id };
+        let count = (".basket-count");
+        $.ajax({
+            type: "Post",
+            url: "/Shop/AddToCart",
+            data: data,
+            success: function (res) {
+                $(count).text(res);
+            }
+        })
+        return false;
+    })
+
+
+
+
+    //change product count-Detail
+    $(document).on("click", ".incrementDetail", function (event) {
+        event.preventDefault();
+        event.stopPropagation()
+        let id = $(this).attr("data-id");
+        let input = $(this).parent().prev();
+        let inputValue = $(this).parent().prev().val();
+        inputValue ++;
+        $(input).val(inputValue);
+        $.ajax({
+            type: "Post",
+            url: `/Cart/IncrementProductCount?id=${id}`,
+            success: function (res) {
+
+            }
+        })
+    })
+    //change product count-Detail
+    $(document).on("click", ".decrementDetail", function (event) {
+        event.preventDefault();
+        event.stopPropagation()
+        let id = $(this).attr("data-id");
+        let input = $(this).parent().prev();
+        let inputValue = $(this).parent().prev().val();
+        if (inputValue != 1) {
+            inputValue--;
+        }
+        $(input).val(inputValue);
+        debugger
+        $.ajax({
+            type: "Post",
+            url: `/Cart/DecrementProductCount?id=${id}`,
+            success: function (res) {
+                if ($(inputValue).val() == 1) {
+                    return;
+                }
+
+            }
+        })
+    })
 
     //add cart
 
@@ -313,6 +372,22 @@ $(function () {
 
 
 $(function () {
+    //add to wishlist detail
+    $(document).on("click", ".add-to-wishlist-detail", function (e) {
+
+        let id = $(this).attr("data-id");
+        let data = { id: id };
+        let count = (".wishlist-count");
+        $.ajax({
+            type: "Post",
+            url: "/Shop/AddToWishlist",
+            data: data,
+            success: function (res) {
+                $(count).text(res);
+            }
+        })
+        return false;
+    })
 
     //add wishlist
 

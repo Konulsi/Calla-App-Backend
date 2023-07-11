@@ -274,6 +274,7 @@ namespace CallaApp.Controllers
 
             return PartialView("_ProductListPartial", model);
         }
+
         [HttpGet]
         public async Task<IActionResult> GetProductsByBrand(int? id, int page = 1, int take = 9)
         {
@@ -298,11 +299,6 @@ namespace CallaApp.Controllers
 
 
 
-
-
-
-
-        //dfghjkl;
 
         [HttpGet]
         public async Task<IActionResult> ProductDetail(int? id)

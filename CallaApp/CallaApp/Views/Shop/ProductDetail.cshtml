@@ -63,7 +63,7 @@
                             }
                             else
                             {
-                                <a href="#">( @Model.ProductComments.Count Review )</a>
+                                <a href="#" style="color: gray;">( @Model.ProductComments.Count Review )</a>
                             }
                         </div>
 
@@ -78,22 +78,22 @@
                                 <input type="text" class="count-input" data-step="1" data-min="1" data-max=""
                                        name="quantity" value="1" title="Qty" placeholder="" inputmode="numeric">
                                 <div class="icons">
-                                    <span class="minus">-</span>
-                                    <span class="plus">+</span>
+                                    <span data-id="@Model.Id" class="minus decrementDetail">-</span>
+                                    <span data-id="@Model.Id" class="plus incrementDetail">+</span>
 
                                 </div>
                                 <div class="add-card">
-                                    <div class="add-btn-first">
+                                    <div data-id="@Model.Id" class="add-btn-first addCart-detail">
                                         <button>Add to Card</button>
                                     </div>
-                                    <div data-id="@Model.Id" class="add-btn-second addCart">
+                                    <div  class="add-btn-second ">
                                     </div>
                                 </div>
                                 <div class="add-wishlist">
-                                    <div class="add-btn-first">
+                                    <div data-id="@Model.Id" class="add-btn-first add-to-wishlist-detail">
                                         <button>Add to Wishlist</button>
                                     </div>
-                                    <div data-id="@@Model.Id" class="add-btn-second add-to-wishlist">
+                                    <div class="add-btn-second ">
                                     </div>
                                 </div>
                             </div>

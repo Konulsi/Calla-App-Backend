@@ -53,6 +53,7 @@ namespace CallaApp.Controllers
             return Ok(baskets.Count);
         }
 
+        [HttpPost]
         public IActionResult IncrementProductCount(int? id)
         {
             if (id is null) return BadRequest();
