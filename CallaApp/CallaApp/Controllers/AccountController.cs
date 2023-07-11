@@ -111,8 +111,6 @@ namespace CallaApp.Controllers
             }
         }
 
-
-
         public async Task<IActionResult> ConfirmEmail(string userId, string token)
         {
             if (userId == null || token == null) return BadRequest();
@@ -360,7 +358,6 @@ namespace CallaApp.Controllers
         //        }
         //    }
         //}
-
 
 
 

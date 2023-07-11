@@ -180,7 +180,7 @@ namespace CallaApp.Controllers
             }
             if (value1 != null && value2 != null)
             {
-                prodCount = await _productService.GetProductsCountByRangeAsync(value1, value2); ;
+                prodCount = await _productService.GetProductsCountByRangeAsync(value1, value2); 
             }
             if (sortValue == null && searchText == null && catId == null && tagId == null && colorId == null && sizeId == null && brandId == null && value1 == null && value2 == null)
             {
@@ -189,7 +189,6 @@ namespace CallaApp.Controllers
 
             return (int)Math.Ceiling((decimal)prodCount / take);
         }
-
 
         [HttpGet]
         public async Task<IActionResult> GetAllProducts(int page = 1, int take = 9)
@@ -201,7 +200,6 @@ namespace CallaApp.Controllers
 
             return PartialView("_ProductListPartial", paginatedDatas);
         }
-
 
         [HttpGet]
         public async Task<IActionResult> GetRangeProducts(int value1, int value2, int page = 1, int take = 9)
@@ -215,7 +213,6 @@ namespace CallaApp.Controllers
             Paginate<ProductVM> paginatedDatas = new(mappedDatas, page, pageCount);
             return PartialView("_ProductListPartial", paginatedDatas);
         }
-
 
         [HttpGet]
         public async Task<IActionResult> GetProductsByCategory(int? id, int page = 1, int take = 9)
@@ -297,9 +294,6 @@ namespace CallaApp.Controllers
             return PartialView("_ProductListPartial", products);
         }
 
-
-
-
         [HttpGet]
         public async Task<IActionResult> ProductDetail(int? id)
         {
@@ -360,7 +354,6 @@ namespace CallaApp.Controllers
             return RedirectToAction(nameof(ProductDetail), new { id });
         }
 
-
         //sort
         public async Task<IActionResult> Sort(string? sortValue, int page = 1, int take = 9)
         {
@@ -395,7 +388,8 @@ namespace CallaApp.Controllers
                 products = await _context.Products.Include(m => m.Images).OrderBy(p => p.Price).ToListAsync();
 
             };
-            int pageCount = products.Count();
+            //int pageCount = products.Count();
+            int pageCount = await GetPageCountAsync(take, sortValue, null, null, null, null, null, null,null,null);
             List<ProductVM> mappedDatas = GetMappedDatas(products);
             Paginate<ProductVM> model = new(mappedDatas, page, pageCount);
 

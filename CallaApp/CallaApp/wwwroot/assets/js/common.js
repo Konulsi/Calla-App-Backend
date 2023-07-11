@@ -346,8 +346,6 @@ $(function () {
                 res--;
                 $(".basket-count").text(res)
                 grandTotal();
-                //$(".show-alert").removeClass("d-none")
-
             }
 
         })

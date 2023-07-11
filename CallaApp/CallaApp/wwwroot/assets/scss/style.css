@@ -3437,6 +3437,13 @@ h1, a {
   #our-team .team-img .team-content img {
     width: 50% !important;
   }
+  #our-team .members .single-member .member-img-hover {
+        height: 24%;
+        border: 2px solid #e1a385;
+        position: absolute;
+        top: 7px;
+        width: 99.6%;
+  }
   #our-team .members {
     top: 170px !important;
     left: 12% !important;
@@ -3484,6 +3491,17 @@ h1, a {
     height: 50px !important;
     width: 255px !important;
   }
+
+    #news-letter .news-letter-content .subscribe .subscribe-btn button {
+        margin-right: 120px;
+        width: 100px;
+        height: 50px;
+        border: none;
+        font-size: 14px;
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+
   #news-letter .news-letter-content .subscribe .subscribe-btn input {
     height: 40px !important;
     width: 110px !important;

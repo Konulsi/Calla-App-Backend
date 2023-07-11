@@ -75,8 +75,7 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <div class="product-count">
-                                <input type="text" class="count-input" data-step="1" data-min="1" data-max=""
-                                       name="quantity" value="1" title="Qty" placeholder="" inputmode="numeric">
+                                <input type="text" class="count-input" value="1">
                                 <div class="icons">
                                     <span data-id="@Model.Id" class="minus decrementDetail">-</span>
                                     <span data-id="@Model.Id" class="plus incrementDetail">+</span>
