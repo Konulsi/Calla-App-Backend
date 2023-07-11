@@ -199,7 +199,7 @@ namespace CallaApp.Controllers
             List<ProductVM> mappedDatas = GetMappedDatas(products);
             Paginate<ProductVM> paginatedDatas = new(mappedDatas, page, pageCount);
 
-            return PartialView("_ProductsPartial", paginatedDatas);
+            return PartialView("_ProductListPartial", paginatedDatas);
         }
 
 

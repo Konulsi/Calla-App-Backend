@@ -151,10 +151,12 @@ $(document).ready(function () {
     }
 
     //butun datalarin gosterilmesi
-    getProducts(".all", "/Shop/GetProducts")
+    getProducts(".all-products", "/Shop/GetAllProducts")
 
     function getProducts(clickedElem, url) {
+        debugger
         $(document).on("click", clickedElem, function (e) {
+            console.log(this)
             e.preventDefault();
             let parent = $(".product-grid-view")
             $.ajax({
@@ -243,28 +245,6 @@ $(document).ready(function () {
         $(total).text(subtotal + ".00");
     }
 
-
-
-
-    ////search
-    //$(document).on("keyup", ".input-field", function () {
-    //    debugger
-    //    $("#search-list li").slice(1).remove();
-    //    let value = $(".input-field").val();
-
-    //    $.ajax({
-
-    //        url: `shop/search?searchText=${value}`,
-
-    //        type: "Get",
-
-    //        success: function (res) {
-    //            $("#search-list").append(res);
-    //        }
-
-    //    })
-
-    //})
 
 })
 
