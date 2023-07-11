@@ -1,0 +1,96 @@
+#register-header-img {
+    .register-bg-img {
+        height: 320px;
+        background-size: cover;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: "Crimson Text";
+        font-weight: bold;
+    }
+}
+
+
+#register-form {
+    padding: 80px 270px 0px 270px;
+
+    .shadow {
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+        .register-content {
+            padding: 50px 20px 50px;
+            text-align: left;
+
+            .register {
+                h2 {
+                    font-size: 25px;
+                    font-weight: 500;
+                    font-family: "Crimson Text";
+                    letter-spacing: .05em;
+                    line-height: 40px;
+                    text-transform: uppercase;
+                    text-align: center;
+                }
+            }
+
+            .label {
+                display: block;
+                margin: 20px 0 5px;
+                color: #00000078;
+                font-family: "Open Sans", sans-serif;
+                font-size: 14px;
+                line-height: 27px;
+                font-weight: 300;
+
+                label {
+                    color: #00000078;
+                }
+            }
+
+            .input {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+
+                input {
+                    width: 100%;
+                    height: 45px;
+                    border: 1px solid #8080807d;
+                    outline: none;
+                    width: 100%;
+                    padding: 20px;
+                    caret-color: #e1a385;
+                }
+
+                .eyes {
+                    position: absolute;
+                    right: 30px;
+                    cursor: pointer;
+                    color: #b97a56;
+                }
+            }
+
+            .register-button {
+                margin-top: 40px;
+
+                button {
+                    width: 130px;
+                    height: 50px;
+                    background-color: #b97a56;
+                    color: white;
+                    border: none;
+                    font-family: initial;
+
+                    &:hover {
+                        color: #fff;
+                        background-color: #333;
+                        transition: 0.7s;
+                    }
+                }
+            }
+        }
+    }
+}
