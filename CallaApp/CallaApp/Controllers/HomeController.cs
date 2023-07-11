@@ -1,12 +1,16 @@
 ﻿using CallaApp.Data;
 using CallaApp.Models;
 using CallaApp.Services.Interfaces;
+using CallaApp.ViewModels.Account;
 using CallaApp.ViewModels.Home;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CallaApp.Controllers
 {
+    //main project
     public class HomeController : Controller
     {
         private readonly AppDbContext _context;
@@ -18,8 +22,7 @@ namespace CallaApp.Controllers
         private readonly IBlogService _blogService;
         private readonly IProductService _productService;
         private readonly IAdvertisingService _advertisingService;
-
-
+        private readonly ISubscribeService _subscribeService;
         public HomeController(ISliderService sliderService,
                               IBannerService bannerService,
                               IAdvertisingService advertisingService,
@@ -28,7 +31,8 @@ namespace CallaApp.Controllers
                               ITeamService teamService,
                               AppDbContext context,
                               IBlogService blogService,
-                              IProductService productService)
+                              IProductService productService,
+                              ISubscribeService subscribeService)
         {
             _sliderService = sliderService;
             _bannerService = bannerService;
@@ -39,7 +43,7 @@ namespace CallaApp.Controllers
             _context = context;
             _blogService = blogService;
             _productService = productService;
-
+            _subscribeService = subscribeService;
         }
         public async Task<IActionResult> Index()
         {
@@ -52,7 +56,6 @@ namespace CallaApp.Controllers
             List<Blog> blogs = await _blogService.GetAllAsync();
             List<Advertising> advertisings = await _advertisingService.GetAllAsync();
             Dictionary<string, string> headerBackgrounds = _context.HeaderBackgrounds.AsEnumerable().ToDictionary(m => m.Key, m => m.Value);
-
 
             HomeVM model = new()
             {
@@ -72,22 +75,32 @@ namespace CallaApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
-        public async Task<IActionResult> PostSubscribe(SubscribeVM model, int? id, string userId)
+        public async Task<IActionResult> PostSubscribe(SubscribeVM model)
         {
-            if (id is null || userId == null) return BadRequest();
-            if (!ModelState.IsValid) return RedirectToAction(nameof(SubscribeVM), new { id });
-
-            Subscribe subscribe = new()
+            try
             {
-                Email = model.Email,
-                AppUserId = userId,
-            };
-            await _context.Subscribes.AddAsync(subscribe);
-            await _context.SaveChangesAsync();
+                if (!ModelState.IsValid) return RedirectToAction("Index", model);
+                var existEmail = await _context.Subscribes.FirstOrDefaultAsync(m=>m.Email == model.Email);
 
-            //return RedirectToAction(nameof(Index), new { id });
-            return View();
+                if (existEmail != null)
+                {
+                    ModelState.AddModelError("Email", "Email already exist");
+                    return RedirectToAction("Index");
+                }
+                Subscribe subscribe = new()
+                {
+                    Email = model.Email,
+                };
+
+                await _context.Subscribes.AddAsync(subscribe);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = ex.Message;
+                return RedirectToAction("Index");
+            }
         }
 
     }

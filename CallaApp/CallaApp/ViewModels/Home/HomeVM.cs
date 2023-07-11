@@ -15,6 +15,6 @@ namespace CallaApp.ViewModels.Home
         public List<Models.Blog> Blogs { get; set; }
         public List<Advertising> Advertisings { get; set; }
         public Dictionary<string, string> HeaderBackgrounds { get; set; }
-        public Subscribe Subscribe { get; set; }
+        public string Email { get; set; }
     }
 }

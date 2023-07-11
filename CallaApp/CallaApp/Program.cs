@@ -61,12 +61,11 @@ builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IWishlistService, WishlistService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IContactService, ContactService>();
+builder.Services.AddScoped<ISubscribeService, SubscribeService>();
 
 
 builder.Services.Configure<EmailSetting>(builder.Configuration.GetSection("EmailSettings"));
-
 builder.Services.AddScoped<IEmailService, EmailService>();
-
 builder.Services.AddScoped<EmailSetting>();
 
 

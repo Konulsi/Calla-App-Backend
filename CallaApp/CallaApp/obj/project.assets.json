@@ -11064,11 +11064,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\backend-project\\Calla-App-Backend\\CallaApp\\CallaApp\\CallaApp.csproj",
+      "projectUniqueName": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaBackend\\Calla-App-Backend\\CallaApp\\CallaApp\\CallaApp.csproj",
       "projectName": "CallaApp",
-      "projectPath": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\backend-project\\Calla-App-Backend\\CallaApp\\CallaApp\\CallaApp.csproj",
+      "projectPath": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaBackend\\Calla-App-Backend\\CallaApp\\CallaApp\\CallaApp.csproj",
       "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\backend-project\\Calla-App-Backend\\CallaApp\\CallaApp\\obj\\",
+      "outputPath": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaBackend\\Calla-App-Backend\\CallaApp\\CallaApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

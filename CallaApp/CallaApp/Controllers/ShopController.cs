@@ -70,7 +70,11 @@ namespace CallaApp.Controllers
 
             if (sortValue != null)
             {
-                pageCount = await GetPageCountAsync(take, sortValue,null, null, null, null, null, null, null, null);
+                pageCount = await GetPageCountAsync(take, sortValue, null, null, null, null, null, null, null, null);
+            }
+            if (searchText != null)
+            {
+                pageCount = await GetPageCountAsync(take, null, searchText, null, null, null, null, null, null, null);
             }
             if (categoryId != null)
             {

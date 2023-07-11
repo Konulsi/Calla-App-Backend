@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jiiqOL1PJ/LWwdQ2U+e3h4flfsH+O40JtMJ6vqtavr5lSXBRcCUdVKpeoGzOcXEzeB5SgcANgmMEJ45dafK5Yw==",
+  "dgSpecHash": "+TjF+rn9Z+0Mi5C4I5wsDtbBny58qG19MRe7+b3YKPUC4UfjiEZRg/VrdOpiBHH7yP1wiG1hcOct6TSXC4FGeQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\backend-project\\Calla-App-Backend\\CallaApp\\CallaApp\\CallaApp.csproj",
+  "projectFilePath": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\CallaBackend\\Calla-App-Backend\\CallaApp\\CallaApp\\CallaApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Lenovo\\.nuget\\packages\\bouncycastle.cryptography\\2.1.1\\bouncycastle.cryptography.2.1.1.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",

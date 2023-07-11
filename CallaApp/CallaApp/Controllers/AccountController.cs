@@ -195,7 +195,6 @@ namespace CallaApp.Controllers
                 {
                     ModelState.AddModelError(string.Empty, "Email or password is wrong");
                     if (!ModelState.IsValid) return View(model);
-
                 }
 
                 var res = await _signInManager.PasswordSignInAsync(user, model.Password, model.IsRememberMe, false);
@@ -237,10 +236,8 @@ namespace CallaApp.Controllers
                             ProductId = wishlistProduct.ProductId,
                         });
                     }
-
                     Response.Cookies.Append("wishlist", JsonConvert.SerializeObject(wishlistVMs));
                 }
-
                 return RedirectToAction("Index", "Home");
             }
             catch (Exception ex)
