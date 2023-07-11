@@ -289,14 +289,20 @@ namespace CallaApp.Controllers
             return PartialView("_ProductListPartial", model);
         }
 
-
-
         [HttpGet]
         public async Task<IActionResult> GetProducts()
         {
             var products = await _productService.GetDatasAsync();
             return PartialView("_ProductListPartial", products);
         }
+
+
+
+
+
+
+
+        //dfghjkl;
 
         [HttpGet]
         public async Task<IActionResult> ProductDetail(int? id)
