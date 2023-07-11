@@ -153,8 +153,22 @@
                 <ul class="icons">
                     <li><a href=""><i class="fa-regular fa-user"></i></a></li>
                     <ul class="log-reg d-none">
-                        <li><a href="Login.html">Login</a></li>
-                        <li><a href="Register.html">Register</a></li>
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <li><a asp-controller="Account" asp-action="Login">Login</a></li>
+                            <li><a asp-controller="Account" asp-action="Register">Register</a></li>
+                        }
+                        else
+                        {
+                            <form asp-controller="Account" asp-action="Logout" asp-route-userId="@usermanager.Users.Where(u=>u.UserName==User.Identity.Name).FirstOrDefault().Id" method="post">
+
+                                <li>
+                                    <button style="border:none; color: white; background: transparent; margin-left: 45px; " type="submit">Logout</button>
+                                </li>
+                            </form>
+
+                            <li> <a href="#">@User.Identity.Name</a></li>
+                        }
                     </ul>
                     <li>
                         <a href="#"><i class="fa-solid fa-magnifying-glass fa-flip-horizontal searchIcon"></i></a>
