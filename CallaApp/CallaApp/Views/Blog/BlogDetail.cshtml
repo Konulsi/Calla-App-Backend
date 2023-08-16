@@ -32,7 +32,8 @@
                             <h3><a href="#"> @Model.SingleBlog.Title</a></h3>
                         </div>
                         <div class="post-description">
-                            <p>@Model.SingleBlog.Description
+                            <p>
+                                @Model.SingleBlog.Description
                             </p>
                         </div>
                         <hr>
@@ -61,7 +62,7 @@
                                             <img class="img-fluid" src="~/assets/images/@relatedBlog.BlogImage.FirstOrDefault()?.Image" alt="">
                                         </div>
                                         <div class="post-title">
-                                            <h3><a href="./BlogDetail.html">@relatedBlog.Title</a></h3>
+                                            <h3><a asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@relatedBlog.Id">@relatedBlog.Title</a></h3>
                                         </div>
                                         <div class="post-info">
 
@@ -119,12 +120,32 @@
                                     <input type="email" placeholder="YOUR EMAIL"
                                            readonly
                                            value="@userManager.Users.FirstOrDefault(u=>u.UserName==User.Identity.Name).Email"
-                                           asp-for="BlogCommentVM.Email"/>
+                                           asp-for="BlogCommentVM.Email" />
                                 </div>
                                 <div class="submit-button">
                                     <button type="submit">SUBMIT</button>
                                 </div>
                             </form>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="comment">
+                            <h5 class="comment-header">POST A COMMENT</h5>
+                            <textarea id="" cols="30" rows="10" placeholder="YOUR COMMENT"></textarea>
+                            <div class="input">
+                                <input type="text" placeholder="YOUR NAME" />
+                            </div>
+                            <div class="input">
+                                <input type="email" placeholder="YOUR EMAIL" />
+                            </div>
+                            <a asp-controller="Account" asp-action="Login">
+
+                                <div class="submit-button">
+                                    <button type="submit">SUBMIT</button>
+                                </div>
+                            </a>
+
                         </div>
                     }
                 </div>
@@ -153,7 +174,7 @@
                                         <img src="~/assets/images/@latesBlog.BlogImage?.FirstOrDefault()?.Image" alt="">
                                     </div>
                                     <div class="post-info">
-                                        <p class="lates-title">@latesBlog.Title</p>
+                                        <p class="lates-title"><a asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@latesBlog.Id" style="color: currentColor;">@latesBlog.Title</a></p>
                                         <span class="lates-date"> @latesBlog.CreateDate.ToString("dd.MM.yyyy") </span>
                                     </div>
                                 </div>

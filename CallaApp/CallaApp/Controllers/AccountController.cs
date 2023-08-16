@@ -61,10 +61,12 @@ namespace CallaApp.Controllers
                 {
                     return View(model);
                 }
+                Random random = new();
 
                 AppUser newUser = new()
                 {
-                    UserName = string.Join("_", model.FirstName, model.LastName),
+                    //UserName = string.Join("_", model.FirstName, model.LastName),
+                    UserName = model.FirstName[..1] + "." + model.LastName + "_" + random.Next(100, 1000),
                     Email = model.Email,
                     LastName = model.LastName,
                     FirstName = model.FirstName,

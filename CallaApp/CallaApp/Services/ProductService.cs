@@ -121,47 +121,7 @@ namespace CallaApp.Services
                                                             .Take(take)
                                                             .ToListAsync();
 
-            //if (sortValue != null)
-            //{
 
-            //    if(sortValue == "Sort by Latest")
-            //    {
-            //        return  await _context.Products
-            //                                .OrderBy(p => p.CreateDate).
-            //                                 Skip((page * take) - take)
-            //                                .Take(take).ToListAsync();
-            //    }
-
-            //    if (sortValue == "Sort by Popularity")
-            //    {
-            //        return await _context.Products
-            //                                .OrderByDescending(p => p.SaleCount).
-            //                                 Skip((page * take) - take)
-            //                                .Take(take).ToListAsync();
-            //    }
-
-            //    if (sortValue == "Sort by Rated")
-            //    {
-            //        return await _context.Products
-            //                                .OrderByDescending(p => p.Rate).
-            //                                 Skip((page * take) - take)
-            //                                .Take(take).ToListAsync();
-            //    }
-            //    if (sortValue == "Sort by High Price")
-            //    {
-            //        return await _context.Products
-            //                                .OrderByDescending(p => p.Price).
-            //                                 Skip((page * take) - take)
-            //                                .Take(take).ToListAsync();
-            //    }
-            //    if (sortValue == "Sort by Low Price")
-            //    {
-            //        return await _context.Products
-            //                                .OrderBy(p => p.Price).
-            //                                 Skip((page * take) - take)
-            //                                .Take(take).ToListAsync();
-            //    }
-            //}
             if (searchText != null)
             {
                 products = await _context.Products

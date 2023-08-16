@@ -14,7 +14,7 @@
     </section>
     <section id="login-form">
         <div class="container shadow">
-            <div class="text-danger" asp-validation-summary="All"></div>
+            <div style="display: flex; position: relative; top: 20px;" class="text-danger" asp-validation-summary="All"></div>
             <form method="post" asp-action="Login">
                 <div class="login-content">
                     <div class="login">
@@ -25,7 +25,7 @@
                     </div>
                     <div class="input">
                         <input type="email" asp-for="EmailOrUsername"  />
-                        <span class="text-danger" asp-validation-for="EmailOrUsername"></span>
+                        <span style=" position: absolute;top: 45px;left: 0px;font-size: 12px;" class="text-danger" asp-validation-for="EmailOrUsername"></span>
                     </div>
                     <div class="label">
                         <label for="">Password *</label>
@@ -33,7 +33,7 @@
                     <div class="input password">
                         <input asp-for="Password" />
                         <i class="fa-regular fa-eye eyes"></i>
-                        <span class="text-danger" asp-validation-for="Password"></span>
+                        <span style=" position: absolute;top: 45px;left: 0px;font-size: 12px;" class="text-danger" class="text-danger" asp-validation-for="Password"></span>
 
                     </div>
                     <div class="remember-login">
@@ -72,7 +72,4 @@
 
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
-    @*<script src="~/assets/js/login.js"></script>*@
-    @*<script src="~/assets/js/common.js"></script>*@
-
 }

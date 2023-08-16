@@ -48,10 +48,10 @@
                                         <h3><a asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@blog.Id">@blog.Title</a></h3>
                                     </div>
                                     <div class="post-description">
-                                        <p> @blog.Description.Substring(0,1150)</p>
+                                        <p> @blog.Description.Substring(0,700)</p>
                                     </div>
                                     <div class="post-readmore-btn">
-                                        <a asp-controller="Blog" asp-action="BlogDetail">READ MORE</a>
+                                        <a asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@blog.Id">READ MORE</a>
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +86,7 @@
                                         <img src="~/assets/images/@latesBlog.BlogImage?.FirstOrDefault()?.Image" alt="">
                                     </div>
                                     <div class="post-info">
-                                        <p class="lates-title">@latesBlog.Title</p>
+                                        <p class="lates-title"><a asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@latesBlog.Id" style="color: currentColor;">@latesBlog.Title</a></p>
                                         <span class="lates-date"> @latesBlog.CreateDate.ToString("dd.MM.yyyy") </span>
                                     </div>
                                 </div>

@@ -17,9 +17,9 @@
         <div class="container mt-5">
             <div class="row">
                 <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div class="single-product-main-img">
+                    <div class="single-product-main-img">
                         <img class="basic-img" src="~/assets/images/@Model.ProductImages?.Where(p=>p.IsMain).FirstOrDefault()?.Image" alt="">
-                        </div>
+                    </div>
 
                     <div class="product-images">
                         @foreach (var productImage in Model.ProductImages.Where(p => !p.IsMain))
@@ -43,14 +43,14 @@
                         <div class="product-rate">
                             @for (int i = 0; i < Model.Rating; i++)
                             {
-                                <i class="fa-solid fa-star" style="color: #b97a56;" ></i>
+                                <i class="fa-solid fa-star" style="color: #b97a56;"></i>
                             }
                             @for (int j = 0; j < 5 - Model.Rating; j++)
                             {
                                 <i class="fa-solid fa-star" style="color: #edd9cd;"></i>
 
                             }
-@*                            <i class="fa-solid fa-star" style="color: #b97a56;"></i>
+                            @*                            <i class="fa-solid fa-star" style="color: #b97a56;"></i>
                             <i class="fa-solid fa-star" style="color: #b97a56;"></i>
                             <i class="fa-solid fa-star" style="color: #b97a56;"></i>
                             <i class="fa-regular fa-star" style="color: #b97a56;"></i>
@@ -69,23 +69,23 @@
 
                         <div class="product-description">
                             <p>
-                                @Model.Description.Substring(0,200)
+                                @Model.Description
                             </p>
                         </div>
                         @if (User.Identity.IsAuthenticated)
                         {
                             <div class="product-count">
-                                <input type="text" class="count-input" value="1">
+@*                                <input type="text" class="count-input" value="1">
                                 <div class="icons">
                                     <span data-id="@Model.Id" class="minus decrementDetail">-</span>
                                     <span data-id="@Model.Id" class="plus incrementDetail">+</span>
 
-                                </div>
+                                </div>*@
                                 <div class="add-card">
                                     <div data-id="@Model.Id" class="add-btn-first addCart-detail">
-                                        <button>Add to Card</button>
+                                        <button>Add to Cart</button>
                                     </div>
-                                    <div  class="add-btn-second ">
+                                    <div class="add-btn-second ">
                                     </div>
                                 </div>
                                 <div class="add-wishlist">
@@ -99,29 +99,29 @@
                         }
                         else
                         {
-                                <div class="product-count">
-                                    <input type="text" class="count-input" data-step="1" data-min="1" data-max=""
-                                           name="quantity" value="1" title="Qty" placeholder="" inputmode="numeric">
-                                    <div class="icons">
-                                        <span class="minus">-</span>
-                                        <span class="plus">+</span>
+                            <div class="product-count">
+@*                                <input type="text" class="count-input" data-step="1" data-min="1" data-max=""
+                                       name="quantity" value="1" title="Qty" placeholder="" inputmode="numeric">
+                                <div class="icons">
+                                    <span class="minus">-</span>
+                                    <span class="plus">+</span>
 
-                                    </div>
-                                    <div class="add-card">
-                                        <div class="add-btn-first">
+                                </div>*@
+                                <div class="add-card">
+                                    <div class="add-btn-first">
                                         <a asp-controller="Account" asp-action="Login" style="color: #d48b68;">Add to Cart</a>
-                                        </div>
-                                        <div class="add-btn-second">
-                                        </div>
                                     </div>
-                                    <div class="add-wishlist">
-                                        <div class="add-btn-first">
-                                        <a asp-controller="Account" asp-action="Login" style="color: #d48b68;">Add to Wishlist</a>
-                                        </div>
-                                        <div class="add-btn-second detail-add">
-                                        </div>
+                                    <div class="add-btn-second">
                                     </div>
                                 </div>
+                                <div class="add-wishlist">
+                                    <div class="add-btn-first">
+                                        <a asp-controller="Account" asp-action="Login" style="color: #d48b68;">Add to Wishlist</a>
+                                    </div>
+                                    <div class="add-btn-second detail-add">
+                                    </div>
+                                </div>
+                            </div>
                         }
 
                         <div class="product-meta">
@@ -169,7 +169,7 @@
 
                             <div id="tab-1" class="tab-content current">
                                 <p>
-                                    @Model.Description.Substring(0,200)
+                                    @Model.Description
                                 </p>
                             </div>
                             <div id="tab-2" class="tab-content">
@@ -191,52 +191,53 @@
                             <div id="tab-3" class="tab-content">
                                 <h5 class="product-rewiev">Comments (@Model.ProductComments.Count)</h5>
                                 <ol class="commentlist">
-                                    <li class="review">
-                                        <div class="comment_container d-flex">
-                                            <div class="comment-text">
-@*                                                <div class="star-rating">
-                                                    <div class="product-rate">
-                                                        <i class="fa-solid fa-star" style="color: #b97a56;"></i>
-                                                        <i class="fa-solid fa-star" style="color: #b97a56;"></i>
-                                                        <i class="fa-solid fa-star" style="color: #b97a56;"></i>
-                                                        <i class="fa-regular fa-star" style="color: #b97a56;"></i>
-                                                        <i class="fa-regular fa-star" style="color: #b97a56;"></i>
-                                                    </div>
+                                    @foreach (var item in Model.ProductComments)
+                                    {
+                                        <li class="review">
+                                            <div class="comment_container d-flex">
+                                                <div class="comment-text">
+                                                    @*                                                <div class="star-rating">
+                                                <div class="product-rate">
+                                                <i class="fa-solid fa-star" style="color: #b97a56;"></i>
+                                                <i class="fa-solid fa-star" style="color: #b97a56;"></i>
+                                                <i class="fa-solid fa-star" style="color: #b97a56;"></i>
+                                                <i class="fa-regular fa-star" style="color: #b97a56;"></i>
+                                                <i class="fa-regular fa-star" style="color: #b97a56;"></i>
+                                                </div>
                                                 </div>*@
-                                                <p class="meta">
-                                                    @foreach (var item in Model.ProductComments)
-                                                    {
+                                                    <p class="meta">
+
                                                         <strong class="comment-user-name">@item.Name</strong>
                                                         <span class="comment-date">–</span> <time class="comment-published-date">@item.CreateDate.ToString("dd.MM.yyyy")</time>
                                                         <div class="c-mment-description">
                                                             <p>@item.Message</p>
                                                         </div>
-                                                    }
 
-                                                </p>
+                                                    </p>
 
 
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
+                                        </li>
+                                    }
 
                                 </ol>
-                                @if(User.Identity.IsAuthenticated)
+                                @if (User.Identity.IsAuthenticated)
                                 {
                                     <p style="color: #b97a56;">Add a review</p>
                                     <p>Your email address will not be published. Required fields are marked *</p>
 
                                     @*<p>Your rating *</p>*@
                                     <form method="post" asp-action="PostComment" asp-route-id="@Model.Id" asp-route-userId="@userManager.Users.FirstOrDefault(u=>u.UserName==User.Identity.Name).Id">
-@*                                        <div class="product-rate">
-                                            <i class="fa-solid fa-star" style="color: #b97a56;"></i>
-                                            <i class="fa-solid fa-star" style="color: #b97a56;"></i>
-                                            <i class="fa-solid fa-star" style="color: #b97a56;"></i>
-                                            <i class="fa-regular fa-star" style="color: #b97a56;"></i>
-                                            <i class="fa-regular fa-star" style="color: #b97a56;"></i>
-                                        </div>*@
+                                        @*                                        <div class="product-rate">
+                                    <i class="fa-solid fa-star" style="color: #b97a56;"></i>
+                                    <i class="fa-solid fa-star" style="color: #b97a56;"></i>
+                                    <i class="fa-solid fa-star" style="color: #b97a56;"></i>
+                                    <i class="fa-regular fa-star" style="color: #b97a56;"></i>
+                                    <i class="fa-regular fa-star" style="color: #b97a56;"></i>
+                                    </div>*@
                                         <p>Your review *</p>
-                                        <textarea  id="" cols="30" rows="10" asp-for="ProductCommentVM.Message"></textarea>
+                                        <textarea id="" cols="30" rows="10" asp-for="ProductCommentVM.Message"></textarea>
 
                                         <div class="label">
                                             <label for="">Name *</label>
@@ -245,7 +246,7 @@
                                             <input class="input-field"
                                                    readonly
                                                    value="@string.Join(" ", userManager.Users.FirstOrDefault(u=>u.UserName==User.Identity.Name).FirstName,userManager.Users.FirstOrDefault(u=>u.UserName==User.Identity.Name).LastName)"
-                                                   asp-for="ProductCommentVM.Name"/>
+                                                   asp-for="ProductCommentVM.Name" />
                                         </div>
                                         <div class="label">
                                             <label for="">Email *</label>
@@ -262,6 +263,33 @@
                                         </div>
                                     </form>
                                 }
+                                else
+                                {
+                                    <p style="color: #b97a56;">Add a review</p>
+                                    <p>Your email address will not be published. Required fields are marked *</p>
+
+
+                                        <p>Your review *</p>
+                                        <textarea id="" cols="30" rows="10"></textarea>
+
+                                        <div class="label">
+                                            <label for="">Name *</label>
+                                        </div>
+                                        <div class="input">
+                                            <input class="input-field" />
+                                        </div>
+                                        <div class="label">
+                                            <label for="">Email *</label>
+                                        </div>
+                                        <div class="input">
+                                            <input class="input-field" />
+                                        </div>
+                                        <a asp-controller="Account" asp-action="Login">
+                                        <div class="submit-button">
+                                            <button type="submit">SUBMIT</button>
+                                        </div>
+                                        </a>
+                                }
                             </div>
                         </div>
                     </div>
@@ -273,7 +301,7 @@
     <section id="related">
         <div class="related-title">
             <div class="container">
-                <h4>RELATED PRODUCTS</h4>
+                <h4 style="text-align: left;">RELATED PRODUCTS</h4>
 
             </div>
         </div>
@@ -314,7 +342,7 @@
 
                                     </div>
                                     <div class="product-name">
-                                        <h6><a asp-controller="Shop" asp-action="Index" asp-route-id="@relatedProduct.Id"> @relatedProduct.Name</a></h6>
+                                        <h6><a asp-controller="Shop" asp-action="ProductDetail" asp-route-id="@relatedProduct.Id"> @relatedProduct.Name</a></h6>
                                     </div>
                                     <div class="product-price">
                                         <span>
@@ -336,6 +364,6 @@
 
 @section Scripts{
     <script src="~/assets/js/productDetail.js"></script>
-    <script src="~/assets/js/common.js"></script>
+    @*<script src="~/assets/js/common.js"></script>*@
 
 }

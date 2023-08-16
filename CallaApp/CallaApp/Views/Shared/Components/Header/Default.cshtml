@@ -162,9 +162,9 @@
                         {
                             <form asp-controller="Account" asp-action="Logout" asp-route-userId="@usermanager.Users.Where(u=>u.UserName==User.Identity.Name).FirstOrDefault().Id" method="post">
 
-                                <li>
-                                    <button style="border:none; color: white; background: transparent; margin-left: 45px; " type="submit">Logout</button>
-                                </li>
+                            <li>
+                                <button style="border:none; color: #b97a56; background: transparent; " type="submit">Logout</button>
+                            </li>
                             </form>
 
                             <li> <a href="#">@User.Identity.Name</a></li>

@@ -380,12 +380,12 @@ namespace CallaApp.Controllers
             };
             if (sortValue == "5")
             {
-                products = await _context.Products.Include(m => m.Images).OrderByDescending(p => p.Price).ToListAsync();
+                products = await _context.Products.Include(m => m.Images).OrderBy(p => p.Price).ToListAsync();
 
             };
             if (sortValue == "6")
             {
-                products = await _context.Products.Include(m => m.Images).OrderBy(p => p.Price).ToListAsync();
+                products = await _context.Products.Include(m => m.Images).OrderByDescending(p => p.Price).ToListAsync();
 
             };
             //int pageCount = products.Count();

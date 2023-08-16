@@ -68,6 +68,27 @@
         })
     })
 
+    $(document).on("click", ".delete-subscribe", function (e) {
+        e.preventDefault();
+        let Id = $(this).parent().parent().attr("data-id");
+        let deletedElem = $(this).parent().parent();
+        let data = { id: Id };
+
+        $.ajax({
+            url: "subscribe/Delete",
+            type: "post",
+            data: data,
+            success: function (res) {
+
+                $(deletedElem).remove();
+                $(".tooltip-inner").remove();
+                $(".arrow").remove();
+                if ($(tbody).length == 1) {
+                    $(".table").remove();
+                }
+            }
+        })
+    })
 
     $(document).on("click", ".delete-team", function (e) {
         e.preventDefault();
@@ -207,7 +228,6 @@
     })
 
     $(document).on("click", ".delete-miniImage", function (e) {
-        debugger
         e.preventDefault();
         let Id = $(this).parent().parent().attr("data-id");
         let deletedElem = $(this).parent().parent();
@@ -218,7 +238,6 @@
             type: "post",
             data: data,
             success: function (res) {
-                debugger
                 $(deletedElem).remove();
                 $(".tooltip-inner").remove();
                 $(".arrow").remove();
@@ -231,7 +250,6 @@
 
 
     $(document).on("click", ".delete-tag", function (e) {
-        debugger
         e.preventDefault();
         let Id = $(this).parent().parent().attr("data-id");
         let deletedElem = $(this).parent().parent();
@@ -242,7 +260,6 @@
             type: "post",
             data: data,
             success: function (res) {
-                debugger
                 $(deletedElem).remove();
                 $(".tooltip-inner").remove();
                 $(".arrow").remove();
@@ -474,7 +491,6 @@
                 data: data,
                 success: function (res) {
                     if (res.result) {
-                        debugger
                         $(deleteItem).remove();
                         let imagesId = $(".images").children().eq(0).attr("data-id");
                         let data = $(".images").children().eq(0);

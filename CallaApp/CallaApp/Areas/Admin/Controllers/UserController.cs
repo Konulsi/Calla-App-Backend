@@ -73,8 +73,9 @@ namespace CallaApp.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 ViewBag.error = ex.Message;
-                return View();
+                return RedirectToAction("Index","User");
             }
+
         }
     }
 }

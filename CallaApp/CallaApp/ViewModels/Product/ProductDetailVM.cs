@@ -18,7 +18,7 @@ namespace CallaApp.ViewModels.Product
         public ICollection<ProductColor> ProductColors { get; set; }
         public string BrandName { get; set; }
         public Dictionary<string, string> HeaderBackgrounds { get; set; }
-        public IEnumerable<Models.Product> RelatedProducts { get; set; }
+        public List<Models.Product> RelatedProducts { get; set; }
         public ProductCommentVM ProductCommentVM { get; set; }
     }
 }

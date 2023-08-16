@@ -146,7 +146,7 @@
                             @blog.Description.Substring(0,300)
                         </div>
                         <div class="read-more">
-                            <a href="~/BlogDetail.html">Read More</a>
+                            <a asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@blog.Id">Read More</a>
                         </div>
                     </div>
                 }
@@ -278,11 +278,12 @@
                             </div>
                             <div class="col-lg-6 col-md-12 col-sm-12">
                                 <div class="col-lg-6 col-md-12 col-sm-12">
-
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
                                         <form method="post" asp-controller="Home" asp-action="PostSubscribe">
                                             <div class="subscribe" id="">
                                                 <span class="email-input">
-                                                    <input  asp-for="Email" required type="text" placeholder="E-MAIL"  placeholder="YOUR E-MAIL ADDRESS...">
+                                                    <input asp-for="Email" required type="text" placeholder="E-MAIL" placeholder="YOUR E-MAIL ADDRESS...">
                                                     <span class="text-danger" asp-validation-for="Email">@ViewBag.error</span>
 
                                                 </span>
@@ -291,6 +292,24 @@
                                                 </div>
                                             </div>
                                         </form>
+                                    }
+                                    else
+                                    {
+                                        <div class="subscribe" id="">
+                                            <span class="email-input">
+                                                <input asp-for="Email" required type="text" placeholder="E-MAIL" placeholder="YOUR E-MAIL ADDRESS...">
+                                                <span class="text-danger" asp-validation-for="Email">@ViewBag.error</span>
+
+                                            </span>
+                                            <a asp-controller="account" asp-action="Login">
+                                                <div class="subscribe-btn">
+                                                    <button type="submit">Subscribe</button>
+                                                </div>
+                                            </a>
+
+                                        </div>
+                                    }
+
 
                                 </div>
 
